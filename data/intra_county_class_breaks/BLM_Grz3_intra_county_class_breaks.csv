@@ -1,0 +1,416 @@
+"","county","0","20","40","60","80","100"
+"1","Arizona_Apache",NA,NA,NA,NA,NA,NA
+"2","Arizona_Cochise",NA,NA,NA,NA,NA,NA
+"3","Arizona_Coconino",NA,NA,NA,NA,NA,NA
+"4","Arizona_Gila",NA,NA,NA,NA,NA,NA
+"5","Arizona_Graham",NA,NA,NA,NA,NA,NA
+"6","Arizona_Greenlee",NA,NA,NA,NA,NA,NA
+"7","Arizona_La Paz",NA,NA,NA,NA,NA,NA
+"8","Arizona_Maricopa",NA,NA,NA,NA,NA,NA
+"9","Arizona_Mohave",NA,NA,NA,NA,NA,NA
+"10","Arizona_Navajo",NA,NA,NA,NA,NA,NA
+"11","Arizona_Pima",NA,NA,NA,NA,NA,NA
+"12","Arizona_Pinal",NA,NA,NA,NA,NA,NA
+"13","Arizona_Santa Cruz",NA,NA,NA,NA,NA,NA
+"14","Arizona_Yavapai",NA,NA,NA,NA,NA,NA
+"15","Arizona_Yuma",NA,NA,NA,NA,NA,NA
+"16","California_Alameda",NA,NA,NA,NA,NA,NA
+"17","California_Alpine",NA,NA,NA,NA,NA,NA
+"18","California_Amador",NA,NA,NA,NA,NA,NA
+"19","California_Butte",NA,NA,NA,NA,NA,NA
+"20","California_Calaveras",NA,NA,NA,NA,NA,NA
+"21","California_Colusa",NA,NA,NA,NA,NA,NA
+"22","California_Contra Costa",NA,NA,NA,NA,NA,NA
+"23","California_Del Norte",NA,NA,NA,NA,NA,NA
+"24","California_El Dorado",NA,NA,NA,NA,NA,NA
+"25","California_Fresno",NA,NA,NA,NA,NA,NA
+"26","California_Glenn",NA,NA,NA,NA,NA,NA
+"27","California_Humboldt",NA,NA,NA,NA,NA,NA
+"28","California_Imperial",NA,NA,NA,NA,NA,NA
+"29","California_Inyo",NA,NA,NA,NA,NA,NA
+"30","California_Kern",NA,NA,NA,NA,NA,NA
+"31","California_Kings",NA,NA,NA,NA,NA,NA
+"32","California_Lake",NA,NA,NA,NA,NA,NA
+"33","California_Lassen",NA,NA,NA,NA,NA,NA
+"34","California_Los Angeles",NA,NA,NA,NA,NA,NA
+"35","California_Madera",NA,NA,NA,NA,NA,NA
+"36","California_Marin",NA,NA,NA,NA,NA,NA
+"37","California_Mariposa",NA,NA,NA,NA,NA,NA
+"38","California_Mendocino",NA,NA,NA,NA,NA,NA
+"39","California_Merced",NA,NA,NA,NA,NA,NA
+"40","California_Modoc",NA,NA,NA,NA,NA,NA
+"41","California_Mono",NA,NA,NA,NA,NA,NA
+"42","California_Monterey",NA,NA,NA,NA,NA,NA
+"43","California_Napa",NA,NA,NA,NA,NA,NA
+"44","California_Nevada",NA,NA,NA,NA,NA,NA
+"45","California_Orange",NA,NA,NA,NA,NA,NA
+"46","California_Placer",NA,NA,NA,NA,NA,NA
+"47","California_Plumas",NA,NA,NA,NA,NA,NA
+"48","California_Riverside",NA,NA,NA,NA,NA,NA
+"49","California_Sacramento",NA,NA,NA,NA,NA,NA
+"50","California_San Benito",NA,NA,NA,NA,NA,NA
+"51","California_San Bernardino",NA,NA,NA,NA,NA,NA
+"52","California_San Diego",NA,NA,NA,NA,NA,NA
+"53","California_San Francisco",NA,NA,NA,NA,NA,NA
+"54","California_San Joaquin",NA,NA,NA,NA,NA,NA
+"55","California_San Luis Obispo",NA,NA,NA,NA,NA,NA
+"56","California_San Mateo",NA,NA,NA,NA,NA,NA
+"57","California_Santa Barbara",NA,NA,NA,NA,NA,NA
+"58","California_Santa Clara",NA,NA,NA,NA,NA,NA
+"59","California_Santa Cruz",NA,NA,NA,NA,NA,NA
+"60","California_Shasta",NA,NA,NA,NA,NA,NA
+"61","California_Sierra",NA,NA,NA,NA,NA,NA
+"62","California_Siskiyou",NA,NA,NA,NA,NA,NA
+"63","California_Solano",NA,NA,NA,NA,NA,NA
+"64","California_Sonoma",NA,NA,NA,NA,NA,NA
+"65","California_Stanislaus",NA,NA,NA,NA,NA,NA
+"66","California_Sutter",NA,NA,NA,NA,NA,NA
+"67","California_Tehama",NA,NA,NA,NA,NA,NA
+"68","California_Trinity",NA,NA,NA,NA,NA,NA
+"69","California_Tulare",NA,NA,NA,NA,NA,NA
+"70","California_Tuolumne",NA,NA,NA,NA,NA,NA
+"71","California_Ventura",NA,NA,NA,NA,NA,NA
+"72","California_Yolo",NA,NA,NA,NA,NA,NA
+"73","California_Yuba",NA,NA,NA,NA,NA,NA
+"74","Colorado_Adams",NA,NA,NA,NA,NA,NA
+"75","Colorado_Alamosa",NA,NA,NA,NA,NA,NA
+"76","Colorado_Arapahoe",NA,NA,NA,NA,NA,NA
+"77","Colorado_Archuleta",NA,NA,NA,NA,NA,NA
+"78","Colorado_Baca",NA,NA,NA,NA,NA,NA
+"79","Colorado_Bent",NA,NA,NA,NA,NA,NA
+"80","Colorado_Boulder",NA,NA,NA,NA,NA,NA
+"81","Colorado_Broomfield",NA,NA,NA,NA,NA,NA
+"82","Colorado_Chaffee",NA,NA,NA,NA,NA,NA
+"83","Colorado_Cheyenne",NA,NA,NA,NA,NA,NA
+"84","Colorado_Clear Creek",NA,NA,NA,NA,NA,NA
+"85","Colorado_Conejos",NA,NA,NA,NA,NA,NA
+"86","Colorado_Costilla",NA,NA,NA,NA,NA,NA
+"87","Colorado_Crowley",NA,NA,NA,NA,NA,NA
+"88","Colorado_Custer",NA,NA,NA,NA,NA,NA
+"89","Colorado_Delta",NA,NA,NA,NA,NA,NA
+"90","Colorado_Denver",NA,NA,NA,NA,NA,NA
+"91","Colorado_Dolores",NA,NA,NA,NA,NA,NA
+"92","Colorado_Douglas",NA,NA,NA,NA,NA,NA
+"93","Colorado_Eagle",NA,NA,NA,NA,NA,NA
+"94","Colorado_El Paso",NA,NA,NA,NA,NA,NA
+"95","Colorado_Elbert",NA,NA,NA,NA,NA,NA
+"96","Colorado_Fremont",NA,NA,NA,NA,NA,NA
+"97","Colorado_Garfield",NA,NA,NA,NA,NA,NA
+"98","Colorado_Gilpin",NA,NA,NA,NA,NA,NA
+"99","Colorado_Grand",NA,NA,NA,NA,NA,NA
+"100","Colorado_Gunnison",NA,NA,NA,NA,NA,NA
+"101","Colorado_Hinsdale",NA,NA,NA,NA,NA,NA
+"102","Colorado_Huerfano",NA,NA,NA,NA,NA,NA
+"103","Colorado_Jackson",NA,NA,NA,NA,NA,NA
+"104","Colorado_Jefferson",NA,NA,NA,NA,NA,NA
+"105","Colorado_Kiowa",NA,NA,NA,NA,NA,NA
+"106","Colorado_Kit Carson",NA,NA,NA,NA,NA,NA
+"107","Colorado_La Plata",NA,NA,NA,NA,NA,NA
+"108","Colorado_Lake",NA,NA,NA,NA,NA,NA
+"109","Colorado_Larimer",NA,NA,NA,NA,NA,NA
+"110","Colorado_Las Animas",NA,NA,NA,NA,NA,NA
+"111","Colorado_Lincoln",NA,NA,NA,NA,NA,NA
+"112","Colorado_Logan",NA,NA,NA,NA,NA,NA
+"113","Colorado_Mesa",NA,NA,NA,NA,NA,NA
+"114","Colorado_Mineral",NA,NA,NA,NA,NA,NA
+"115","Colorado_Moffat",NA,NA,NA,NA,NA,NA
+"116","Colorado_Montezuma",NA,NA,NA,NA,NA,NA
+"117","Colorado_Montrose",NA,NA,NA,NA,NA,NA
+"118","Colorado_Morgan",NA,NA,NA,NA,NA,NA
+"119","Colorado_Otero",NA,NA,NA,NA,NA,NA
+"120","Colorado_Ouray",NA,NA,NA,NA,NA,NA
+"121","Colorado_Park",NA,NA,NA,NA,NA,NA
+"122","Colorado_Phillips",NA,NA,NA,NA,NA,NA
+"123","Colorado_Pitkin",NA,NA,NA,NA,NA,NA
+"124","Colorado_Prowers",NA,NA,NA,NA,NA,NA
+"125","Colorado_Pueblo",NA,NA,NA,NA,NA,NA
+"126","Colorado_Rio Blanco",NA,NA,NA,NA,NA,NA
+"127","Colorado_Rio Grande",NA,NA,NA,NA,NA,NA
+"128","Colorado_Routt",NA,NA,NA,NA,NA,NA
+"129","Colorado_Saguache",NA,NA,NA,NA,NA,NA
+"130","Colorado_San Juan",NA,NA,NA,NA,NA,NA
+"131","Colorado_San Miguel",NA,NA,NA,NA,NA,NA
+"132","Colorado_Sedgwick",NA,NA,NA,NA,NA,NA
+"133","Colorado_Summit",NA,NA,NA,NA,NA,NA
+"134","Colorado_Teller",NA,NA,NA,NA,NA,NA
+"135","Colorado_Washington",NA,NA,NA,NA,NA,NA
+"136","Colorado_Weld",NA,NA,NA,NA,NA,NA
+"137","Colorado_Yuma",NA,NA,NA,NA,NA,NA
+"138","Idaho_Ada",NA,NA,NA,NA,NA,NA
+"139","Idaho_Adams",NA,NA,NA,NA,NA,NA
+"140","Idaho_Bannock",NA,NA,NA,NA,NA,NA
+"141","Idaho_Bear Lake",NA,NA,NA,NA,NA,NA
+"142","Idaho_Benewah",NA,NA,NA,NA,NA,NA
+"143","Idaho_Bingham",NA,NA,NA,NA,NA,NA
+"144","Idaho_Blaine",NA,NA,NA,NA,NA,NA
+"145","Idaho_Boise",NA,NA,NA,NA,NA,NA
+"146","Idaho_Bonner",NA,NA,NA,NA,NA,NA
+"147","Idaho_Bonneville",NA,NA,NA,NA,NA,NA
+"148","Idaho_Boundary",NA,NA,NA,NA,NA,NA
+"149","Idaho_Butte",NA,NA,NA,NA,NA,NA
+"150","Idaho_Camas",NA,NA,NA,NA,NA,NA
+"151","Idaho_Canyon",NA,NA,NA,NA,NA,NA
+"152","Idaho_Caribou",NA,NA,NA,NA,NA,NA
+"153","Idaho_Cassia",NA,NA,NA,NA,NA,NA
+"154","Idaho_Clark",NA,NA,NA,NA,NA,NA
+"155","Idaho_Clearwater",NA,NA,NA,NA,NA,NA
+"156","Idaho_Custer",NA,NA,NA,NA,NA,NA
+"157","Idaho_Elmore",NA,NA,NA,NA,NA,NA
+"158","Idaho_Franklin",NA,NA,NA,NA,NA,NA
+"159","Idaho_Fremont",NA,NA,NA,NA,NA,NA
+"160","Idaho_Gem",NA,NA,NA,NA,NA,NA
+"161","Idaho_Gooding",NA,NA,NA,NA,NA,NA
+"162","Idaho_Idaho",NA,NA,NA,NA,NA,NA
+"163","Idaho_Jefferson",NA,NA,NA,NA,NA,NA
+"164","Idaho_Jerome",NA,NA,NA,NA,NA,NA
+"165","Idaho_Kootenai",NA,NA,NA,NA,NA,NA
+"166","Idaho_Latah",NA,NA,NA,NA,NA,NA
+"167","Idaho_Lemhi",NA,NA,NA,NA,NA,NA
+"168","Idaho_Lewis",NA,NA,NA,NA,NA,NA
+"169","Idaho_Lincoln",NA,NA,NA,NA,NA,NA
+"170","Idaho_Madison",NA,NA,NA,NA,NA,NA
+"171","Idaho_Minidoka",NA,NA,NA,NA,NA,NA
+"172","Idaho_Nez Perce",NA,NA,NA,NA,NA,NA
+"173","Idaho_Oneida",NA,NA,NA,NA,NA,NA
+"174","Idaho_Owyhee",NA,NA,NA,NA,NA,NA
+"175","Idaho_Payette",NA,NA,NA,NA,NA,NA
+"176","Idaho_Power",NA,NA,NA,NA,NA,NA
+"177","Idaho_Shoshone",NA,NA,NA,NA,NA,NA
+"178","Idaho_Teton",NA,NA,NA,NA,NA,NA
+"179","Idaho_Twin Falls",NA,NA,NA,NA,NA,NA
+"180","Idaho_Valley",NA,NA,NA,NA,NA,NA
+"181","Idaho_Washington",NA,NA,NA,NA,NA,NA
+"182","Montana_Beaverhead",NA,NA,NA,NA,NA,NA
+"183","Montana_Big Horn",NA,NA,NA,NA,NA,NA
+"184","Montana_Blaine",NA,NA,NA,NA,NA,NA
+"185","Montana_Broadwater",NA,NA,NA,NA,NA,NA
+"186","Montana_Carbon",NA,NA,NA,NA,NA,NA
+"187","Montana_Carter",NA,NA,NA,NA,NA,NA
+"188","Montana_Cascade",NA,NA,NA,NA,NA,NA
+"189","Montana_Chouteau",NA,NA,NA,NA,NA,NA
+"190","Montana_Custer",NA,NA,NA,NA,NA,NA
+"191","Montana_Daniels",NA,NA,NA,NA,NA,NA
+"192","Montana_Dawson",NA,NA,NA,NA,NA,NA
+"193","Montana_Deer Lodge",NA,NA,NA,NA,NA,NA
+"194","Montana_Fallon",NA,NA,NA,NA,NA,NA
+"195","Montana_Fergus",NA,NA,NA,NA,NA,NA
+"196","Montana_Flathead",NA,NA,NA,NA,NA,NA
+"197","Montana_Gallatin",NA,NA,NA,NA,NA,NA
+"198","Montana_Garfield",NA,NA,NA,NA,NA,NA
+"199","Montana_Glacier",NA,NA,NA,NA,NA,NA
+"200","Montana_Golden Valley",NA,NA,NA,NA,NA,NA
+"201","Montana_Granite",NA,NA,NA,NA,NA,NA
+"202","Montana_Hill",NA,NA,NA,NA,NA,NA
+"203","Montana_Jefferson",NA,NA,NA,NA,NA,NA
+"204","Montana_Judith Basin",NA,NA,NA,NA,NA,NA
+"205","Montana_Lake",NA,NA,NA,NA,NA,NA
+"206","Montana_Lewis and Clark",NA,NA,NA,NA,NA,NA
+"207","Montana_Liberty",NA,NA,NA,NA,NA,NA
+"208","Montana_Lincoln",NA,NA,NA,NA,NA,NA
+"209","Montana_Madison",NA,NA,NA,NA,NA,NA
+"210","Montana_McCone",NA,NA,NA,NA,NA,NA
+"211","Montana_Meagher",NA,NA,NA,NA,NA,NA
+"212","Montana_Mineral",NA,NA,NA,NA,NA,NA
+"213","Montana_Missoula",NA,NA,NA,NA,NA,NA
+"214","Montana_Musselshell",NA,NA,NA,NA,NA,NA
+"215","Montana_Park",NA,NA,NA,NA,NA,NA
+"216","Montana_Petroleum",NA,NA,NA,NA,NA,NA
+"217","Montana_Phillips",NA,NA,NA,NA,NA,NA
+"218","Montana_Pondera",NA,NA,NA,NA,NA,NA
+"219","Montana_Powder River",NA,NA,NA,NA,NA,NA
+"220","Montana_Powell",NA,NA,NA,NA,NA,NA
+"221","Montana_Prairie",NA,NA,NA,NA,NA,NA
+"222","Montana_Ravalli",NA,NA,NA,NA,NA,NA
+"223","Montana_Richland",NA,NA,NA,NA,NA,NA
+"224","Montana_Roosevelt",NA,NA,NA,NA,NA,NA
+"225","Montana_Rosebud",NA,NA,NA,NA,NA,NA
+"226","Montana_Sanders",NA,NA,NA,NA,NA,NA
+"227","Montana_Sheridan",NA,NA,NA,NA,NA,NA
+"228","Montana_Silver Bow",NA,NA,NA,NA,NA,NA
+"229","Montana_Stillwater",NA,NA,NA,NA,NA,NA
+"230","Montana_Sweet Grass",NA,NA,NA,NA,NA,NA
+"231","Montana_Teton",NA,NA,NA,NA,NA,NA
+"232","Montana_Toole",NA,NA,NA,NA,NA,NA
+"233","Montana_Treasure",NA,NA,NA,NA,NA,NA
+"234","Montana_Valley",NA,NA,NA,NA,NA,NA
+"235","Montana_Wheatland",NA,NA,NA,NA,NA,NA
+"236","Montana_Wibaux",NA,NA,NA,NA,NA,NA
+"237","Montana_Yellowstone",NA,NA,NA,NA,NA,NA
+"238","Nevada_Carson  City",NA,NA,NA,NA,NA,NA
+"239","Nevada_Carson City",NA,NA,NA,NA,NA,NA
+"240","Nevada_Churchill",NA,NA,NA,NA,NA,NA
+"241","Nevada_Clark",NA,NA,NA,NA,NA,NA
+"242","Nevada_Douglas",NA,NA,NA,NA,NA,NA
+"243","Nevada_Elko",NA,NA,NA,NA,NA,NA
+"244","Nevada_Esmeralda",NA,NA,NA,NA,NA,NA
+"245","Nevada_Eureka",NA,NA,NA,NA,NA,NA
+"246","Nevada_Humboldt",NA,NA,NA,NA,NA,NA
+"247","Nevada_Lander",NA,NA,NA,NA,NA,NA
+"248","Nevada_Lincoln",NA,NA,NA,NA,NA,NA
+"249","Nevada_Lyon",NA,NA,NA,NA,NA,NA
+"250","Nevada_Mineral",NA,NA,NA,NA,NA,NA
+"251","Nevada_Nye",NA,NA,NA,NA,NA,NA
+"252","Nevada_Pershing",NA,NA,NA,NA,NA,NA
+"253","Nevada_Storey",NA,NA,NA,NA,NA,NA
+"254","Nevada_Washoe",NA,NA,NA,NA,NA,NA
+"255","Nevada_White Pine",NA,NA,NA,NA,NA,NA
+"256","New Mexico_Bernalillo",NA,NA,NA,NA,NA,NA
+"257","New Mexico_Catron",NA,NA,NA,NA,NA,NA
+"258","New Mexico_Chaves",NA,NA,NA,NA,NA,NA
+"259","New Mexico_Cibola",NA,NA,NA,NA,NA,NA
+"260","New Mexico_Colfax",NA,NA,NA,NA,NA,NA
+"261","New Mexico_Curry",NA,NA,NA,NA,NA,NA
+"262","New Mexico_De Baca",NA,NA,NA,NA,NA,NA
+"263","New Mexico_Dona Ana",NA,NA,NA,NA,NA,NA
+"264","New Mexico_Eddy",NA,NA,NA,NA,NA,NA
+"265","New Mexico_Grant",NA,NA,NA,NA,NA,NA
+"266","New Mexico_Guadalupe",NA,NA,NA,NA,NA,NA
+"267","New Mexico_Harding",NA,NA,NA,NA,NA,NA
+"268","New Mexico_Hidalgo",NA,NA,NA,NA,NA,NA
+"269","New Mexico_Lea",NA,NA,NA,NA,NA,NA
+"270","New Mexico_Lincoln",NA,NA,NA,NA,NA,NA
+"271","New Mexico_Los Alamos",NA,NA,NA,NA,NA,NA
+"272","New Mexico_Luna",NA,NA,NA,NA,NA,NA
+"273","New Mexico_McKinley",NA,NA,NA,NA,NA,NA
+"274","New Mexico_Mora",NA,NA,NA,NA,NA,NA
+"275","New Mexico_Otero",NA,NA,NA,NA,NA,NA
+"276","New Mexico_Quay",NA,NA,NA,NA,NA,NA
+"277","New Mexico_Rio Arriba",NA,NA,NA,NA,NA,NA
+"278","New Mexico_Roosevelt",NA,NA,NA,NA,NA,NA
+"279","New Mexico_San Juan",NA,NA,NA,NA,NA,NA
+"280","New Mexico_San Miguel",NA,NA,NA,NA,NA,NA
+"281","New Mexico_Sandoval",NA,NA,NA,NA,NA,NA
+"282","New Mexico_Santa Fe",NA,NA,NA,NA,NA,NA
+"283","New Mexico_Sierra",NA,NA,NA,NA,NA,NA
+"284","New Mexico_Socorro",NA,NA,NA,NA,NA,NA
+"285","New Mexico_Taos",NA,NA,NA,NA,NA,NA
+"286","New Mexico_Torrance",NA,NA,NA,NA,NA,NA
+"287","New Mexico_Union",NA,NA,NA,NA,NA,NA
+"288","New Mexico_Valencia",NA,NA,NA,NA,NA,NA
+"289","Oregon_Baker",NA,NA,NA,NA,NA,NA
+"290","Oregon_Benton",NA,NA,NA,NA,NA,NA
+"291","Oregon_Clackamas",NA,NA,NA,NA,NA,NA
+"292","Oregon_Clatsop",NA,NA,NA,NA,NA,NA
+"293","Oregon_Columbia",NA,NA,NA,NA,NA,NA
+"294","Oregon_Coos",NA,NA,NA,NA,NA,NA
+"295","Oregon_Crook",NA,NA,NA,NA,NA,NA
+"296","Oregon_Curry",NA,NA,NA,NA,NA,NA
+"297","Oregon_Deschutes",NA,NA,NA,NA,NA,NA
+"298","Oregon_Douglas",NA,NA,NA,NA,NA,NA
+"299","Oregon_Gilliam",NA,NA,NA,NA,NA,NA
+"300","Oregon_Grant",NA,NA,NA,NA,NA,NA
+"301","Oregon_Harney",NA,NA,NA,NA,NA,NA
+"302","Oregon_Hood River",NA,NA,NA,NA,NA,NA
+"303","Oregon_Jackson",NA,NA,NA,NA,NA,NA
+"304","Oregon_Jefferson",NA,NA,NA,NA,NA,NA
+"305","Oregon_Josephine",NA,NA,NA,NA,NA,NA
+"306","Oregon_Klamath",NA,NA,NA,NA,NA,NA
+"307","Oregon_Lake",NA,NA,NA,NA,NA,NA
+"308","Oregon_Lane",NA,NA,NA,NA,NA,NA
+"309","Oregon_Lincoln",NA,NA,NA,NA,NA,NA
+"310","Oregon_Linn",NA,NA,NA,NA,NA,NA
+"311","Oregon_Malheur",NA,NA,NA,NA,NA,NA
+"312","Oregon_Marion",NA,NA,NA,NA,NA,NA
+"313","Oregon_Morrow",NA,NA,NA,NA,NA,NA
+"314","Oregon_Multnomah",NA,NA,NA,NA,NA,NA
+"315","Oregon_Polk",NA,NA,NA,NA,NA,NA
+"316","Oregon_Sherman",NA,NA,NA,NA,NA,NA
+"317","Oregon_Tillamook",NA,NA,NA,NA,NA,NA
+"318","Oregon_Umatilla",NA,NA,NA,NA,NA,NA
+"319","Oregon_Union",NA,NA,NA,NA,NA,NA
+"320","Oregon_Wallowa",NA,NA,NA,NA,NA,NA
+"321","Oregon_Wasco",NA,NA,NA,NA,NA,NA
+"322","Oregon_Washington",NA,NA,NA,NA,NA,NA
+"323","Oregon_Wheeler",NA,NA,NA,NA,NA,NA
+"324","Oregon_Yamhill",NA,NA,NA,NA,NA,NA
+"325","Utah_Beaver",NA,NA,NA,NA,NA,NA
+"326","Utah_Box Elder",NA,NA,NA,NA,NA,NA
+"327","Utah_Cache",NA,NA,NA,NA,NA,NA
+"328","Utah_Carbon",NA,NA,NA,NA,NA,NA
+"329","Utah_Daggett",NA,NA,NA,NA,NA,NA
+"330","Utah_Davis",NA,NA,NA,NA,NA,NA
+"331","Utah_Duchesne",NA,NA,NA,NA,NA,NA
+"332","Utah_Emery",NA,NA,NA,NA,NA,NA
+"333","Utah_Garfield",NA,NA,NA,NA,NA,NA
+"334","Utah_Grand",NA,NA,NA,NA,NA,NA
+"335","Utah_Iron",NA,NA,NA,NA,NA,NA
+"336","Utah_Juab",NA,NA,NA,NA,NA,NA
+"337","Utah_Kane",NA,NA,NA,NA,NA,NA
+"338","Utah_Millard",NA,NA,NA,NA,NA,NA
+"339","Utah_Morgan",NA,NA,NA,NA,NA,NA
+"340","Utah_Piute",NA,NA,NA,NA,NA,NA
+"341","Utah_Rich",NA,NA,NA,NA,NA,NA
+"342","Utah_Salt Lake",NA,NA,NA,NA,NA,NA
+"343","Utah_San Juan",NA,NA,NA,NA,NA,NA
+"344","Utah_Sanpete",NA,NA,NA,NA,NA,NA
+"345","Utah_Sevier",NA,NA,NA,NA,NA,NA
+"346","Utah_Summit",NA,NA,NA,NA,NA,NA
+"347","Utah_Tooele",NA,NA,NA,NA,NA,NA
+"348","Utah_Uintah",NA,NA,NA,NA,NA,NA
+"349","Utah_Utah",NA,NA,NA,NA,NA,NA
+"350","Utah_Wasatch",NA,NA,NA,NA,NA,NA
+"351","Utah_Washington",NA,NA,NA,NA,NA,NA
+"352","Utah_Wayne",NA,NA,NA,NA,NA,NA
+"353","Utah_Weber",NA,NA,NA,NA,NA,NA
+"354","Washington_Adams",NA,NA,NA,NA,NA,NA
+"355","Washington_Asotin",NA,NA,NA,NA,NA,NA
+"356","Washington_Benton",NA,NA,NA,NA,NA,NA
+"357","Washington_Chelan",NA,NA,NA,NA,NA,NA
+"358","Washington_Clallam",NA,NA,NA,NA,NA,NA
+"359","Washington_Clark",NA,NA,NA,NA,NA,NA
+"360","Washington_Columbia",NA,NA,NA,NA,NA,NA
+"361","Washington_Cowlitz",NA,NA,NA,NA,NA,NA
+"362","Washington_Douglas",NA,NA,NA,NA,NA,NA
+"363","Washington_Ferry",NA,NA,NA,NA,NA,NA
+"364","Washington_Franklin",NA,NA,NA,NA,NA,NA
+"365","Washington_Garfield",NA,NA,NA,NA,NA,NA
+"366","Washington_Grant",NA,NA,NA,NA,NA,NA
+"367","Washington_Grays Harbor",NA,NA,NA,NA,NA,NA
+"368","Washington_Island",NA,NA,NA,NA,NA,NA
+"369","Washington_Jefferson",NA,NA,NA,NA,NA,NA
+"370","Washington_King",NA,NA,NA,NA,NA,NA
+"371","Washington_Kitsap",NA,NA,NA,NA,NA,NA
+"372","Washington_Kittitas",NA,NA,NA,NA,NA,NA
+"373","Washington_Klickitat",NA,NA,NA,NA,NA,NA
+"374","Washington_Lewis",NA,NA,NA,NA,NA,NA
+"375","Washington_Lincoln",NA,NA,NA,NA,NA,NA
+"376","Washington_Mason",NA,NA,NA,NA,NA,NA
+"377","Washington_Okanogan",NA,NA,NA,NA,NA,NA
+"378","Washington_Pacific",NA,NA,NA,NA,NA,NA
+"379","Washington_Pend Oreille",NA,NA,NA,NA,NA,NA
+"380","Washington_Pierce",NA,NA,NA,NA,NA,NA
+"381","Washington_San Juan",NA,NA,NA,NA,NA,NA
+"382","Washington_Skagit",NA,NA,NA,NA,NA,NA
+"383","Washington_Skamania",NA,NA,NA,NA,NA,NA
+"384","Washington_Snohomish",NA,NA,NA,NA,NA,NA
+"385","Washington_Spokane",NA,NA,NA,NA,NA,NA
+"386","Washington_Stevens",NA,NA,NA,NA,NA,NA
+"387","Washington_Thurston",NA,NA,NA,NA,NA,NA
+"388","Washington_Wahkiakum",NA,NA,NA,NA,NA,NA
+"389","Washington_Walla Walla",NA,NA,NA,NA,NA,NA
+"390","Washington_Whatcom",NA,NA,NA,NA,NA,NA
+"391","Washington_Whitman",NA,NA,NA,NA,NA,NA
+"392","Washington_Yakima",NA,NA,NA,NA,NA,NA
+"393","Wyoming_Albany",NA,NA,NA,NA,NA,NA
+"394","Wyoming_Big Horn",NA,NA,NA,NA,NA,NA
+"395","Wyoming_Campbell",NA,NA,NA,NA,NA,NA
+"396","Wyoming_Carbon",NA,NA,NA,NA,NA,NA
+"397","Wyoming_Converse",NA,NA,NA,NA,NA,NA
+"398","Wyoming_Crook",NA,NA,NA,NA,NA,NA
+"399","Wyoming_Fremont",NA,NA,NA,NA,NA,NA
+"400","Wyoming_Goshen",NA,NA,NA,NA,NA,NA
+"401","Wyoming_Hot Springs",NA,NA,NA,NA,NA,NA
+"402","Wyoming_Johnson",NA,NA,NA,NA,NA,NA
+"403","Wyoming_Laramie",NA,NA,NA,NA,NA,NA
+"404","Wyoming_Lincoln",NA,NA,NA,NA,NA,NA
+"405","Wyoming_Natrona",NA,NA,NA,NA,NA,NA
+"406","Wyoming_Niobrara",NA,NA,NA,NA,NA,NA
+"407","Wyoming_Park",NA,NA,NA,NA,NA,NA
+"408","Wyoming_Platte",NA,NA,NA,NA,NA,NA
+"409","Wyoming_Sheridan",NA,NA,NA,NA,NA,NA
+"410","Wyoming_Sublette",NA,NA,NA,NA,NA,NA
+"411","Wyoming_Sweetwater",NA,NA,NA,NA,NA,NA
+"412","Wyoming_Teton",NA,NA,NA,NA,NA,NA
+"413","Wyoming_Uinta",NA,NA,NA,NA,NA,NA
+"414","Wyoming_Washakie",NA,NA,NA,NA,NA,NA
+"415","Wyoming_Weston",NA,NA,NA,NA,NA,NA
