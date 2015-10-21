@@ -1,0 +1,15 @@
+{
+  "name": "anonymous",
+  "private": true,
+  "version": "0.0.1",
+  "dependencies": {
+    "topojson": "1"
+  },
+  "providedServices": {
+    "linter": {
+      "versions": {
+        "1.0.0": "provideLinter"
+      }
+    }
+  }
+}

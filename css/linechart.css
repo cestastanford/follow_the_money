@@ -1,0 +1,63 @@
+#linechart_data, #linechart_info_space {
+  color: #000;
+  font-family: "Avenir", "lato", helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  float: left; }
+
+#linechart_data {
+  width: 890px;
+  margin-right: 15px; }
+
+#linechart {
+  position: relative;
+  color: #636260;
+  height: 200px; }
+
+#linechart_svg {
+  width: 100%;
+  height: 100%; }
+  #linechart_svg .brush .extent {
+    stroke: transparent;
+    fill-opacity: .25;
+    shape-rendering: crispEdges; }
+
+#linechart_svg .axis text {
+  font-size: 14px;
+  color: #A9A9A9; }
+
+#linechart_svg .axis line,
+#linechart_svg .axis path {
+  fill: none;
+  stroke: #A9A9A9;
+  /* #636260 */ }
+
+#linechart_summary {
+  font-size: 20px;
+  text-align: center; }
+
+#linechart_info_space {
+  height: 150px; }
+
+#linechart_info_space > * {
+  float: left; }
+
+#linechart_title {
+  font-family: "Avenir", "lato", helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase; }
+
+.legend_line {
+  height: 2px;
+  width: 50px;
+  margin-top: 10px; }
+
+.legend_label {
+  font-size: 14px;
+  font-weight: 700; }
+
+.all_counties_legend_label {
+  font-size: 12px; }
+
+/*# sourceMappingURL=linechart.css.map */

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+  <!-- TODO: Change Title for Launch -->
+  <title>Follow The Money</title>
+
+  <!-- BOOTSTRAP CSS/JS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+  <!-- Link Custom CSS -->
+  <link rel="stylesheet" href="css/ftm.css">
+  <link rel="stylesheet" href="css/legend.css">
+  <link rel="stylesheet" href="css/linechart.css">
+  <link rel="stylesheet" href="css/map.css">
+  <link rel="stylesheet" href="css/slider.css">
+  <link rel="stylesheet" href="lib/d3map.css">
+  <link rel="stylesheet" href="lib/colorbrewer/colorbrewer.css">
+
+  <!-- FontKit -->
+  <script src="//use.typekit.net/hyt8xxd.js"></script>
+  <script>try{Typekit.load({ async: true });}catch(e){}</script>
+
+</head>
+
+<body>
+  <div class="container">
+    <!-- HEADER -->
+    <div class="row header">
+      <div id="cesta_logo"></div>
+    </div>
+
+    <div id="body_content">
+      <!-- Title & Introduction Section -->
+      <div id="intro" class="row">
+        <div class="title">
+          <h1>Follow the Money</h1>
+          <h2 id="subtitle">
+            A Spatial History of In-Lieu Programs for Western Public Lands
+          </h2>
+          <h3 id="contributors">
+            Joseph E Taylor III, Krista Fryauff, Erik Steiner, Celena Allen
+          </h3>
+        </div>
+        <div id="overview_text" class="descr_text">
+          <p>
+            <!-- TODO: Replace with actual overview -->
+            In-lieu programs compensate states and counties for lost tax revenue for activities on public lands. This project examines the history and geography of these programs in the Western U.S. Few Americans know about federal in-lieu programs that transfer revenues to states and counties based on activities on the public lands.
+          </p>
+          <div id="readmore" class="float_right">
+            <!-- TODO: Style to floar right -->
+            <a href="#background_text_area" class="btn btn-default">Read More</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Content Area -->
+      <div id="main" class="row">
+        <div id="program_description_area" class="">
+          <h3>Program Description</h3>
+          <div id="description_trends_toggle_btn_container">
+            <div class="btn btn-primary" title="description">Description</div>
+            <div class="btn btn-default" title="key_trends">Key Trends</div>
+          </div>
+          <div id="program_description_text"></div>
+          <div id="program_description_btn_container">
+            <div id="program_description_btn" class="btn btn-default">Full Description &amp; Sources</div>
+          </div>
+        </div>
+
+        <div id="main_interactive_area" class="">
+          <!-- Program Menu -->
+          <div id="program_menu" class="min_height"></div>
+
+          <div id="map_and_sidebar_container">
+            <!-- Timeline -->
+            <div id="timeline" class="map_centerbar min_height"></div>
+            <div id="timeline_controls" class="map_sidebar min_height">
+              <div id="prev_btn" class="btn btn-default">Previous</div>
+              <div id="next_btn" class="btn btn-default">Next</div>
+            </div>
+
+            <!-- Map -->
+            <div id="map_row">
+              <div id="map" class="map_centerbar">
+                <div class="circle"></div>
+                <div class="circle1"></div>
+              </div>
+              <div id="map_info_space" class="map_sidebar min_height">
+                <!-- TODO: Fill in Dynamic Allocation -->
+                <div id="year" class="min_height">Year</div>
+                <div id="map_title" class="min_height">County Payments</div>
+                <h3 id="map_subtitle" class="min_height">in 2014 dollars</h3>
+                <div id="legend" class="min_height"></div>
+
+                <div id="non_applicable" class="min_height">
+                  <div id="no_data" class="min_height">
+                    <div id="no_data_color" class="no_data"></div>
+                    <div id="no_data_label">No Data</div>
+                  </div>
+
+                  <div id="not_eligible" class="min_height">
+                    <div id="not_eligible_color" class="not_eligible"></div>
+                    <div id="not_eligible_label">Not Eligible</div>
+                  </div>
+                </div>
+
+
+                <div id="advanced_option_title">ADVANCED</div>
+                <div id="map_toggle_btn" class="btn btn-default">
+                    <div id="map_toggle_box">
+                      <div id="map_toggle_check"></div>
+                    </div>
+
+                    <div id="map_toggle_text">Compare each county <br />to it's historical average</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="linechart_container" class="row">
+          <!-- Data Chart -->
+          <div id="linechart_data" class="min_height">
+            <div id="linechart" class="min_height"></div>
+            <div id="linechart_summary" class=""></div>
+          </div>
+          <div id="linechart_info_space" class="map_sidebar">
+            <div id="linechart_title" class="">Payment History</div>
+            <h3 id="linechart_subtitle" class="">in 2014 dollars</h3>
+            <div id="linechart_legend" class=""></div>
+          </div>
+        </div>
+
+      </div>
+      <div id="background_text_area" class="row">
+        <div id="background_text" class="min_height">
+          <h2>Background</h2>
+          <p>
+            Few Americans know about federal in-lieu programs that transfer revenues to states and counties based on activities on the public lands, and even those who do know grasp only vaguely why the programs exist to compensate lost tax bases. Almost no one knows the history and geography of these programs, including when and how they began or where payments go. This story began in 1906, when congress passed HR 19575, granting 10 percent of the Forest Service’s gross timber receipts back to the counties from which federal timber was harvested. The reasoning then and since was that federal control of public lands deprives states and counties of tax revenue, so there was at least a moral obligation to offset this lost tax base to support social services. The sharing formulas have grown ever more elaborate over time, and they have always operated out of sight both to residents and to government officials. Thus when congress tried to rein in two programs in 2010, the Republican Party was blindsided by its own supporters, who were furious that the payments might be cut off. Rural conservatives noted that social services would be gutted across Red America if the party followed through on its agenda. In the scrum that followed, liberals and conservatives alike made sweeping claims about these payment programs, but nobody, including the members of the Western Governor’s Association who contacted me last winter, really knew much about their genesis and scope.
+          </p>
+          <p>
+            The irony is that America’s founders never foresaw these payment programs. Beginning with the first Land Ordinance in 1784, congress set many policies to divest itself of federal lands, both to fund the nation’s coffers and to sustain the ideal of agrarian republicanism. After 1850, congress grew ever more generous in its subsidies to sustain distribution. Yet in the 1860s, it also began to reserve some areas as parks and monuments, and in the 1890s, it empowered presidents to set aside even more lands to protect timber, mineral, and hydroelectric sites. Finally, in 1916, 1934, and 1936 congress withdrew the last of the public domain. Federal public lands now total 440 million acres, an area roughly the size of California, Nevada, Oregon, Washington, Idaho, and Montana combined with West Virginia. These lands are mostly in Alaska and in eleven western states collectively known as “the public lands states.” Culturally, these lands function like a Rorshach test in the American psyche. Some see spaces for individual opportunity, others resources to be conserved for future use, and still others ecology that must be preserved for aesthetic or recreational pleasure. There has never been consensus on the meanings or uses of federal lands, and a poll released last week revealed rather surprisingly that 35 percent of westerners still prefer these lands should be transferred to the states.
+          </p>
+        </div>
+        <!-- <div id="background_notes" class="min_height"> -->
+        <!-- </div> -->
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer"></div>
+  </div>
+
+  <!-- Link Javascript Scripts -->
+  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+  <script src="http://d3js.org/topojson.v1.min.js"></script>
+  <script src="http://d3js.org/queue.v1.min.js"></script>
+  <script src="lib/d3/d3.min.js" type="text/javascript" ></script>
+  <script src="lib/d3_carto_map.js" type="text/javascript"></script>
+  <script src="lib/colorbrewer/colorbrewer.js" type="text/javascript"></script>
+  <script src="lib/slider.js" type="text/javascript"></script>
+
+  <script src="js/ftm.js" type="text/javascript"></script>
+</body>
+
+</html>
