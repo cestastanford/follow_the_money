@@ -1,4 +1,4 @@
-#Follow The Money README.txt
+# Follow The Money README.txt
 
 This project was created by Krista Fryauff: kfryauff@stanford.edu // krista.fryauff@gmail.com for questions
 ### Basic Technology Stack:
