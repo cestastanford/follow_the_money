@@ -1,0 +1,16 @@
+/* Time Controller Styles */
+#timeline_controls {
+  @include flex_box();
+  justify-content: space-between;
+  position: relative;
+}
+#timeline_controls > .btn {
+  height: 30px;
+  flex-grow: 1;
+  @include thin_text ($sans_font_family);
+  font-size: 13.5px;
+  color: rgb(91, 88, 85);
+  &:first-child {
+    margin-right: 2px;
+  }
+}

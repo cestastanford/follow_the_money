@@ -64,63 +64,62 @@ displayed correctly as of 01 SEP 2015.
 ## --- FOR DEVELOPMENT ONLY ---
 
 #### TODO List:
-::TODO::
-:: Switch Checkbox functionality hookup
-:: Fix background width
-:: Naming States
-:: Edit ProgramYearTip -- tip for year that a program starts
-:: Link Main ReadMore link
-:: Link Full Text Pages
-:: Summary Sentence -- wait for intra-county description
-:: Touch Sensing Test
-:: Format Rankings
-:: Break up JS file into sub files
+ . Switch Checkbox functionality hookup
+ . Fix background width
+ . Naming States
+ . Edit ProgramYearTip -- tip for year that a program starts
+ . Link Main ReadMore link
+ . Link Full Text Pages
+ . Summary Sentence -- wait for intra-county description
+ . Touch Sensing Test
+ . Format Rankings
+ . Break up JS file into sub files
 
-:: Glossary Page
-:: Read More --> separate page
-:: Separate Page
-:: extending timeline**
+ . Glossary Page
+ . Read More --> separate page
+ . Separate Page
+ . extending timeline**
 
 
 #### CHECKED List:
-:: Fix full description button
-:: Fix description, keytrends button
-:: Replace switch map button with checkbox
-:: Switch checkbox style
-:: Refresh graph between programs
-:: Set up no data & inelligible
-:: Link New Data
-:: Touch Sensing Fix
-:: Link Rankings CSV
-:: Inactive menu items
-:: No county fix
-:: Update Chart Legend color classes for intra county
-:: Dash for underscore (traded for icon instead)
-:: Keep current year consistent
-:: Allign intersection of divs
-:: 0-20% included in intra county map lowest color_class
-:: empty legend div for chart @ empty selection
-:: Country shadow
-:: Highlight county
-:: County rollover tooltip
-:: Chart Label (current year)
-:: Titles and program tooltips
-:: Scale Chart tick marks
-:: Check Tables for remaining maps (to ensure they include relevant ST_CNTY data that is consistent with the data tables)
-:: Maintain Chart at all times (including init handling)
-:: Current year handler
-:: Create code for time controller
-:: Create code for map controller (for switching maps)
-:: Adjust CSS
-:: adjust timechart dimensions**
-:: Edit down maps to only include relevant States
-:: Check if Custom CSS is properly Linked
-:: Think of options for stagered datasets (multiple csv/tsv files)
-:: Check in about the inconsistency in ST_CNTY Data
-:: Adjust data loader for multiple decades **
-:: Include min & max for each category of data in the line chart creation
+ . Fix full description button
+ . Fix description, keytrends button
+ . Replace switch map button with checkbox
+ . Switch checkbox style
+ . Refresh graph between programs
+ . Set up no data & inelligible
+ . Link New Data
+ . Touch Sensing Fix
+ . Link Rankings CSV
+ . Inactive menu items
+ . No county fix
+ . Update Chart Legend color classes for intra county
+ . Dash for underscore (traded for icon instead)
+ . Keep current year consistent
+ . Allign intersection of divs
+ . 0-20% included in intra county map lowest color_class
+ . empty legend div for chart @ empty selection
+ . Country shadow
+ . Highlight county
+ . County rollover tooltip
+ . Chart Label (current year)
+ . Titles and program tooltips
+ . Scale Chart tick marks
+ . Check Tables for remaining maps (to ensure they include relevant ST_CNTY data that is consistent with the data tables)
+ . Maintain Chart at all times (including init handling)
+ . Current year handler
+ . Create code for time controller
+ . Create code for map controller (for switching maps)
+ . Adjust CSS
+ . adjust timechart dimensions**
+ . Edit down maps to only include relevant States
+ . Check if Custom CSS is properly Linked
+ . Think of options for stagered datasets (multiple csv/tsv files)
+ . Check in about the inconsistency in ST_CNTY Data
+ . Adjust data loader for multiple decades **
+ . Include min & max for each category of data in the line chart creation
 	Think of a way to automate this?? ^
-:: Edit scatterplot/linechart to reflected cross-decadal data
+ . Edit scatterplot/linechart to reflected cross-decadal data
 
 ## --- DEVELOPER NOTES ---
 

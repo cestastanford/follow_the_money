@@ -1,0 +1,248 @@
+/* Styles for Testing Purposes Only */
+// TODO: Delete Testing Classes
+.test {
+  border: 1px solid red;
+}
+.min_height {
+  min-height: 10px;
+}
+
+/* Imported */
+@import 'vars';
+@import 'loading';
+
+/* General STYLES */
+body {
+  background-color: $body_background_color;
+  background-image: $body_background_image;
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: bottom;
+
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+
+  @include regular_text($serif_font_family);
+}
+
+h1 {
+  margin: 20px 0 5px;
+
+  font-size: 30px;
+  @include bold_text($serif_font_family);
+}
+
+h2 {
+  margin: 5px 0;
+
+  @include italic_text($serif_font_family);
+  @include light_text($serif_font_family);
+  font-size: 24px;
+}
+
+h3 {
+  margin: 5px 0;
+
+  @include black_text($sans_font_family);
+  font-size: 24px;
+}
+
+#contributors {
+  color: $light_gray_text_color;
+
+  @include thin_text($sans_font_family);
+  text-transform: uppercase;
+  font-size: 13px;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 0;
+  width: $container_width;
+}
+
+.row {
+  margin: 0;
+}
+
+.btn {
+  border-radius: 0;
+
+  @include bold_text($sans_font_family);
+  font-size: 10px;
+  text-transform: uppercase;
+
+  &[disabled] {
+    background: rgba(238, 237, 232, 1.0);
+    border: transparent solid 1px;
+    color: rgba(198, 195, 186, 1.0);
+  }
+}
+
+.btn-primary {
+  background: #282828;
+  border: 1px #B2B2B2 solid;
+  &:hover {
+    background: #282828;
+    border: 1px #B2B2B2 solid;
+    cursor: default;
+  }
+}
+
+.btn-default {
+  background: #EFEDE8;
+}
+
+.btn-inactive {
+  color: grey;
+  border: 1px #B2B2B2 solid;
+  background: #B2B2B2;
+  cursor: default;
+  &:hover {
+    color: grey;
+    border: 1px #B2B2B2 solid;
+    background: #B2B2B2;
+  }
+}
+
+.alert-dismissible .close {
+  padding-left: 5px;
+  padding-right: 4px;
+}
+
+.hide {
+  display: none;
+}
+
+.center {
+  text-align: center;
+}
+
+.arrow-cutout, .arrow-overlay {
+    position: absolute;
+    bottom: 0;
+    z-index: 10;
+    background: url(../images/arrow-cutout.svg) center center no-repeat;
+    width: 100%;
+    height: 24px;
+}
+
+/* Main Layers */
+.header {
+  background: $header_background_color;
+  border-bottom: $header_border_height solid $header_border_bg_color;
+  height: $header_height;
+}
+
+#cesta_logo {
+  position: relative;
+
+  background-image: $cesta_logo;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+
+  height: $cesta_logo_height;
+  width: $cesta_logo_width;
+
+  margin: (($header_height - $cesta_logo_height - $header_border_height)/2) $container_gutter;
+  float: right;
+}
+
+#body_content {
+  position: relative;
+
+  background: $body_content_bg_color;
+
+  margin: 0;
+  padding: 0 $container_gutter;
+
+}
+
+#overview_text {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 10px 0;
+}
+
+/* TODO: Organize CSS */
+#program_description_area {
+  width: $program_descr_width;
+  height: $program_descr_height;
+
+  position: relative;
+  display:block;
+  float: left;
+
+  padding-right: 12px;
+  // @include flex_box();
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+#description_trends_toggle_btn_container {
+  // @include flex_box();
+  justify-content: space-between;
+  .btn {
+    text-align: center;
+    width: 49%;
+    @include bold_text($sans_font_family);
+    font-size: 14.5px;
+    padding: 3px 12px;
+  }
+}
+
+#program_description_text {
+  /* Required for text-overflow to do anything */
+  overflow: hidden;
+  margin: 10px 10px 30px 5px;
+  // @include flex(1);
+
+  text-overflow: ellipsis;
+
+  @include light_text($sans_font_family);
+  font-size: 12px;
+}
+
+#program_description_btn_container {
+  // @include flex_box();
+  justify-content: space-between;
+  .btn {
+    text-align: center;
+    width: 100%;
+  }
+}
+
+#background_text_area {
+  padding: ($container_gutter/2) 0;
+}
+
+#background_text {
+  // width: 650px;
+  // float: left;
+  width: auto;
+  padding: 0px 10px;
+}
+
+#background_notes {
+  width: 190px;
+  float: left;
+}
+
+#main {
+  background: #f4f2ee;
+  margin: 0 (-$container_gutter);
+  padding: 10px $container_gutter ($container_gutter/2);
+}
+
+#main_interactive_area {
+  display:block;
+  float: left;
+
+  width: $main_area_width;
+}
+
+@import 'tooltip';
+@import 'timeline_controls';
+@import 'program_menu';

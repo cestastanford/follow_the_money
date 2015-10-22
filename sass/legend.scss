@@ -1,0 +1,158 @@
+@import 'vars';
+
+/* MAP INFO SPACE */
+#map_info_space > * {
+  float: left;
+}
+
+#year {
+    color: white;
+    background-color: #282828;
+
+    padding: 3px 10px 0;
+    float: left;
+    margin: 0 0 5px;
+
+    @include bold_text($sans_font_family);
+    font-size: 25px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#map_title {
+    float: left;
+    width: 100%;
+    @include bold_text($sans_font_family);
+    font-size: 17px;
+    text-transform: uppercase;
+    line-height: 19px;
+    padding: 10px 0 5px;
+}
+
+#map_subtitle, #linechart_subtitle {
+    float: left;
+    width: 100%;
+    color: #716f6c;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 100;
+    line-height: 10px;
+    margin: 0 0 5px;
+}
+
+/* LEGEND */
+#legend {
+    float: left;
+    width: 100%;
+
+    @include light_text($sans_font_family);
+    font-size: 14px;
+}
+
+.legend_key {
+    height: auto;
+}
+
+.legend_color {
+    width: 7px;
+    height: $legend_key_height;
+    float: left;
+    border-bottom: #d1cfcc 1px solid;
+}
+
+.legend_color_null {
+    width: 7px;
+    height: $legend_key_height_null;
+    float: left;
+    border-bottom: #d1cfcc 1px solid;
+}
+
+.legend_class {
+    height: $legend_key_height;
+    display: table-cell;
+    bottom: (- $legend_key_height + 10);
+    left: $legend_left_pos;
+    position: relative;
+}
+
+.legend_class_null {
+    height: $legend_key_height_null;
+    display: table-cell;
+    vertical-align: bottom;
+    bottom: (- $legend_key_height_null + 10);
+    left: $legend_left_pos;
+    position: relative;
+}
+
+#non_applicable {
+    float: left;
+    padding: 2px 10px;
+    margin: 30px 0px 20px;
+
+    @include light_text($sans_font_family);
+    font-size: 13px;
+    color: white;
+
+    background-color: #999999;
+}
+
+#advanced_option_title {
+  @include bold_text($sans_font_family);
+  font-size: 14px;
+
+  width: 100%;
+}
+
+#map_toggle_btn {
+    margin: 5px 0;
+    float: left;
+    position: relative;
+    width: 100%;
+    border: transparent;
+    background: transparent;
+    text-align: left;
+    padding: 0;
+
+    font-size: 12px;
+    color: rgb(91, 88, 85);
+
+    #map_toggle_box {
+      background-image: url('../images/checkbox.png');
+      background-position: bottom;
+      background-repeat: no-repeat;
+      width: 25px;
+      height: 25px;
+      float: left;
+      &.active {
+        background-image: url('../images/checkbox_checked.png');
+      }
+    }
+
+    #map_toggle_text {
+      @include light_text($sans_font_family);
+      font-size: 10px;
+      text-transform: capitalize;
+      color: black;
+      position: relative;
+      padding-left: 5px;
+      float: left;
+      margin: auto 0;
+    }
+
+    &:hover {
+      #map_toggle_box {
+        background-image: url('../images/checkbox_checked.png');
+        opacity: .5;
+        &.active {
+          opacity: .8;
+        }
+      }
+    }
+
+    &:active {
+      border: none;
+      -moz-box-shadow:    none;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+    }
+}

@@ -1,0 +1,118 @@
+// Variables
+$body_background_color: #D6D6D6;
+$body_background_image: url('../images/background.png');
+$cesta_logo: url('../images/cesta_logo.png');
+
+$serif_font_family: "expo-serif-pro", georgia, times, serif;
+$sans_font_family: "Avenir", "lato", helvetica, sans-serif;
+
+$container_width: 1200px;
+$container_gutter: 60px;
+$container_content_width: $container_width - (2 * $container_gutter);
+$light_gray_text_color: rgb(93, 93, 93);
+$dark_gray_text_color: rgba(40, 40, 40, .80);
+
+$header_height: 72px;
+$header_border_height: 6px;
+$header_background_color: #282828;
+$header_border_bg_color: #DE6842;
+$cesta_logo_height: 49px;
+$cesta_logo_width: 120px;
+
+$body_content_bg_color: rgb(239, 237, 232);
+
+$program_descr_width: 270px;
+$program_descr_height: 650px;
+
+$main_area_width: $container_content_width - $program_descr_width;
+
+$map_sidebar_width: 175px;
+$main_area_margin: 15px;
+$chart_margin: 50px;  // = graph_padding in map_setup.js
+$map_centerbar_width: $main_area_width - $map_sidebar_width - $main_area_margin - $chart_margin;
+  //$map_centerbar_width - $main_area_margin = centerbar_width in map_setup.js
+$map_centerbar_height: 650px;
+
+$timeline_bg_color: rgb(204, 203, 200);
+
+$legend_key_height: 49px;
+$legend_key_height_null: 20px;
+$legend_left_pos: 5px;
+
+// $background_text_width = $program_descr_width +
+
+@mixin thin_text ($font_family) {
+  //LATO ONLY
+  font: {
+    family: $font_family;
+    weight: 100;
+  }
+}
+
+@mixin light_text ($font_family) {
+  font: {
+    family: $font_family;
+    weight: 300;
+  }
+}
+
+@mixin regular_text ($font_family) {
+  color: #000;
+  font: {
+    family: $font_family;
+    size: 14px;
+    weight: 400;
+  }
+}
+
+@mixin italic_text ($font_family) {
+  font-style: italic;
+  font-family: $font_family;
+}
+
+@mixin semibold_text ($font_family) {
+  font: {
+    family: $font_family;
+    weight: 600;
+  }
+}
+
+@mixin bold_text ($font_family) {
+  font: {
+    family: $font_family;
+    weight: 700;
+  }
+}
+
+@mixin black_text ($font_family) {
+  // LATO ONLY
+  font: {
+    family: $font_family;
+    weight: 900;
+  }
+}
+
+@mixin box-shadow($shadows...) {
+  -moz-box-shadow: $shadows;
+  -webkit-box-shadow: $shadows;
+  box-shadow: $shadows;
+}
+
+@mixin flex_box(){
+  display:-webkit-flex;
+  display:-webkit-box;
+  display:-moz-flex;
+  display:-moz-box;
+  display:-ms-flexbox;
+  display:flex;
+}
+
+@mixin flex($num){
+  /* flexbox */
+  -webkit-flex: $num;
+  -webkit-box-flex: $num;
+  -moz-flex: $num;
+  -moz-box-flex: $num;
+  -ms-flex: $num;
+  flex: $num;
+}

@@ -1,0 +1,22 @@
+#program_menu {
+  @include flex_box();
+
+  justify-content: space-between;
+  position: relative;
+  margin-left: $chart_margin;
+}
+
+#program_menu > .menuitem {
+  display: inline-block;
+  padding: 5px 13px;
+  flex-grow: 1;
+  margin-left: 2px;
+  @include bold_text ($sans_font_family);
+  font-size: 15px;
+
+  @include box-shadow (0, 0, 25, 5, #fff);
+
+  &:first-child {
+    margin-left: 0px;
+  }
+}

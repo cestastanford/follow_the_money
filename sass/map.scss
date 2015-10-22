@@ -1,0 +1,115 @@
+/* map.css */
+@import 'vars';
+
+.map_centerbar {
+  display:block;
+  float: left;
+  width: $map_centerbar_width;
+  margin-right: $main_area_margin;
+  margin-top: $main_area_margin;
+  margin-left: $chart_margin;
+  &#linechart_data {
+    margin-left: 0px;
+    width: $map_centerbar_width + $chart_margin;
+  }
+}
+
+.map_sidebar {
+  display:block;
+  float: left;
+  width: $map_sidebar_width;
+  margin-top: $main_area_margin;
+}
+
+#map_row {
+  position: relative;
+}
+
+#map {
+  position: relative;
+  height: $map_centerbar_height;
+  .alert {
+    position: relative;
+    z-index: 10;
+    width: 500px;
+    top: 10px;
+    left: 10px;
+    color: white;
+    background-color: rgba(0, 0, 0, .75);
+    border: transparent;
+    border-radius: 0px;
+    &.alert-info {
+        background-color: $dark_gray_text_color;
+    }
+  }
+  svg {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .country_foreground {
+    fill: rgb(153, 153, 153);
+    stroke: #fff;
+    stroke-width:1px;
+  }
+
+  .country_background {
+    fill: rgb(153, 153, 153);
+    stroke: #fff;
+    stroke-width:1px;
+  }
+
+  .other_state {
+    fill: rgb(153, 153, 153);
+    stroke: #fff;
+    stroke-width:1px;
+  }
+
+  .state {
+    fill: transparent;
+    stroke: #fff;
+    stroke-linejoin: round;
+    stroke-opacity: .90;
+    stroke-width: 1.5px;
+  }
+
+  .light_border {
+    fill: #828282;
+    stroke: #fff;
+    stroke-width:1px;
+  }
+
+  .wc {
+    stroke: #fff;
+    stroke-linejoin: round;
+    stroke-width: .25px;
+  }
+  .wc_highlight {
+    fill: transparent;
+    &:hover:not(.selected) {
+      stroke: rgb(136, 136, 136);
+      stroke-width: 2px;
+    }
+    .selected {
+      stroke: #000;
+      stroke-width: 2px;
+    }
+  }
+}
+
+.capital {
+  fill: red;
+  border: blue solid 1px;
+}
+
+.dark_gray{
+  fill: rgb(153, 153, 153);
+  pointer-events: none;
+}
+
+.light_gray {
+  fill: rgb(225, 225, 225);
+  background-color: rgb(225, 225, 225);
+  stroke-width: .5px;
+}

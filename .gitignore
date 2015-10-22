@@ -4,10 +4,8 @@ node_modules
 Makefile
 .sass-cache/
 d3/
-data/
 images/
 lib/colorbrewer/
 lib/d3/
-sass/
 topojson_files/
 test/

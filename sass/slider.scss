@@ -1,0 +1,46 @@
+@import 'vars';
+
+#timeline {
+
+  .x.axis {
+    font: 10px sans-serif;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+
+    path {
+      display: none;
+    }
+
+    .tick {
+      line {
+        stroke: rgb(68, 68, 68);
+        stroke-width: .75px;
+      }
+      text {
+        @include light_text ($sans_font_family);
+        font-size: 14px;
+      }
+    }
+  }
+
+  .grid-background {
+    height: 5px;
+    fill: $timeline_bg_color;
+    stroke-width: 1px;
+    stroke: rgb(158, 152, 145);
+  }
+
+  .slider {
+      border: 1px solid #aaaaaa;
+      z-index: 2;
+      width: 400px;
+
+      .handle {
+        stroke: transparent;
+        pointer-events: none;
+        background-size: 150% 150%;
+      }
+  }
+
+}
