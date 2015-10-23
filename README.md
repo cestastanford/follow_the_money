@@ -53,13 +53,22 @@ displayed correctly as of 01 SEP 2015.
 			as they are.  If data is added, the header should follow the pattern and added to the menu.json file.
 
 	. menu.json : contains information for the program menu including
-			: menu_abbrev : must be equal to the abbreviation used in data files.
-			: intro_text, description, full_description, key_trends, biblio : these currently contain full texts,
-					in the future it may make more sense to divide these into file references.  For now we do not have
-					all of the description data.
+			: "id" : must be equal to the abbreviation used in data file header.
+			: "menu_abbrev" : must be equal to abbreviation used in the menu.
+			: "active" : true - will appear as an active menu link. false - will appear as an inactive menu link.
+			: "start_year" : (as of 22 OCT 2015) currently affects when maptips appear, but generally holds the start year for the program.
+			: "intro_text", "description", "full_description", "key_trends", "biblio" : these currently contain full texts in HTML format (remember to escape characters, place line breaks, etc.), in the future it may make more sense to divide these into file references.  For now we do not have all of the description data.
 
-	. All data files are currently stored in the map_setup.js file under the variable declaration sub section
+	. inter_county_class_breaks.csv : contains information for class breaks ()
+
+	. All data file references are currently stored in the map_setup.js file under the variable declaration sub section
 			"Store Filenames". These will need to be updated if the files structure is changed.
+
+### Steps for Making Changes:
+
+#### Adding or Removing Programs:
+	1. Make appropriate changes to the data/Master_simple.csv
+	2. Update the menu.json to reflect the
 
 ## --- FOR DEVELOPMENT ONLY ---
 

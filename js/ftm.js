@@ -69,7 +69,7 @@
 	// Store Filenames
 	var all_data_src = "data/Master_simple.csv",
 			all_avg_src = "data/us_medians_by_year.csv",
-			all_county_breaks_src = "data/inter_county_class_breaks.csv",
+			all_county_breaks_src = "data/inter_county_class_breaks_update.csv",
 			overall_ranks_src = "data/county_ranks_overall.csv",
 			us_averages_src = "data/us_medians_by_year.csv",
 			intra_county_breaks_src = "_intra_county_class_breaks.csv",
@@ -652,13 +652,14 @@
 	}
 	function setup_programmenu() {
 		'use strict';
-		// Set Up Menu
+		// Set Up Menu from data/menu.json
 		d3.json("data/menu.json", function (menudata) {
 			menudata.menuitems.forEach(function (d) {
 				// Pull menuitems from data/menu.json
 				var program_label = d.id;
 				program_menu.set(d.id, d);
 
+				// Set up intra-county class breaks for current program
 				d3.csv("data/intra_county_class_breaks/"
 						+ d.id + intra_county_breaks_src, function (breaks_data) {
 					var map = d3.map();
@@ -668,20 +669,26 @@
 					manualBreaksById.set([intra_county.header, program_label], map);
 				});
 
+				// If the menu item is disabled : Sets up disabled class
 				var disabled;
 				if (d.active) { disabled = null; }
 				else { disabled = true; }
 
+				// Sets up the Program Menu (appending the curent menu item)
 				d3.select("#program_menu").append("div")
 					.text(d.menu_abbrev)
+
 					.attr("id", d.id)
 					.attr("program_title", d.program_title)
 					.attr("class", "btn")
 					.attr("disabled", disabled)
+
 					.classed("btn-primary", current_category === d.id)
 					.classed("btn-default", current_category !== d.id)
 					.classed("menuitem", true)
+
 					.on('click', function () {
+
 						current_category = this.id;
 						d3.selectAll("#program_menu .btn-primary")
 							.classed("btn-primary", false)
@@ -690,11 +697,18 @@
 							.classed("btn-primary", true)
 							.classed("btn-default", false);
 
+						console.log(d);
+
 						var start_year = program_menu.get(current_category).start_year;
 						var menu_title = program_menu.get(this.id).program_title;
 						if(current_year < start_year) {
 							create_maptip(menu_title + " program funds begin in " + start_year);
 						}
+
+						var this_link = "/pages/" + d.id + ".html";
+						console.log(this_link);
+						d3.select('#program_description_btn').attr("href", this_link);
+						console.log(d3.select('#program_description_btn'));
 
 						update_counties();
 						update_legend();
@@ -972,6 +986,8 @@
 			.defer(d3.csv, all_county_breaks_src, function (d) {
 				var program_label = 'Program';
 				manualBreaksById.set([inter_county.header, d[program_label]], d);
+				console.log(d[program_label] + ": " );
+				console.log(d);
 			})
 			.defer(d3.csv, us_averages_src, function (d) {
 				averagesByYear.push(d);
@@ -986,11 +1002,11 @@
 		'use strict';
 
 		//Initialize important variables
-		current_year = 1979;
+		current_year = 1981;
 		min_year = current_year;
 		max_year = current_year;
 
-		current_category = "L_CFG";
+		current_category = "O_C";
 		num_categories = 5;
 		data[current_category] = [];
 		current_payments_map = inter_county.header;
