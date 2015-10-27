@@ -40,7 +40,7 @@ function slider(dom1, dom2, parent_width, min_year, max_year)
             .attr("height", "100%");
       	filter
       	  .append("feImage")
-      	    .attr("xlink:href", "images/timeline_brush.png");
+      	    .attr("xlink:href", "assets/images/timeline_brush.png");
 
         svg.append("rect")
           .attr("class", "grid-background")

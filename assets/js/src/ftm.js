@@ -64,11 +64,13 @@
 	// Declare Data Maps
 	var rateById = d3.map(),
 			manualBreaksById = d3.map(),
-			averagesByYear = [];
+			averagesByYear = [],
+			ranksByCounty = d3.map();
 	// Store Filenames
 	var all_data_src = "data/Master_simple.csv",
 			all_avg_src = "data/us_medians_by_year.csv",
 			all_county_breaks_src = "data/inter_county_class_breaks.csv",
+			overall_ranks_src = "data/county_ranks_overall.csv",
 			us_averages_src = "data/us_medians_by_year.csv",
 			intra_county_breaks_src = "_intra_county_class_breaks.csv",
 			menuitem_src = "data/menu.json",
@@ -206,6 +208,11 @@
 					.html("&times;");
 
 	}
+	function timesliderCallback(timeslider) {
+		'use strict';
+		current_year = timeslider.value();
+		update_year();
+	}
 
 	/* :: UPDATING FUNCTIONS :: */
 	function update_counties() {
@@ -245,12 +252,18 @@
 
 		// Set Up Scales for Line Graph
 		var xScale = d3.scale.linear()
-			.domain([min_year, max_year + 1])
+			.domain([min_year, max_year + 2])
 			.range([graph_padding, (centerbar_width + prog_descr_width + 50)]);
 		var yScale = d3.scale.log()
 			.clamp(true)
 			.domain([1, data_max])
 			.range([chart_height - graph_padding + 25, 10]);
+
+		//Set Up Brush (if brush is not defined)
+		var brush = d3.svg.brush()
+			            .x(xScale)
+			            .extent([current_year-.05, current_year+.05])
+			            .on("brush", brushed);
 
 		//Define X axis
 		var xAxis = d3.svg.axis()
@@ -300,25 +313,6 @@
 				.attr("stroke", average_colour)
 				.attr("stroke-width", '1.25px'); //A9A9A9
 
-		linechart_svg.selectAll('circle')
-			.data(averagesByYear)
-				.enter().append('circle')
-				.attr("class", "range_circle")
-				.attr('cx', function (d) {
-					return xScale(d.YEAR);
-				})
-				.attr('cy', function (d) {
-					if (d[current_category] === "NA") {
-						return yScale(0);
-					}
-					return yScale(d[current_category]);
-				})
-				.attr('r', 10)
-				.classed("hidden", true)
-				.on("mouseenter", function (d) {
-					d3.select(this).attr('r', 3).classed("hidden", false);
-				});
-
 		// Add relevant average point
 		linechart_svg.append("circle")
 			.attr("id", "average_circle")
@@ -326,6 +320,9 @@
 				return xScale(current_year);
 			})
 			.attr("cy", function () {
+				if (averagesByYear[current_year - min_year][current_category] === "NA") {
+					return yScale(0);
+				}
 				return yScale(averagesByYear[current_year - min_year][current_category]);
 			})
 			.attr("r", 3)
@@ -353,7 +350,7 @@
 				// Set Up Data Summary
 				var max_payment = 0;
 				var max_payment_year = 1970;
-				var percentile = "__?";
+				var percentile = ranksByCounty.get(selected_id)[current_category];
 
 				dataset.forEach(function (d) {
 					if (+d.cy > max_payment) {
@@ -365,8 +362,13 @@
 				var data_summary = "<strong>" + data_label + "</strong>"
 														+ " received its maximum payment in <strong>"
 														+ max_payment_year + "</strong> of "
-														+ formatCurrency(max_payment) + " and ranks in the <strong>top "
-														+ percentile + "%</strong> of all counties historically";
+														+ formatCurrency(max_payment);
+				if(percentile !== undefined && percentile !== null && percentile !== '-') {
+					data_summary += " and ranks in the <strong> "
+												+ percentile + "</strong> of all counties historically";
+				}else {
+					data_summary = "<strong>" + data_label + "</strong>" + " is not elligble for the" + current_category + " Program";
+				}
 				d3.select("#linechart_summary")
 					.html(data_summary);
 
@@ -438,6 +440,56 @@
 				.append("div")
 				.classed("", true)
 				.html("Median of Counties<br>Receiving Funds");
+
+		var chart_brush = linechart_svg.append('g')
+			.attr('class', 'brush')
+			.call(brush)
+			.on("mouseup", brush_select)
+			.selectAll("rect")
+				.attr("height", chart_height)
+				.on('hover', function(d) {
+
+				});
+
+		function brushed() {
+      var ext_0 = brush.extent(),
+      ext_1,
+      d0 = Math.round(xScale.invert(d3.mouse(this)[0]));//Math.round(ext_0[1]),
+      // d1 = d0 + 1; //Math.offset(d0, Math.round((ext_0[1] - ext_0[0]) / 864e5));
+			var update = false;
+			if(d0 < min_year) {
+        d0 = min_year;
+        update = true;
+      } else if (d0 > max_year) {
+        d0 = max_year;
+				update = true;
+      }
+      ext_1 = [d0 - 0.05, d0 + 0.05];
+			console.log('brushed: ' + ext_1);
+			if(update) {brush_select(true);};
+
+			brushtip
+				.classed("hidden", false)
+				.attr("style", "left:" + (xScale(d0) - 9) + "px;top:" + (chart_height/2) + "px")
+				.html("<div class='tooltext'>" + d0 + ": " + ext_1 + "</div>" + "<div class='arrow-down center'></div>");
+
+			console.log(brushtip);
+			d3.select(this).call(brush.extent(ext_1));
+    };
+
+		function brush_select () {
+			var d0 = Math.round(brush.extent()[0]); //Math.round(brush.extent()[0]);
+			if(d0 < min_year) {
+        d0 = min_year;
+      } else if (d0 > max_year) {
+        d0 = max_year;
+      }
+			timeslider.value(d0);
+			current_year = d0;
+			update_year();
+			console.log('brush selected: ' + d0);
+		}
+
 
 	}
 	function update_year() {
@@ -557,11 +609,6 @@
 		update_description(obj);
 
 	}
-	function timesliderCallback(timeslider) {
-		'use strict';
-		current_year = timeslider.value();
-		update_year();
-	}
 
 	/* :: SETUP FUNCTIONS :: */
 	function setup_tooltips() {
@@ -570,6 +617,8 @@
 		tooltip = d3.select("#map_row").append("div")
 			.attr("class", "tooltip hidden");
 		menutip = d3.select("#program_menu").append("div")
+			.attr("class", "tooltip hidden");
+		brushtip = d3.select("#linechart").append("div")
 			.attr("class", "tooltip hidden");
 	}
 	function setup_timecontrols() {
@@ -603,12 +652,14 @@
 	}
 	function setup_programmenu() {
 		'use strict';
-		// Set Up Menu
+		// Set Up Menu from data/menu.json
 		d3.json("data/menu.json", function (menudata) {
 			menudata.menuitems.forEach(function (d) {
+				// Pull menuitems from data/menu.json
 				var program_label = d.id;
 				program_menu.set(d.id, d);
 
+				// Set up intra-county class breaks for current program
 				d3.csv("data/intra_county_class_breaks/"
 						+ d.id + intra_county_breaks_src, function (breaks_data) {
 					var map = d3.map();
@@ -618,20 +669,26 @@
 					manualBreaksById.set([intra_county.header, program_label], map);
 				});
 
+				// If the menu item is disabled : Sets up disabled class
 				var disabled;
 				if (d.active) { disabled = null; }
 				else { disabled = true; }
 
+				// Sets up the Program Menu (appending the curent menu item)
 				d3.select("#program_menu").append("div")
 					.text(d.menu_abbrev)
+
 					.attr("id", d.id)
 					.attr("program_title", d.program_title)
 					.attr("class", "btn")
 					.attr("disabled", disabled)
+
 					.classed("btn-primary", current_category === d.id)
 					.classed("btn-default", current_category !== d.id)
 					.classed("menuitem", true)
+
 					.on('click', function () {
+
 						current_category = this.id;
 						d3.selectAll("#program_menu .btn-primary")
 							.classed("btn-primary", false)
@@ -640,15 +697,23 @@
 							.classed("btn-primary", true)
 							.classed("btn-default", false);
 
+						console.log(d);
+
 						var start_year = program_menu.get(current_category).start_year;
 						var menu_title = program_menu.get(this.id).program_title;
 						if(current_year < start_year) {
 							create_maptip(menu_title + " program funds begin in " + start_year);
 						}
 
+						var this_link = "/pages/" + d.id + ".html";
+						console.log(this_link);
+						d3.select('#program_description_btn').attr("href", this_link);
+						console.log(d3.select('#program_description_btn'));
+
 						update_counties();
 						update_legend();
 						update_description_title(program_menu.get(current_category));
+						update_chart();
 					})
 					.on("mouseenter", function (d) {
 						var mouse = d3.mouse(d3.select("#program_menu").node()).map( function(d) { return parseInt(d, 10); } );
@@ -750,11 +815,12 @@
 		//   .attr('font-size','10px');
 
 	}
-
 	function setup_cities() {
 		d3.selectAll("g.capital")
 			.id(function(d) {
+				console.log(d);
 				return d.id;
+
 			});
 	}
 
@@ -796,13 +862,12 @@
 	      .renderMode("svg")
 	      .markerSize(210)
 	      .x(function(d) {
-					console.log(d.coordinates[0]);
 					return d.coordinates[0];
 				})
 	      .y(function(d) {
 					return d.coordinates[1];
 				})
-	      .clickableFeatures(true);
+	      .clickableFeatures(false);
 				// .on("load", setup_cities);
 		// cities_layer = d3.carto.layer.xyArray()
 		// 	.features(data.cities)
@@ -832,6 +897,7 @@
 		map.addCartoLayer(county_highlight_layer);
 		map.addCartoLayer(cities_layer);
 	}
+
 	function setup_carto_map() {
 		'use strict';
 		// Using Albers Projection
@@ -920,9 +986,14 @@
 			.defer(d3.csv, all_county_breaks_src, function (d) {
 				var program_label = 'Program';
 				manualBreaksById.set([inter_county.header, d[program_label]], d);
+				console.log(d[program_label] + ": " );
+				console.log(d);
 			})
 			.defer(d3.csv, us_averages_src, function (d) {
 				averagesByYear.push(d);
+			})
+			.defer(d3.csv, overall_ranks_src, function (d) {
+				ranksByCounty.set(d['county'], d);
 			});
 
 		q.awaitAll(setup_map);
@@ -931,11 +1002,11 @@
 		'use strict';
 
 		//Initialize important variables
-		current_year = 1979;
+		current_year = 1981;
 		min_year = current_year;
 		max_year = current_year;
 
-		current_category = "L_CFG";
+		current_category = "O_C";
 		num_categories = 5;
 		data[current_category] = [];
 		current_payments_map = inter_county.header;
@@ -946,12 +1017,16 @@
 				if (current_payments_map === inter_county.header) {
 					// d3.select(this)
 					// .html("Switch to<br>" + inter_county.header + " Map");
+					// d3.select(this).classed('active', null);
+					d3.select(this).select("#map_toggle_box").classed('active', true);
 					current_payments_map = intra_county.header;
 					county_layer.g().classed(inter_county.break_class, false);
 					county_layer.g().classed(intra_county.break_class, true);
 				} else {
 					// d3.select(this)
 					// .html("Switch to<br>" + intra_county.header + " Map");
+					// d3.select(this).classed('active', true);
+					d3.select(this).select("#map_toggle_box").classed('active', null);
 					current_payments_map = inter_county.header;
 					county_layer.g().classed(intra_county.break_class, false);
 					county_layer.g().classed(inter_county.break_class, true);

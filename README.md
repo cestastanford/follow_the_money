@@ -1,39 +1,40 @@
 # Follow The Money README.txt
 
 This project was created by Krista Fryauff: kfryauff@stanford.edu // krista.fryauff@gmail.com for questions
-### Basic Technology Stack:
+### Basic Technology Stack, Libraries & Feat:
 	. HTML
 	. CSS , SCSS
-	. Javascript , d3.js library
+	. Javascript , d3.js library , d3 carto (see lib)
 
 ### File Structure:
 	. root/index.html
 			This contains all of the html for the main page and interaction level of this projection
-	. program_pages/*
+	. pages/*
 			This folder contains the templates for the full description pages for each program
-	. sass/*
+	. assets/sass/*
 			This folder contains all of the sass / scss files that are used to create the css Filenames
 			Sass was here used for the benefit of legibility and ease of variable control
 			More information on sass can be found at : http://sass-lang.com/
-	. css/*
+	. assets/css/*
 			This folder contains all of the css files created by sass
 	. data/*
 			This folder contains all files for data control. These files were left in csv form as this was easiest
 			for client manipulation with the exception of menu.json which controls the menu options for the
 			interactive platform (program selection).  More information on changing these files is in the next section
-	. images/*
+	. assets/images/*
 			This folder contains all the image files used in the base of this platform
-	. lib/*
+	. assets/lib/*
 		 	This folder contains all the public libraries and resources used (as of 01 SEP 2015: d3, d3-carto, colorbrewer, and sliderjs)
 	. topojson_files/*
+			This folder contains all the shapefiles, geo/topo/json files used to create the
 			reference "Resources & Notes Used" section below
 
-### Notes for Students:
+## Notes for Students:
 I make these suggestions for new/student developers coming on to this project and note that some "helpful hints"
 for programmatic or editor-level suggestions are specific to the Atom editor, but there are equivalents in
 many other text editors.
 
-#### Editor Suggestions:
+### Editor Suggestions:
 	. Atom (https://atom.io/)
 			The current project (as of 01 SEP 2015) has been developed using the Atom editor.
 			This is a free open source hackable text editor that has become relatively popular (I think third to
@@ -46,8 +47,8 @@ many other text editors.
 
 ## To Make Data Changes
 
-### Data Files :: the data file headers and naming conventions must be retained for the data to be parsed and
-displayed correctly as of 01 SEP 2015.
+### Data Files
+:: the data file headers and naming conventions must be retained for the data to be parsed and displayed correctly as of 01 SEP 2015.
 
 	. Master_simple.csv : contains the entire dataset. It is important to maintain the headers of these datasets
 			as they are.  If data is added, the header should follow the pattern and added to the menu.json file.
@@ -150,7 +151,7 @@ FIPS of Interest:
 
 ** Resources & Notes Used **
 
-**** THIS WAS USED IN THE LATET VERSION ****
+###### **** THIS WAS USED IN THE LATEST VERSION ****
 	Pulled down files from mapshaper.org
 	NOTES for Creating Topojson Files:
 
@@ -169,7 +170,7 @@ FIPS of Interest:
 	D3.CARTO.MAP :: https://github.com/emeeks/d3-carto-map/wiki/API-Reference
 
 
---- OTHER USEFUL INFORMATION ---
+## --- OTHER USEFUL INFORMATION ---
 
 http://www.tnoda.com/blog/2013-12-07
 	geojson
@@ -188,7 +189,7 @@ http://www.tnoda.com/blog/2013-12-07
 		  subunits.json \
 		  places.json
 
-	Actual Commands Used:
+	Useful Commands:
 		>> GEOJSON:
 		ogr2ogr -f GeoJSON -where "STATE IN ('040', '060', '080', '160', '300', '350', '320', '410', '490', '530', '560')" json_file.json shape.shp
 
