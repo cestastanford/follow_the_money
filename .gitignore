@@ -3,9 +3,3 @@ build
 node_modules
 Makefile
 .sass-cache/
-d3/
-images/
-lib/colorbrewer/
-lib/d3/
-topojson_files/
-test/

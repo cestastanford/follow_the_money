@@ -1,0 +1,26 @@
+{
+"type": "FeatureCollection",
+                                                                                
+"features": [
+{ "type": "Feature", "properties": { "Alignment": "center", "Category": "state", "Id": 0, "Name": "WASHINGTON" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -119.808059824172716, 47.364907426095556 ] ] } },
+{ "type": "Feature", "properties": { "Alignment": "center", "Category": "state", "Id": 0, "Name": "OREGON" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -120.653553177401804, 43.878140105856254 ] ] } },
+{ "type": "Feature", "properties": { "Alignment": "center", "Category": "state", "Id": 0, "Name": "MONTANA" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -108.753477073594183, 47.205943979554455 ] ] } },
+{ "type": "Feature", "properties": { "Alignment": "center", "Category": "state", "Id": 0, "Name": "IDAHO" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -114.407910259426586, 43.321776711355142 ] ] } },
+{ "type": "Feature", "properties": { "Alignment": "center", "Category": "state", "Id": 0, "Name": "WYOMING" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -107.554108820903338, 43.091389636939255 ] ] } },
+{ "type": "Feature", "properties": { "Alignment": "center", "Category": "state", "Id": 0, "Name": "COLORADO" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -105.754741865242295, 38.622589732705279 ] ] } },
+{ "type": "Feature", "properties": { "Alignment": "center", "Category": "state", "Id": 0, "Name": "UTAH" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -111.685556714606165, 38.948802441708459 ] ] } },
+{ "type": "Feature", "properties": { "Alignment": "center", "Category": "state", "Id": 0, "Name": "NEVADA" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -117.175381162997112, 39.852550756553661 ] ] } },
+{ "type": "Feature", "properties": { "Alignment": "center", "Category": "state", "Id": 0, "Name": "CALIFORNIA" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -119.399395298858607, 36.369442094829161 ] ] } },
+{ "type": "Feature", "properties": { "Alignment": "center", "Category": "state", "Id": 0, "Name": "ARIZONA" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -111.805544522246308, 35.331804288770691 ] ] } },
+{ "type": "Feature", "properties": { "Alignment": "center", "Category": "state", "Id": 0, "Name": "NEW MEXICO" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -106.03801312299305, 34.344792100539877 ] ] } },
+{ "type": "Feature", "properties": { "Alignment": "center", "Category": "city", "Id": 0, "Name": "Portland" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -122.59792563050496, 45.303980793576635 ] ] } },
+{ "type": "Feature", "properties": { "Alignment": "left", "Category": "city", "Id": 0, "Name": "Seattle" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -122.200425594290721, 47.527531839923242 ] ] } },
+{ "type": "Feature", "properties": { "Alignment": "left", "Category": "city", "Id": 0, "Name": "San Francisco" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -122.078399259284424, 37.719870353743715 ] ] } },
+{ "type": "Feature", "properties": { "Alignment": "center", "Category": "city", "Id": 0, "Name": "Salt Lake City" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -111.836118804877231, 40.620140196270448 ] ] } },
+{ "type": "Feature", "properties": { "Alignment": "left", "Category": "city", "Id": 0, "Name": "Albuquerque" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -106.509283958055519, 35.30674474684195 ] ] } },
+{ "type": "Feature", "properties": { "Alignment": "center", "Category": "city", "Id": 0, "Name": "Phoenix" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -112.026491290809943, 33.212449530306138 ] ] } },
+{ "type": "Feature", "properties": { "Alignment": "left", "Category": "city", "Id": 0, "Name": "Boise" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -116.006256248471388, 43.729107493299672 ] ] } },
+{ "type": "Feature", "properties": { "Alignment": "left", "Category": "city", "Id": 0, "Name": "Denver" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -104.770009345198361, 39.677457926166646 ] ] } },
+{ "type": "Feature", "properties": { "Alignment": "right", "Category": "city", "Id": 0, "Name": "Las Vegas" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -115.338407268547144, 36.099869414349385 ] ] } }
+]
+}
