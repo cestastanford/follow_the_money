@@ -9,6 +9,7 @@
 
 	/* :: VARIABLE DECLARATION & INSTANTIATION :: */
 	var map,                    //Map Variables
+			path,
 			data = {},
 			breaks = {},
 			projection,
@@ -23,6 +24,7 @@
 			highlighted_state_layer,
 			county_highlight_layer,
 			cities_layer,
+			labels_layer,
 
 			current_payments_map,   //Map Type Variables
 			inter_county = {
@@ -65,7 +67,8 @@
 	var rateById = d3.map(),
 			manualBreaksById = d3.map(),
 			averagesByYear = [],
-			ranksByCounty = d3.map();
+			ranksByCounty = d3.map(),
+			labelData = d3.map();
 	// Store Filenames
 	var all_data_src = "data/Master_simple.csv",
 			all_avg_src = "data/us_medians_by_year.csv",
@@ -74,7 +77,8 @@
 			us_averages_src = "data/us_medians_by_year.csv",
 			intra_county_breaks_src = "_intra_county_class_breaks.csv",
 			menuitem_src = "data/menu.json",
-			all_cities_src = "topojson_files/cities/cities_wgs84_topo.json";
+			all_cities_src = "topojson_files/cities/cities_wgs84_topo2.json",
+			labels_src = "topojson_files/labels/labels_topo.json";
 	// Menu Item Initialization
 	var program_menu = d3.map(),
 			excluded_headers = ['STATE', 'COUNTY', 'YEAR', 'ST_CNTY', 'LAT', 'LON'],
@@ -149,7 +153,7 @@
 					return "q" + i + "-" + num_categories;
 				}
 			}
-			if (+rate_value == 0){
+			if (+rate_value === 0){
 				return "dark_gray";
 			}else{
 				return "q" + (num_categories-1) + "-" + num_categories;
@@ -262,7 +266,7 @@
 		//Set Up Brush (if brush is not defined)
 		var brush = d3.svg.brush()
 			            .x(xScale)
-			            .extent([current_year-.05, current_year+.05])
+			            .extent([current_year-0.05, current_year+0.05])
 			            .on("brush", brushed);
 
 		//Define X axis
@@ -359,13 +363,13 @@
 					}
 				});
 
-				var data_summary = "<strong>" + data_label + "</strong>"
-														+ " received its maximum payment in <strong>"
-														+ max_payment_year + "</strong> of "
-														+ formatCurrency(max_payment);
+				var data_summary = "<strong>" + data_label + "</strong>" +
+															" received its maximum payment in <strong>" +
+															max_payment_year + "</strong> of " +
+															formatCurrency(max_payment);
 				if(percentile !== undefined && percentile !== null && percentile !== '-') {
-					data_summary += " and ranks in the <strong> "
-												+ percentile + "</strong> of all counties historically";
+					data_summary += " and ranks in the <strong> "+
+													percentile + "</strong> of all counties historically";
 				}else {
 					data_summary = "<strong>" + data_label + "</strong>" + " is not elligble for the" + current_category + " Program";
 				}
@@ -453,8 +457,9 @@
 
 		function brushed() {
       var ext_0 = brush.extent(),
-      ext_1,
-      d0 = Math.round(xScale.invert(d3.mouse(this)[0]));//Math.round(ext_0[1]),
+		      ext_1,
+					curr_brush = this,
+		      d0 = Math.round(xScale.invert(d3.mouse(curr_brush)[0]));//Math.round(ext_0[1]),
       // d1 = d0 + 1; //Math.offset(d0, Math.round((ext_0[1] - ext_0[0]) / 864e5));
 			var update = false;
 			if(d0 < min_year) {
@@ -466,7 +471,7 @@
       }
       ext_1 = [d0 - 0.05, d0 + 0.05];
 			console.log('brushed: ' + ext_1);
-			if(update) {brush_select(true);};
+			if(update) {brush_select(true);}
 
 			brushtip
 				.classed("hidden", false)
@@ -474,8 +479,8 @@
 				.html("<div class='tooltext'>" + d0 + ": " + ext_1 + "</div>" + "<div class='arrow-down center'></div>");
 
 			console.log(brushtip);
-			d3.select(this).call(brush.extent(ext_1));
-    };
+			d3.select(curr_brush).call(brush.extent(ext_1));
+    }
 
 		function brush_select () {
 			var d0 = Math.round(brush.extent()[0]); //Math.round(brush.extent()[0]);
@@ -660,8 +665,8 @@
 				program_menu.set(d.id, d);
 
 				// Set up intra-county class breaks for current program
-				d3.csv("data/intra_county_class_breaks/"
-						+ d.id + intra_county_breaks_src, function (breaks_data) {
+				d3.csv("data/intra_county_class_breaks/" +
+							d.id + intra_county_breaks_src, function (breaks_data) {
 					var map = d3.map();
 					breaks_data.forEach(function (d) {
 						map.set(d.county, d);
@@ -759,12 +764,14 @@
 				return d.id.split('_')[0];
 			});
 
-		var path = d3.geo.path().projection(map.projection());
+		path = d3.geo.path().projection(map.projection());
 
 		d3.selectAll("g.wc_highlight")
 			.attr("id", function (d) {
 				return d.id;
 			})
+			.append("text")
+			.text(function(d) { return d.id; })
 			.on("mousedown", function () {
 				d3.selectAll('.selected').classed('selected', false);
 				d3.select(this).classed('selected', true);
@@ -790,38 +797,79 @@
 				tooltip.classed("hidden", true);
 			});
 
+
+
 		update_counties();
 	}
 	function setup_background() {
 		d3.selectAll("g.country_background")
 			.attr("filter", "url(#dropshadow)");
 	}
-	function setup_states() {
-		// var path = d3.geo.path()
-		//   .projection(map.projection());
-		// d3.selectAll("g.state")
-		// 	.append("svg:text")
-		// 	.text(function(d){
-		// 		console.log(d);
-		//     return "STATE";
-		//   })
-		//   .attr("x", function(d){
-		//     return path.centroid(d)[0];
-		//   })
-		//   .attr("y", function(d){
-		//     return  path.centroid(d)[1];
-		//   })
-		//   .attr("text-anchor","middle")
-		//   .attr('font-size','10px');
+	function setup_states_and_cities() {
+		// var target = 0;
+		// 		path = d3.geo.path().projection(map.projection());
+		//
+		// // var labels = d3.selectAll(".label_marker")
+		// // 			.append("text")
+		// // 			.attr("dx", 12)
+		// // 			.attr("dy", ".35em")
+		// // 			.text(function(d) { return d.id });
+		// var labels = d3.selectAll("g.label_marker")
+		// 	.attr("id",function(d) {
+		// 		return d.id;
+		// 	})
+		// 	.attr("dx", function(d) {
+		// 		d.dx = path.centroid(d)[0];
+		// 		return path.centroid(d)[0];
+		// 	})
+		// 	.attr("dy", function(d) {
+		// 		d.dy = path.centroid(d)[1];
+		// 		return path.centroid(d)[1];
+		// 	})
+		// 	.append("text")
+		// 		.text(function(d){ return d.id; })
+		// 		.attr("x", function(d) {
+		// 			console.log(d);
+		// 			console.log(d.dx);
+		// 			return d.dx;
+		// 		})
+		// 		.attr("y", function(d) {
+		// 			return d.dy;
+		// 		})
+		// 		// .attr("x", function(d){
+		// 		// 	console.log(path.centroid(d)[0]);
+		// 		// 	return path.centroid(d)[0];
+		// 		// })
+		// 		// .attr("y", function(d){
+		// 		// 	return path.centroid(d)[1];
+		// 		// })
+		// 		.attr("text-anchor","middle")
+		// 		.attr("fill", "black");
 
-	}
-	function setup_cities() {
-		d3.selectAll("g.capital")
-			.id(function(d) {
-				console.log(d);
-				return d.id;
+		d3.selectAll("g.label_marker")
+			.classed("state", function(d) {
+				var cat = labelData.get(d.id).category;
+				return (cat === "state");
+			})
+			.classed("city", function(d) {
+				var cat = labelData.get(d.id).category;
+				return (cat === "city");
+			})
+			.append("text")
+		    .text(function(d) {
+					return d.id;
+				});
 
-			});
+		d3.selectAll("g.label_marker.state text")
+			.attr("text-anchor", "middle")
+			.attr("fill", "black")
+			.attr("stroke", "none")
+			.attr("dy", ".7em");
+
+		d3.selectAll("g.label_marker.city text");
+
+    d3.selectAll("g.label_marker.state circle.label_marker").remove();
+    map.refresh();
 	}
 
 	function setup_map_layers() {
@@ -844,41 +892,40 @@
 		"Other Countries", "light_border", false);
 		// HIGHLIGHTED STATES BORDERS
 		highlighted_state_layer = create_layer(data.highlighted_states, "hsb_wgs84_geo",
-		"Highlighted States", "state", false)
-			.on("load", setup_states);
+		"Highlighted States", "state", false);
 		// COUNTY LAYER
 		county_layer = create_layer(data.wc, "wc_wgs84_geo", "Counties", "wc", true);
 		// COUNTY-HIGHLIGHT LAYER
 		county_highlight_layer = create_layer(data.wc, "wc_wgs84_geo", "Counties", "wc_highlight", true)
 			.on("load", setup_counties);
 
-			// console.log(data.cities.objects.cities_geo.geometries);
-			var cities_data = data.cities.objects.cities_geo.geometries;
-			cities_layer = d3.carto.layer.xyArray();
+		var labelGeoms = data.labels.objects.labels_geo.geometries;
+		console.log(labelGeoms);//.objects.cities_geo.geometries);
 
-      cities_layer
-	      .features(cities_data)
-	      .cssClass("capital")
-	      .renderMode("svg")
-	      .markerSize(210)
-	      .x(function(d) {
-					return d.coordinates[0];
-				})
-	      .y(function(d) {
-					return d.coordinates[1];
-				})
-	      .clickableFeatures(false);
-				// .on("load", setup_cities);
-		// cities_layer = d3.carto.layer.xyArray()
-		// 	.features(data.cities)
-    //   .label("Cities")
-    //   .cssClass("city")
-    //   .renderMode("svg")
-    //   .markerSize(10)
-    //   .x(function(d) {return d.coordinates[0]})
-    //   .y(function(d) {return d.coordinates[0]})
-    //   .clickableFeatures(true);
-		// cities_layer = create_layer(data.cities, "cities_geo", "Cities", "light_border", true);
+		var x;
+		for (x in labelGeoms) {
+
+        var center = d3.geo.centroid(labelGeoms[x]);
+        var newPoint = {label: labelGeoms[x].id, x: center[0], y: center[1]};
+        labelData.set(labelGeoms[x].id, labelGeoms[x]);
+				console.log(labelGeoms[x].category);
+      }
+
+		labels_layer = d3.carto.layer.xyArray();
+		labels_layer
+    .features(topojson.feature(data.labels, data.labels.objects.labels_geo).features)
+    .label("Labels")
+    .cssClass("label_marker")
+    .renderMode("svg")
+    .x(function (d) {
+			return d.geometry.coordinates[0];
+		})
+    .y(function (d) {
+			return d.geometry.coordinates[1];
+		})
+    .markerSize(2)
+    .clickableFeatures(true)
+		.on("load", setup_states_and_cities);
 	}
 	function add_map_layers() {
 		/* Layers Added to the Map -- Order Matters
@@ -895,7 +942,10 @@
 		map.addCartoLayer(highlighted_state_layer);
 
 		map.addCartoLayer(county_highlight_layer);
-		map.addCartoLayer(cities_layer);
+		// map.addCartoLayer(cities_layer);
+		map.addCartoLayer(labels_layer);
+
+
 	}
 
 	function setup_carto_map() {
@@ -916,7 +966,7 @@
 
 		// Set Map Scale
 		map.zoom().scale(1800).scaleExtent([1800,10000]);
-		map.centerOn([-.27, -0.04], 'scaled');
+		map.centerOn([-0.27, -0.04], 'scaled');
 
 		var map_svg = d3.select('#d3MapSVG');
 		var filter = map_svg.append("defs")
@@ -943,7 +993,8 @@
 		data.other_states_borders = queued_data[3];
 		data.other_countries_borders = queued_data[4];
 		data.highlighted_states = queued_data[5];
-		data.cities = queued_data[6];
+		data.labels = queued_data[6];
+		// data.labels = queued_data[7];
 
 		setup_carto_map();
 		setup_map_layers();
@@ -966,7 +1017,9 @@
 			.defer(d3.json, "topojson_files/other_states_borders/osb_wgs84_topo.json")
 			.defer(d3.json, "topojson_files/other_countries_background/ocb_wgs84_topo.json")
 			.defer(d3.json, "topojson_files/highlighted_states_borders/hsb_wgs84_topo.json")
-			.defer(d3.json, all_cities_src)
+			// .defer(d3.json, all_cities_src)
+			.defer(d3.json, labels_src);
+		queue(1)
 			.defer(d3.csv, all_data_src, function (d) {
 				var state_county_label = 'ST_CNTY';
 				var year_label = 'YEAR';
@@ -986,14 +1039,12 @@
 			.defer(d3.csv, all_county_breaks_src, function (d) {
 				var program_label = 'Program';
 				manualBreaksById.set([inter_county.header, d[program_label]], d);
-				console.log(d[program_label] + ": " );
-				console.log(d);
 			})
 			.defer(d3.csv, us_averages_src, function (d) {
 				averagesByYear.push(d);
 			})
 			.defer(d3.csv, overall_ranks_src, function (d) {
-				ranksByCounty.set(d['county'], d);
+				ranksByCounty.set(d.county, d);
 			});
 
 		q.awaitAll(setup_map);

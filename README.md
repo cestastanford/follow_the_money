@@ -157,7 +157,7 @@ FIPS of Interest:
 
 	ogr2ogr \
 		  -f GeoJSON \
-		  -where "ADM0_A3 IN ('GBR', 'IRL')" \
+		  -where "ADM0_A3 IN ('GBR', 'IRL')" \	//**Wasn't used, but can be used to select subset of data**
 		  subunits.json \
 		  ne_10m_admin_0_map_subunits.shp
 
