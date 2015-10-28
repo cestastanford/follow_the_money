@@ -117,3 +117,16 @@
   background-color: rgb(225, 225, 225);
   stroke-width: .5px;
 }
+
+/* disable text selection */
+svg *::selection {
+background : transparent;
+}
+
+svg *::-moz-selection {
+background:transparent;
+}
+
+svg *::-webkit-selection {
+background:transparent;
+}

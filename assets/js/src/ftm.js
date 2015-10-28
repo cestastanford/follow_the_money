@@ -103,13 +103,15 @@
 			return item.id === id;
 		})[0];
 	}
-	function create_layer(data, obj_string, layer_label, layer_class, clickable) {
+	function create_layer(data, obj_string, layer_label, layer_class, clickable, disp_opt) {
 		'use strict';
+		clickable = clickable || false;
+		disp_opt = disp_opt || "svg";
 		var newLayer = d3.carto.layer.featureArray();
 
 		newLayer
 			.features(topojson.feature(data, data.objects[obj_string]).features)
-			.renderMode("svg");
+			.renderMode(disp_opt);
 
 		if (layer_label !== null) { newLayer.label(layer_label); }
 		if (layer_class !== null) { newLayer.cssClass(layer_class); }
@@ -164,7 +166,6 @@
 		// CALCULATED BREAKS
 		var rank = percentrank(data[current_category], +rate_value);
 		if (rank === "#N/A" || rank === "NA") {
-			console.log("out of bounds error for val: " + rate_value);
 			return "dark_gray";
 		}
 		var class_num = Math.floor(num_categories * rank);
@@ -183,7 +184,7 @@
 	}
 	function getNum(currentValue, index, array) {
 		'use strict';
-		if (!currentValue && !array) { console.log("noVal"); }
+		if (!currentValue && !array) { console.error("No Value for getNum(" + currentValue + ", " + index + ", " + array + ")"); }
 		var cx = index + min_year;
 		var cy = rateById.get([d3.select('.wc_highlight.selected')[0][0].id, cx])[current_category];
 		return {cx: cx, cy: cy};
@@ -478,7 +479,6 @@
 				update = true;
       }
       ext_1 = [d0 - 0.05, d0 + 0.05];
-			console.log('brushed: ' + ext_1);
 			if(update) {brush_select(true);}
 
 			brushtip
@@ -486,7 +486,6 @@
 				.attr("style", "left:" + (xScale(d0) - 9) + "px;top:" + (chart_height/2) + "px")
 				.html("<div class='tooltext'>" + d0 + ": " + ext_1 + "</div>" + "<div class='arrow-down center'></div>");
 
-			console.log(brushtip);
 			d3.select(curr_brush).call(brush.extent(ext_1));
     }
 
@@ -500,7 +499,6 @@
 			timeslider.value(d0);
 			current_year = d0;
 			update_year();
-			console.log('brush selected: ' + d0);
 		}
 
 
@@ -626,6 +624,7 @@
 	/* :: SETUP FUNCTIONS :: */
 	function setup_tooltips() {
 		chartlabel = d3.select("#linechart").append("div")
+			.attr("id", "chartlabel")
 			.attr("class", "tooltip hidden");
 		tooltip = d3.select("#map_row").append("div")
 			.attr("class", "tooltip hidden");
@@ -710,8 +709,6 @@
 							.classed("btn-primary", true)
 							.classed("btn-default", false);
 
-						console.log(d);
-
 						var start_year = program_menu.get(current_category).start_year;
 						var menu_title = program_menu.get(this.id).program_title;
 						if(current_year < start_year) {
@@ -719,9 +716,7 @@
 						}
 
 						var this_link = "/pages/" + d.id + ".html";
-						console.log(this_link);
 						d3.select('#program_description_btn').attr("href", this_link);
-						console.log(d3.select('#program_description_btn'));
 
 						update_counties();
 						update_legend();
@@ -845,16 +840,16 @@
 
 		// USA BACKGROUND
 		usa_background_layer = create_layer(data.usa_background, "usa_back_wgs84_geo",
-		"Background", "country_background", false)
+		"Background", "country_background", false, "svg")
 			.on("load", setup_background);
 		// USA BORDER
 			// usa_border_layer = create_layer(data.usa_borders, "usa_b_wgs84_geo",
 			// "Borders", "country_border", false);
 		usa_foreground_layer = create_layer(data.usa_background, "usa_back_wgs84_geo",
-		"Borders", "country_foreground", false);
+		"Borders", "country_foreground", false, "svg");
 		// OTHER STATES
 		other_state_layer = create_layer(data.other_states_borders, "osb_wgs84_geo",
-		"Other States", "other_state", false);
+		"Other States", "other_state", false, "svg");
 		// OTHER COUNTRIES BORDERS
 		other_countries_layer = create_layer(data.other_countries_borders, "ocb_wgs84_geo",
 		"Other Countries", "light_border", false);
@@ -868,14 +863,12 @@
 			.on("load", setup_counties);
 
 		var labelGeoms = data.labels.objects.labels_geo.geometries;
-		console.log(labelGeoms);//.objects.cities_geo.geometries);
 
 		var x;
 		for (x in labelGeoms) {
       var center = d3.geo.centroid(labelGeoms[x]);
       var newPoint = {label: labelGeoms[x].id, x: center[0], y: center[1]};
       labelData.set(labelGeoms[x].id, labelGeoms[x]);
-			console.log(labelGeoms[x].category);
     }
 
 		labels_layer = d3.carto.layer.xyArray();
