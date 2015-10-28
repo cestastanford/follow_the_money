@@ -72,6 +72,9 @@
     stroke-linejoin: round;
     stroke-opacity: .90;
     stroke-width: 1.5px;
+    text {
+      @include light_text($sans_font_family);
+    }
   }
 
   .light_border {
@@ -99,12 +102,13 @@
 }
 
 .label_marker {
-  fill: red;
-  border: blue solid 1px;
+  fill: rgb(153, 153, 153);
+  border: blue solid 0.4px;
 }
 
 .dark_gray{
   fill: rgb(153, 153, 153);
+  background-color: rgb(153, 153, 153);
   pointer-events: none;
 }
 

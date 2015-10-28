@@ -3,3 +3,10 @@ build
 node_modules
 Makefile
 .sass-cache/
+d3/
+data/
+images/
+colorbrewer/
+topojson_files/
+test/
+descriptionpages/

@@ -56,6 +56,9 @@
     stroke-linejoin: round;
     stroke-opacity: .90;
     stroke-width: 1.5px; }
+    #map .state text {
+      font-family: "Avenir", "lato", helvetica, sans-serif;
+      font-weight: 300; }
   #map .light_border {
     fill: #828282;
     stroke: #fff;
@@ -74,11 +77,12 @@
       stroke-width: 2px; }
 
 .label_marker {
-  fill: red;
-  border: blue solid 1px; }
+  fill: #999999;
+  border: blue solid 0.4px; }
 
 .dark_gray {
   fill: #999999;
+  background-color: #999999;
   pointer-events: none; }
 
 .light_gray {

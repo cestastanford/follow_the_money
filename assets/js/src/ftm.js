@@ -122,7 +122,7 @@
 		var rate_value = curr_obj[current_category];
 
 		if (rate_value === undefined || rate_value === "" ||
-				(!rate_value && rate_value !== 0)) {
+				(!rate_value && rate_value !== 0) || rate_value === "NA" || rate_value === "-999") {
 			return "dark_gray";
 		} if ((+rate_value <= 0) && (current_payments_map === inter_county.header)) {
 			return "light_gray";
@@ -371,7 +371,7 @@
 					data_summary += " and ranks in the <strong> "+
 													percentile + "</strong> of all counties historically";
 				}else {
-					data_summary = "<strong>" + data_label + "</strong>" + " is not elligble for the " + program_menu.get(current_category).program_title + " Program";
+					data_summary = "<strong>" + data_label + "</strong>" + " is not elligible for the " + program_menu.get(current_category).program_title + " Program";
 				}
 				d3.select("#linechart_summary")
 					.html(data_summary);
@@ -405,10 +405,18 @@
 				var dataPt = [xScale(curr_pt.cx), yScale(curr_pt.cy)]
 					.map(function (d) { return parseInt(d, 10); });
 
+				var charttip_text = "<div class='tooltext'>" + current_year + ": ";
+				if(curr_pt.cy === -999) {
+					charttip_text += "inelligible";
+				}else {
+					charttip_text += formatCurrency(curr_pt.cy);
+				}
+				charttip_text += "</div>" + "<div class='arrow-down center'></div>";
+
 				chartlabel
 					.classed("hidden", false)
 					.attr("style", "left:" + (dataPt[0] - 9) + "px;top:" + (dataPt[1] - 38) + "px")
-					.html("<div class='tooltext'>" + current_year + ": " + formatCurrency(curr_pt.cy) + "</div>" + "<div class='arrow-down center'></div>");
+					.html(charttip_text);
 
 				var current_legend_label = linechart_legend.append("div")
 					.classed("current_legend_label", true);
@@ -804,46 +812,6 @@
 			.attr("filter", "url(#dropshadow)");
 	}
 	function setup_states_and_cities() {
-		// var target = 0;
-		// 		path = d3.geo.path().projection(map.projection());
-		//
-		// // var labels = d3.selectAll(".label_marker")
-		// // 			.append("text")
-		// // 			.attr("dx", 12)
-		// // 			.attr("dy", ".35em")
-		// // 			.text(function(d) { return d.id });
-		// var labels = d3.selectAll("g.label_marker")
-		// 	.attr("id",function(d) {
-		// 		return d.id;
-		// 	})
-		// 	.attr("dx", function(d) {
-		// 		d.dx = path.centroid(d)[0];
-		// 		return path.centroid(d)[0];
-		// 	})
-		// 	.attr("dy", function(d) {
-		// 		d.dy = path.centroid(d)[1];
-		// 		return path.centroid(d)[1];
-		// 	})
-		// 	.append("text")
-		// 		.text(function(d){ return d.id; })
-		// 		.attr("x", function(d) {
-		// 			console.log(d);
-		// 			console.log(d.dx);
-		// 			return d.dx;
-		// 		})
-		// 		.attr("y", function(d) {
-		// 			return d.dy;
-		// 		})
-		// 		// .attr("x", function(d){
-		// 		// 	console.log(path.centroid(d)[0]);
-		// 		// 	return path.centroid(d)[0];
-		// 		// })
-		// 		// .attr("y", function(d){
-		// 		// 	return path.centroid(d)[1];
-		// 		// })
-		// 		.attr("text-anchor","middle")
-		// 		.attr("fill", "black");
-
 		d3.selectAll("g.label_marker")
 			.classed("state", function(d) {
 				var cat = labelData.get(d.id).category;
@@ -860,11 +828,13 @@
 
 		d3.selectAll("g.label_marker.state text")
 			.attr("text-anchor", "middle")
-			.attr("fill", "black")
+			.attr("fill", "rgb(25, 25, 25)")
 			.attr("stroke", "none")
 			.attr("dy", ".7em");
 
-		d3.selectAll("g.label_marker.city text");
+		d3.selectAll("g.label_marker.city text")
+			.attr("dx", "2px")
+			.attr("fill", "rgb(40, 40, 40)");
 
     d3.selectAll("g.label_marker.state circle.label_marker").remove();
     map.refresh();

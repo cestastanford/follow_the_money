@@ -84,17 +84,28 @@
     position: relative;
 }
 
+
 #non_applicable {
-    float: left;
-    padding: 2px 10px;
-    margin: 30px 0px 20px;
+  margin: 20px 0px 30px;
+  #no_data, #not_eligible {
+      float: left;
+      width: 60%;
+      padding: 2px 10px;
+      margin: 2px 0px;
 
-    @include light_text($sans_font_family);
-    font-size: 13px;
-    color: white;
-
-    background-color: #999999;
+      @include light_text($sans_font_family);
+      font-size: 13px;
+      color: white;
+  }
+  #no_data {
+    color: rgb(153, 153, 153);
+    background-color: rgb(225, 225, 225);
+  }
+  #not_eligible {
+    background-color: rgb(153, 153, 153);
+  }
 }
+
 
 #advanced_option_title {
   @include bold_text($sans_font_family);
