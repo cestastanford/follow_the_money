@@ -770,8 +770,6 @@
 			.attr("id", function (d) {
 				return d.id;
 			})
-			.append("text")
-			.text(function(d) { return d.id; })
 			.on("mousedown", function () {
 				d3.selectAll('.selected').classed('selected', false);
 				d3.select(this).classed('selected', true);
