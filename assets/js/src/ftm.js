@@ -371,7 +371,7 @@
 					data_summary += " and ranks in the <strong> "+
 													percentile + "</strong> of all counties historically";
 				}else {
-					data_summary = "<strong>" + data_label + "</strong>" + " is not elligble for the" + current_category + " Program";
+					data_summary = "<strong>" + data_label + "</strong>" + " is not elligble for the " + program_menu.get(current_category).program_title + " Program";
 				}
 				d3.select("#linechart_summary")
 					.html(data_summary);
@@ -904,28 +904,27 @@
 
 		var x;
 		for (x in labelGeoms) {
-
-        var center = d3.geo.centroid(labelGeoms[x]);
-        var newPoint = {label: labelGeoms[x].id, x: center[0], y: center[1]};
-        labelData.set(labelGeoms[x].id, labelGeoms[x]);
-				console.log(labelGeoms[x].category);
-      }
+      var center = d3.geo.centroid(labelGeoms[x]);
+      var newPoint = {label: labelGeoms[x].id, x: center[0], y: center[1]};
+      labelData.set(labelGeoms[x].id, labelGeoms[x]);
+			console.log(labelGeoms[x].category);
+    }
 
 		labels_layer = d3.carto.layer.xyArray();
 		labels_layer
-    .features(topojson.feature(data.labels, data.labels.objects.labels_geo).features)
-    .label("Labels")
-    .cssClass("label_marker")
-    .renderMode("svg")
-    .x(function (d) {
-			return d.geometry.coordinates[0];
-		})
-    .y(function (d) {
-			return d.geometry.coordinates[1];
-		})
-    .markerSize(2)
-    .clickableFeatures(true)
-		.on("load", setup_states_and_cities);
+	    .features(topojson.feature(data.labels, data.labels.objects.labels_geo).features)
+	    .label("Labels")
+	    .cssClass("label_marker")
+	    .renderMode("svg")
+	    .x(function (d) {
+				return d.geometry.coordinates[0];
+			})
+	    .y(function (d) {
+				return d.geometry.coordinates[1];
+			})
+	    .markerSize(2)
+	    .clickableFeatures(false)
+			.on("load", setup_states_and_cities);
 	}
 	function add_map_layers() {
 		/* Layers Added to the Map -- Order Matters

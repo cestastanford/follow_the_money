@@ -35,7 +35,7 @@ for programmatic or editor-level suggestions are specific to the Atom editor, bu
 many other text editors.
 
 ### Editor Suggestions:
-	. Atom (https://atom.io/)
+	- Atom (https://atom.io/)
 			The current project (as of 01 SEP 2015) has been developed using the Atom editor.
 			This is a free open source hackable text editor that has become relatively popular (I think third to
 			Sublime Text and )
@@ -48,35 +48,45 @@ many other text editors.
 ## To Make Data Changes
 
 ### Data Files
-:: the data file headers and naming conventions must be retained for the data to be parsed and displayed correctly as of 01 SEP 2015.
+:: the data file headers and naming conventions must be retained for the data to be parsed and displayed correctly as of 28 OCT 2015.
 
-	. Master_simple.csv : contains the entire dataset. It is important to maintain the headers of these datasets
+	- `Master_simple.csv` : contains the entire dataset. It is important to maintain the headers of these datasets
 			as they are.  If data is added, the header should follow the pattern and added to the menu.json file.
 
-	. menu.json : contains information for the program menu including
-			: "id" : must be equal to the abbreviation used in data file header.
-			: "menu_abbrev" : must be equal to abbreviation used in the menu.
-			: "active" : true - will appear as an active menu link. false - will appear as an inactive menu link.
-			: "start_year" : (as of 22 OCT 2015) currently affects when maptips appear, but generally holds the start year for the program.
-			: "intro_text", "description", "full_description", "key_trends", "biblio" : these currently contain full texts in HTML format (remember to escape characters, place line breaks, etc.), in the future it may make more sense to divide these into file references.  For now we do not have all of the description data.
+	- `menu.json` : contains information for the program menu including
+			* "id" : must be equal to the abbreviation used in data file header.
+			* "menu_abbrev" : must be equal to abbreviation used in the menu.
+			* "active" : true - will appear as an active menu link. false - will appear as an inactive menu link.
+			* "start_year" : (as of 22 OCT 2015) currently affects when maptips appear, but generally holds the start year for the program.
+			* "intro_text", "description", "full_description", "key_trends", "biblio" : these currently contain full texts in HTML format (remember to escape characters, place line breaks, etc.), in the future it may make more sense to divide these into file references.  For now we do not have all of the description data.
 
-	. inter_county_class_breaks.csv : contains information for class breaks ()
+	- `inter_county_class_breaks.csv` : contains information for class breaks for general map (compared against all other counties / when the Advanced feature is disabled).
 
-	. All data file references are currently stored in the map_setup.js file under the variable declaration sub section
+	- `intra_county_class_breas/*` : contains class break information for each program comparing counties against their own historical average (when the Advanced feature is enabled).
+
+	- `county_ranks_overall.csv` : contains notes for each county's summary (how they compare to other counties). Used to create the chart summary statement for a selected county (the sentence that appears below the chart upon selection of a county).
+
+	- `us_medians_by_year.csv` : contains average information for each program by year. This is used for chart's average line.
+
+	- All data file references are currently stored in the map_setup.js file under the variable declaration sub section
 			"Store Filenames". These will need to be updated if the files structure is changed.
 
 ### Steps for Making Changes:
 
 #### Adding or Removing Programs:
 	1. Make appropriate changes to the data/Master_simple.csv
-	2. Update the menu.json to reflect the
+	2. Update the menu.json to reflect the proper id (the same as column headers in all files), menu abbreviation, active status, start year, and descriptive texts.
+	3. Ensure that all the data documents include the proper id heading and relevant information
+		* `inter/intra county class breaks` -- this is really important as it sets up the class breaks, legend, and css used. This can be optionally hooked up to the auto-calc functions in `calc_functions.js`
+		* `county_ranks_overall.csv` -- this affects the summary statement (ensure that the current standard of wording is maintained)
+		* `us_medians_by_year.csv` -- this affects chart average line
+
 
 ## --- FOR DEVELOPMENT ONLY ---
 
 #### TODO List:
  - [ ] Switch Checkbox functionality hookup
  - [ ] Fix background width
- - [ ] Naming States
  - [ ] Edit ProgramYearTip -- tip for year that a program starts
  - [ ] Link Main ReadMore link
  - [ ] Link Full Text Pages
@@ -130,6 +140,8 @@ many other text editors.
  - [x] Include min & max for each category of data in the line chart creation
 	Think of a way to automate this?? ^
  - [x] Edit scatterplot/linechart to reflected cross-decadal data
+ - [X] Naming States
+ 	Note: had to manually set tranformation and state/city categories. -- Alignment is off*
 
 ## --- DEVELOPER NOTES ---
 
