@@ -124,7 +124,6 @@ To make any changes, make your changes locally, push to GitHub, and replace the 
  - [ ] Test Years update from files
  - [ ] Maptip delay fix
  - [ ] Timeline funkiness
- - [ ]
  - [ ] No Data color: #f4f4f4
  			0 : None
 			Null : No Data
@@ -172,26 +171,27 @@ To make any changes, make your changes locally, push to GitHub, and replace the 
  - [x] Edit scatterplot/linechart to reflected cross-decadal data
  - [X] Naming States
  	Note: had to manually set tranformation and state/city categories. -- Alignment is off*
+ - [X] Remove Background section from 
 
 ## --- DEVELOPER NOTES ---
 
 States of Interest:
-AZ - Arizona - FIPS 04
-CA - California - FIPS 06
-CO - Colorado - FIPS 08
-ID - Idaho - FIPS 16
-MT - Montana - FIPS 30
-NM - New Mexico - FIPS 35
-NV - Nevada - FIPS 32
-OR - Oregon - FIPS 41
-UT - Utah - FIPS 49
-WA - Washington - FIPS 53
-WY - Wyoming - FIPS 56
+	* AZ - Arizona - FIPS 04
+	* CA - California - FIPS 06
+	* CO - Colorado - FIPS 08
+	* ID - Idaho - FIPS 16
+	* MT - Montana - FIPS 30
+	* NM - New Mexico - FIPS 35
+	* NV - Nevada - FIPS 32
+	* OR - Oregon - FIPS 41
+	* UT - Utah - FIPS 49
+	* WA - Washington - FIPS 53
+	* WY - Wyoming - FIPS 56
 
 FIPS of Interest:
-('040', '060', '080', '160', '300', '350', '320', '410', '490', '530', '560')
+	('040', '060', '080', '160', '300', '350', '320', '410', '490', '530', '560')
 
-## Resources & Notes Used
+### Resources & Notes Used
 
 ###### **** THIS WAS USED IN THE LATEST VERSION ****
 	Pulled down files from mapshaper.org
@@ -207,12 +207,10 @@ FIPS of Interest:
 
 	topojson -o wc_wgs84_topo.json --id-property id -- wc_wgs84_geo.json
 
-	RESOURCES USED:
-
 	D3.CARTO.MAP :: https://github.com/emeeks/d3-carto-map/wiki/API-Reference
 
 
-## ---  Other Useful Information & Resources ---
+### ---  Other Useful Information & Resources ---
 
 * Resource: http://www.tnoda.com/blog/2013-12-07
 
@@ -261,7 +259,7 @@ FIPS of Interest:
 	```
 
 
-* Bubble Map Example (useful!!)
+* Bubble Map Example
 	http://bost.ocks.org/mike/bubble-map/
 
 * FIPS:

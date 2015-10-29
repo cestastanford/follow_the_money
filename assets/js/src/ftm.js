@@ -715,7 +715,7 @@
 							create_maptip(menu_title + " program funds begin in " + start_year);
 						}
 
-						var this_link = "/pages/" + d.id + ".html";
+						var this_link = "pages/" + d.id + ".html";
 						d3.select('#program_description_btn').attr("href", this_link);
 
 						update_counties();
@@ -1056,6 +1056,9 @@
 		setup_tooltips();
 		setup_programmenu();
 		update_map_title();
+
+		var this_link = "pages/" + current_category + ".html";
+		d3.select('#program_description_btn').attr("href", this_link);
 	}
 
 	/* :: CALL FUNCTIONS :: */
