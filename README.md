@@ -27,7 +27,7 @@ This project was created by Krista Fryauff: kfryauff@stanford.edu // krista.frya
 		 	This folder contains all the public libraries and resources used (as of 01 SEP 2015: d3, d3-carto, colorbrewer, and sliderjs)
 	. topojson_files/*
 			This folder contains all the shapefiles, geo/topo/json files used to create the
-			reference "Resources & Notes Used" section below
+			reference "Resources & Notes Used" section below.
 
 ## Notes for Students:
 I make these suggestions for new/student developers coming on to this project and note that some "helpful hints"
@@ -39,13 +39,22 @@ many other text editors.
 			The current project (as of 01 SEP 2015) has been developed using the Atom editor.
 			This is a free open source hackable text editor that has become relatively popular (I think third to
 			Sublime Text and )
-	. Sublime Text (http://www.sublimetext.com/)
+	- Sublime Text (http://www.sublimetext.com/)
 			Also a great text editor, very popular, free version available.
-	. Brackets (http://brackets.io/)
+	- Brackets (http://brackets.io/)
 			Free text editor from Adobe. Light weight, but powerful modern text editor.
-	. Coda (https://panic.com/coda/)
+	- Coda (https://panic.com/coda/)
+	- Development Environment
+			This project doesn't need much (as of 28 OCT 2015) by way of specific server settings. It was created with am AMPPS/localserver envir. (http://www.ampps.com/)
 
-## To Make Data Changes
+## Server Information
+This project's beta version (as of 28 OCT 2015) is hosted at : http://web.stanford.edu/group/spatialhistory/FollowTheMoney/
+
+	 - For help pushing to the Stanford server you must have a Stanford id and password and access to the spatialhistory group as well as permissions to push to the FollowTheMoney site.
+	 - You can use any of a number of file transfer programs (such as Fetch, Filezilla, OpenAFS, SecureFX -- depending on system) A few are mentioned here : https://itservices.stanford.edu/service/afs and are available for free download here (mac: https://itservices.stanford.edu/service/ess/mac or pc: https://itservices.stanford.edu/service/ess/pc)
+	 - Notes for updating files: As of 28 OCT 2015 there is no link between the github storage and Stanford AFS server. So to update the site, the repository should be updated and the updated pieces of the project uploaded to the afs space to replace outdated files.
+
+## Data Notes
 
 ### Data Files
 :: the data file headers and naming conventions must be retained for the data to be parsed and displayed correctly as of 28 OCT 2015.
@@ -71,18 +80,30 @@ many other text editors.
 	- All data file references are currently stored in the map_setup.js file under the variable declaration sub section
 			"Store Filenames". These will need to be updated if the files structure is changed.
 
-### Steps for Making Changes:
+### Steps for Making Changes: (as of 28 OCT 2015)
+To make any changes, make your changes locally, push to GitHub, and replace the updated files to the Server (as noted above in Server Information)
 
 #### Adding or Removing Programs:
-	1. Make appropriate changes to the data/Master_simple.csv
+	1. Make appropriate changes to the `data/Master_simple.csv`
 	2. Update the menu.json to reflect the proper id (the same as column headers in all files), menu abbreviation, active status, start year, and descriptive texts.
 	3. Ensure that all the data documents include the proper id heading and relevant information
 		* `inter/intra county class breaks` -- this is really important as it sets up the class breaks, legend, and css used. This can be optionally hooked up to the auto-calc functions in `calc_functions.js`
 		* `county_ranks_overall.csv` -- this affects the summary statement (ensure that the current standard of wording is maintained)
 		* `us_medians_by_year.csv` -- this affects chart average line
+	4. Commit and push changes to the repository and exchange updated files on the server.
+
+#### Changing Data
+	1. Open the `data/Master_simple.csv`.
+	2. Update the necessary cells to make changes to the data.
+	3. Save the updated version of the csv file.
+	4. Commit and push changes to the repository and exchange updated files on the server.
 
 
-## --- FOR DEVELOPMENT ONLY ---
+
+
+
+## Development Notes
+### -- For Development Only --
 
 #### TODO List:
  - [ ] Switch Checkbox functionality hookup
@@ -99,6 +120,15 @@ many other text editors.
  - [ ] Read More --> separate page
  - [ ] Separate Page
  - [ ] extending timeline**
+
+ - [ ] Test Years update from files
+ - [ ] Maptip delay fix
+ - [ ] Timeline funkiness
+ - [ ]
+ - [ ] No Data color: #f4f4f4
+ 			0 : None
+			Null : No Data
+			-999 : Not Eligible
 
 
 #### CHECKED List:
@@ -161,7 +191,7 @@ WY - Wyoming - FIPS 56
 FIPS of Interest:
 ('040', '060', '080', '160', '300', '350', '320', '410', '490', '530', '560')
 
-** Resources & Notes Used **
+## Resources & Notes Used
 
 ###### **** THIS WAS USED IN THE LATEST VERSION ****
 	Pulled down files from mapshaper.org
@@ -182,9 +212,9 @@ FIPS of Interest:
 	D3.CARTO.MAP :: https://github.com/emeeks/d3-carto-map/wiki/API-Reference
 
 
-## --- OTHER USEFUL INFORMATION ---
+## ---  Other Useful Information & Resources ---
 
-http://www.tnoda.com/blog/2013-12-07
+* Resource: http://www.tnoda.com/blog/2013-12-07
 	geojson
 		ogr2ogr -f GeoJSON new_file_name.json shape_file.shp
 		ogr2ogr \
@@ -226,20 +256,27 @@ http://www.tnoda.com/blog/2013-12-07
 
 
 
-Bubble Map Example (useful!!)
-http://bost.ocks.org/mike/bubble-map/
+* Bubble Map Example (useful!!)
+	http://bost.ocks.org/mike/bubble-map/
 
-FIPS: http://en.wikipedia.org/wiki/Federal_Information_Processing_Standard_state_code
+* FIPS:
+	http://en.wikipedia.org/wiki/Federal_Information_Processing_Standard_state_code
 
-Button Press Example:
-http://bl.ocks.org/d3noob/7030f35b72de721622b8
+* Button Press Example:
+	http://bl.ocks.org/d3noob/7030f35b72de721622b8
 
-Chloropleth Ex:
-http://bl.ocks.org/mbostock/4060606
-http://bl.ocks.org/fhernand/be1e9c9fdb0473292abf
+* Chloropleth Ex:
+	http://bl.ocks.org/mbostock/4060606
+	http://bl.ocks.org/fhernand/be1e9c9fdb0473292abf
 
-Tutorial:
-http://alignedleft.com/tutorials/d3
+* Tutorial:
+	http://alignedleft.com/tutorials/d3
 
-NY Times Example - The Geography of Government Benefits
-http://www.nytimes.com/interactive/2012/02/12/us/entitlement-map.html?_r=0
+* NY Times Example - The Geography of Government Benefits
+	http://www.nytimes.com/interactive/2012/02/12/us/entitlement-map.html?_r=0
+
+* Examples & Resources (courtesy of Jason Heppler):
+	- https://github.com/emeeks/d3-carto-map/
+	- http://lincolnmullen.com/projects/slavery/
+	- http://bl.ocks.org/mbostock/9744818
+	- http://jasonheppler.org/2013/08/06/getting-started-with-d3/

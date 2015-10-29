@@ -372,7 +372,7 @@
 					data_summary += " and ranks in the <strong> "+
 													percentile + "</strong> of all counties historically";
 				}else {
-					data_summary = "<strong>" + data_label + "</strong>" + " is not elligible for the " + program_menu.get(current_category).program_title + " Program";
+					data_summary = "<strong>" + data_label + "</strong>" + " is not eligible for the " + program_menu.get(current_category).program_title + " Program";
 				}
 				d3.select("#linechart_summary")
 					.html(data_summary);
