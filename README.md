@@ -215,6 +215,8 @@ FIPS of Interest:
 ## ---  Other Useful Information & Resources ---
 
 * Resource: http://www.tnoda.com/blog/2013-12-07
+
+	```
 	geojson
 		ogr2ogr -f GeoJSON new_file_name.json shape_file.shp
 		ogr2ogr \
@@ -230,30 +232,33 @@ FIPS of Interest:
 		  -- \
 		  subunits.json \
 		  places.json
+	```
 
 	Useful Commands:
-		>> GEOJSON:
-		ogr2ogr -f GeoJSON -where "STATE IN ('040', '060', '080', '160', '300', '350', '320', '410', '490', '530', '560')" json_file.json shape.shp
 
-		>> TOPOJSON:
-		topojson -o topo_json_file.topo.json --id-property ST_CNTY --width=650 --height=460 -- json_file.json
+	```
+	>> GEOJSON:
+	ogr2ogr -f GeoJSON -where "STATE IN ('040', '060', '080', '160', '300', '350', '320', '410', '490', '530', '560')" json_file.json shape.shp
+
+	>> TOPOJSON:
+	topojson -o topo_json_file.topo.json --id-property ST_CNTY --width=650 --height=460 -- json_file.json
 
 
-		>> GEOJSON (broken up by attribute):
-		ogr2ogr \
-			-f GeoJSON \
-			-where "STATE IN ('040', '060', '080', '160', '300', '350', '320', '410', '490', '530', '560')" \
-			json_file.json \
-			shape.shp
+	>> GEOJSON (broken up by attribute):
+	ogr2ogr \
+		-f GeoJSON \
+		-where "STATE IN ('040', '060', '080', '160', '300', '350', '320', '410', '490', '530', '560')" \
+		json_file.json \
+		shape.shp
 
-		>> TOPOJSON (broken up by attribute):
-		topojson \
-			-o topo_json_file.topo.json \
-			--id-property ST_CNTY \
-			--width=650 \
-			--height=460 \
-			-- json_file.json
-
+	>> TOPOJSON (broken up by attribute):
+	topojson \
+		-o topo_json_file.topo.json \
+		--id-property ST_CNTY \
+		--width=650 \
+		--height=460 \
+		-- json_file.json
+	```
 
 
 * Bubble Map Example (useful!!)
