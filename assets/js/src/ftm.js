@@ -168,7 +168,11 @@
 			// }else{
 			// 	return "q" + (num_categories-1) + "-" + num_categories;
 			// }
-			return "zero";
+			if (current_payments_map === inter_county.header) {
+				return "zero";
+			} else {
+				return "q0-" + num_categories;
+			}
 		}
 
 		// Else -- Manual Breaks Not Specified
