@@ -31,13 +31,13 @@
 				header: "Inter-County Payments",
 				sub_header: "in 2014 dollars",
 				break_class: "YlGn",
-				num_cats: 5
+				num_categories: 5
 			},
 			intra_county = {
 				header: "Intra-County Payments",
 				sub_header: "Each county\'s payment compared to its historical average",
 				break_class: "RdBl",
-				num_cats: 6,
+				num_categories: 6,
 				break_labels: ["Minimum Received", "", "",
 												"Average Received", "", "",
 												"Maximum Received"]
@@ -123,50 +123,60 @@
 		'use strict';
 		var rate_value = curr_obj[current_category];
 
-		if (rate_value === undefined || rate_value === "" ||
-				(!rate_value && rate_value !== 0) || rate_value === "NA" || rate_value === "-999") {
-			return "dark_gray";
-		} if ((+rate_value <= 0) && (current_payments_map === inter_county.header)) {
-			return "light_gray";
+		// First we take care of not_eligible and no_data classes (these are predefined flags in the data)
+		if (rate_value === "-999") {
+			return "not_eligible";	// not_eligible : defined as "-999" in data
+		} if (rate_value === undefined || rate_value === "") {
+			return "no_data";				// no_data : defined as "" in data (null) or not present
 		}
 
-		rate_value = +rate_value;
+		rate_value = +rate_value;	//get the integer value of the current rate_value
 
 		if (manualBreaksById.get([current_payments_map, current_category])) {
-			// MANUAL BREAKS
-			/* TODO: Distinguish between light gray and null for all  -- light_gray vs q0 */
+			// MANUAL BREAKS -- Determined by the data tables in assets/data/*
 			var breaks = manualBreaksById.get([current_payments_map, current_category]);
 			var i, break_cat;
 
+			// selects the number of categories based on inter- vs intra- county comparison map
 			if (current_payments_map === intra_county.header) {
+				// for intra county class breaks we need an extra step to get to the breaks data for the county
 				breaks = breaks._[curr_obj.ST_CNTY];
-				num_categories = intra_county.num_cats;
+				num_categories = intra_county.num_categories;
 			} else {
-				num_categories = inter_county.num_cats;
+				num_categories = inter_county.num_categories;
 			}
 
-			for (i = 0; i < num_categories; i += 1) {
+			// loops through break categories to compare to the curr_obj's rate_value
+			for (i = num_categories-1; i >= 0; i -= 1) {
+				// calculates break category (dependent on inter- vs intra- county comparison)
 				if (current_payments_map === inter_county.header) {
-					break_cat = (i + 1) * (100 / num_categories);
+					break_cat = (i) * (100 / num_categories);
 				} else {
 					break_cat = (i) * (100 / (num_categories-1));
 				}
-				if (rate_value <= +breaks[break_cat]) {
+				// compare rate_value of curr_obj to break category
+				if (rate_value >= +breaks[break_cat]) {
+					// if(i == 0 && current_payments_map === inter_county.header) {
+					// 	console.log("zero");
+					// 	return "zero";
+					// }
 					return "q" + i + "-" + num_categories;
 				}
 			}
-			if (+rate_value === 0){
-				return "dark_gray";
-			}else{
-				return "q" + (num_categories-1) + "-" + num_categories;
-			}
+			// if (+rate_value === 0){
+			// 	return "zero";
+			// }else{
+			// 	return "q" + (num_categories-1) + "-" + num_categories;
+			// }
+			return "zero";
 		}
 
 		// Else -- Manual Breaks Not Specified
 		// CALCULATED BREAKS
+		// TODO: Work on efficiency -- function found in `calc_functions.js`
 		var rank = percentrank(data[current_category], +rate_value);
 		if (rank === "#N/A" || rank === "NA") {
-			return "dark_gray";
+			return "not_eligible";
 		}
 		var class_num = Math.floor(num_categories * rank);
 		return "q" + class_num + "-" + num_categories;
@@ -185,8 +195,13 @@
 	function getNum(currentValue, index, array) {
 		'use strict';
 		if (!currentValue && !array) { console.error("No Value for getNum(" + currentValue + ", " + index + ", " + array + ")"); }
-		var cx = index + min_year;
-		var cy = rateById.get([d3.select('.wc_highlight.selected')[0][0].id, cx])[current_category];
+		var cx = index + min_year, cy;
+		if(rateById.get([d3.select('.wc_highlight.selected')[0][0].id, cx]) === undefined){
+			cy = 0;
+		} else {
+			cy = rateById.get([d3.select('.wc_highlight.selected')[0][0].id, cx])[current_category] || 0;
+		}
+
 		return {cx: cx, cy: cy};
 	}
 	function create_maptip(text) {
@@ -228,12 +243,10 @@
 				var new_class_def = "wc";
 				var curr_obj = rateById.get([d.id, current_year]);
 				if (curr_obj) {
-					var class_break =
-					get_class_break(curr_obj);
+					var class_break = get_class_break(curr_obj);
 					new_class_def += " " + class_break;
-				}
-				if (this.classList.contains('selected')) {
-					new_class_def += ' selected';
+				}else {
+					new_class_def += " no_data";
 				}
 				return new_class_def;
 			});
@@ -303,7 +316,7 @@
 		var avg_line = d3.svg.line()
 			.x(function (d) { return xScale(d.YEAR); })
 			.y(function (d) {
-				if (d[current_category] === "NA") {
+				if (!d[current_category] || d[current_category] === "NA") {
 					return yScale(0);
 				}
 				return yScale(d[current_category]);
@@ -325,7 +338,8 @@
 				return xScale(current_year);
 			})
 			.attr("cy", function () {
-				if (averagesByYear[current_year - min_year][current_category] === "NA") {
+				if (!averagesByYear[current_year - min_year] || !averagesByYear[current_year - min_year][current_category] ||
+						averagesByYear[current_year - min_year][current_category] === "NA") {
 					return yScale(0);
 				}
 				return yScale(averagesByYear[current_year - min_year][current_category]);
@@ -555,12 +569,12 @@
 			d3.select("#legend")
 				.classed(intra_county.break_class, true)
 				.classed(inter_county.break_class, false);
-			num_categories = intra_county.num_cats;
+			num_categories = intra_county.num_categories;
 		} else {
 			d3.select("#legend")
 				.classed(intra_county.break_class, false)
 				.classed(inter_county.break_class, true);
-			num_categories = inter_county.num_cats;
+			num_categories = inter_county.num_categories;
 		}
 
 		for (i = num_categories; i >= 0; i--) {
@@ -595,7 +609,7 @@
 				.classed("min_height", true)
 				.classed("legend_key", true);
 			new_key.append("div")
-				.classed("light_gray", true)
+				.classed("zero", true)
 				.classed("legend_color", true);
 			new_key.append("div")
 				.classed("legend_color", true);
@@ -786,13 +800,15 @@
 				update_chart();
 			})
 			.on("mouseenter", function (d) {
-				var data = rateById.get([d.id, current_year]);
+				var data = rateById.get([d.id, current_year]) || {};
 
 				var mouse = d3.mouse(d3.select("#d3MapSVG").node()).map( function(d) { return parseInt(d, 10); } );
+				if(!data) data.COUNTY = d.id;
+				if(!data) data.STATE = d.state;
 				tooltip
 					.classed("hidden", false)
 					.attr("style", "left:"+(mouse[0] - 30)+"px;top:"+(mouse[1] + 20)+"px")
-					.html("<div class='tooltext'>" + data.COUNTY + ", " + data.STATE + "</div>"); // + "<div class='arrow-down center'></div>");
+					.html("<div class='tooltext'>" + (data.COUNTY) + ", " + (data.STATE) + "</div>"); // + "<div class='arrow-down center'></div>");
 			})
 			.on("mouseout",  function() {
 				tooltip.classed("hidden", true);
@@ -978,8 +994,7 @@
 			.defer(d3.json, "topojson_files/other_countries_background/ocb_wgs84_topo.json")
 			.defer(d3.json, "topojson_files/highlighted_states_borders/hsb_wgs84_topo.json")
 			// .defer(d3.json, all_cities_src)
-			.defer(d3.json, labels_src);
-		queue(1)
+			.defer(d3.json, labels_src)
 			.defer(d3.csv, all_data_src, function (d) {
 				var state_county_label = 'ST_CNTY';
 				var year_label = 'YEAR';
@@ -1013,7 +1028,7 @@
 		'use strict';
 
 		//Initialize important variables
-		current_year = 1981;
+		current_year = 1970;
 		min_year = current_year;
 		max_year = current_year;
 

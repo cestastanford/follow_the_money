@@ -80,16 +80,6 @@
   fill: #999999;
   border: blue solid 0.4px; }
 
-.dark_gray {
-  fill: #999999;
-  background-color: #999999;
-  pointer-events: none; }
-
-.light_gray {
-  fill: #e1e1e1;
-  background-color: #e1e1e1;
-  stroke-width: .5px; }
-
 /* disable text selection */
 svg *::selection {
   background: transparent; }

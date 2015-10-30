@@ -39,6 +39,9 @@ $legend_key_height: 49px;
 $legend_key_height_null: 20px;
 $legend_left_pos: 5px;
 
+$map_zero_gray: #f4f4f4;
+$map_no_data_gray: rgb(225, 225, 225);
+$map_not_eligible_gray: rgb(153, 153, 153);
 // $background_text_width = $program_descr_width +
 
 @mixin thin_text ($font_family) {

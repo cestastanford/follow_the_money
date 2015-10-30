@@ -95,15 +95,24 @@
 
       @include light_text($sans_font_family);
       font-size: 13px;
-      color: white;
   }
-  #no_data {
-    color: rgb(153, 153, 153);
-    background-color: rgb(225, 225, 225);
-  }
-  #not_eligible {
-    background-color: rgb(153, 153, 153);
-  }
+}
+.zero {
+  fill: #f4f4f4;
+  background-color: #f4f4f4;
+  stroke-width: .5px;
+}
+#no_data, .no_data {
+  color: $map_not_eligible_gray;
+  fill: $map_no_data_gray;
+  background-color: $map_no_data_gray;
+  stroke-width: .5px;
+}
+#not_eligible, .not_eligible {
+  color: $map_no_data_gray;
+  background-color: $map_not_eligible_gray;
+  fill: $map_not_eligible_gray;
+  pointer-events: none;
 }
 
 

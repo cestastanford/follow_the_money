@@ -171,7 +171,7 @@ To make any changes, make your changes locally, push to GitHub, and replace the 
  - [x] Edit scatterplot/linechart to reflected cross-decadal data
  - [X] Naming States
  	Note: had to manually set tranformation and state/city categories. -- Alignment is off*
- - [X] Remove Background section from 
+ - [X] Remove Background section from
 
 ## --- DEVELOPER NOTES ---
 

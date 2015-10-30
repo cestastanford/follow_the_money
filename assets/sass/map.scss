@@ -106,27 +106,15 @@
   border: blue solid 0.4px;
 }
 
-.dark_gray{
-  fill: rgb(153, 153, 153);
-  background-color: rgb(153, 153, 153);
-  pointer-events: none;
-}
-
-.light_gray {
-  fill: rgb(225, 225, 225);
-  background-color: rgb(225, 225, 225);
-  stroke-width: .5px;
-}
-
 /* disable text selection */
 svg *::selection {
-background : transparent;
+background: transparent;
 }
 
 svg *::-moz-selection {
-background:transparent;
+background: transparent;
 }
 
 svg *::-webkit-selection {
-background:transparent;
+background: transparent;
 }

@@ -81,13 +81,24 @@
     margin: 2px 0px;
     font-family: "Avenir", "lato", helvetica, sans-serif;
     font-weight: 300;
-    font-size: 13px;
-    color: white; }
-  #non_applicable #no_data {
-    color: #999999;
-    background-color: #e1e1e1; }
-  #non_applicable #not_eligible {
-    background-color: #999999; }
+    font-size: 13px; }
+
+.zero {
+  fill: #f4f4f4;
+  background-color: #f4f4f4;
+  stroke-width: .5px; }
+
+#no_data, .no_data {
+  color: #999999;
+  fill: #e1e1e1;
+  background-color: #e1e1e1;
+  stroke-width: .5px; }
+
+#not_eligible, .not_eligible {
+  color: #e1e1e1;
+  background-color: #999999;
+  fill: #999999;
+  pointer-events: none; }
 
 #advanced_option_title {
   font-family: "Avenir", "lato", helvetica, sans-serif;

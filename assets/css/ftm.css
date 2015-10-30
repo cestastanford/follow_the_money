@@ -108,6 +108,9 @@ h3 {
   font-weight: 900;
   font-size: 24px; }
 
+.transparent {
+  fill: transparent; }
+
 #contributors {
   color: #5d5d5d;
   font-family: "Avenir", "lato", helvetica, sans-serif;
