@@ -49,7 +49,7 @@
 			timeslider,
 
 			linechart_svg,          //Line Chart Variables
-			chartlabel,
+			charttip,
 			charttips = [],
 			county_line_colour = "#F38347",
 			background_colour = "#F4F2EE",
@@ -156,18 +156,10 @@
 				}
 				// compare rate_value of curr_obj to break category
 				if (rate_value >= +breaks[break_cat]) {
-					// if(i == 0 && current_payments_map === inter_county.header) {
-					// 	console.log("zero");
-					// 	return "zero";
-					// }
 					return "q" + i + "-" + num_categories;
 				}
 			}
-			// if (+rate_value === 0){
-			// 	return "zero";
-			// }else{
-			// 	return "q" + (num_categories-1) + "-" + num_categories;
-			// }
+			// Takes care of zero cases (for inter_county the lowest category is "zero" for a light gray style and for intra_county it is q0-# for the darkest blue)
 			if (current_payments_map === inter_county.header) {
 				return "zero";
 			} else {
@@ -432,7 +424,7 @@
 				}
 				charttip_text += "</div>" + "<div class='arrow-down center'></div>";
 
-				chartlabel
+				charttip
 					.classed("hidden", false)
 					.attr("style", "left:" + (dataPt[0] - 9) + "px;top:" + (dataPt[1] - 38) + "px")
 					.html(charttip_text);
@@ -641,13 +633,23 @@
 
 	/* :: SETUP FUNCTIONS :: */
 	function setup_tooltips() {
-		chartlabel = d3.select("#linechart").append("div")
-			.attr("id", "chartlabel")
-			.attr("class", "tooltip hidden");
+		// Tooltip instantiation: for tooltips over svgs or spec-features they are instantiated on the underlying divs
+		// (this prevents errors and styling issues)
+
+		// tooltip: main tooltip over map area
 		tooltip = d3.select("#map_row").append("div")
 			.attr("class", "tooltip hidden");
+
+		// menutip: tooltip for menu on hover
 		menutip = d3.select("#program_menu").append("div")
 			.attr("class", "tooltip hidden");
+
+		// charttip: tooltip over data chart
+		charttip = d3.select("#linechart").append("div")
+			.attr("id", "charttip")
+			.attr("class", "tooltip hidden");
+
+		// brushtip:
 		brushtip = d3.select("#linechart").append("div")
 			.attr("class", "tooltip hidden");
 	}
