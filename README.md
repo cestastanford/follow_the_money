@@ -53,7 +53,9 @@ This project's beta version (as of 28 OCT 2015) is hosted at : http://web.stanfo
 	 - For help pushing to the Stanford server you must have a Stanford id and password and access to the spatialhistory group as well as permissions to push to the FollowTheMoney site.
 	 - You can use any of a number of file transfer programs (such as Fetch, Filezilla, OpenAFS, SecureFX -- depending on system) A few are mentioned here : https://itservices.stanford.edu/service/afs and are available for free download here (mac: https://itservices.stanford.edu/service/ess/mac or pc: https://itservices.stanford.edu/service/ess/pc)
 	 - Notes for updating files: As of 28 OCT 2015 there is no link between the github storage and Stanford AFS server. So to update the site, the repository should be updated and the updated pieces of the project uploaded to the afs space to replace outdated files.
-	 - The Stanford Server requires special permissions and setups to use additional feature (php, mysql, perl, python). These are also very limited and require a cgi-bin (students will need permissions to update to it). This is not set up yet, but should be in the future.
+	 - The Stanford Server requires special permissions and setu
+
+	 ps to use additional feature (php, mysql, perl, python). These are also very limited and require a cgi-bin (students will need permissions to update to it). This is not set up yet, but should be in the future.
 	 	* https://itservices.stanford.edu/service/cgi
 		* https://itservices.stanford.edu/service/sql
 
@@ -106,13 +108,17 @@ To make any changes, make your changes locally, push to GitHub, and replace the 
 ### -- For Development Only --
 
 #### TODO List:
- - [ ] Glossary Page ?
+ - [ ] Menu for second tab -- including Glossary
  - [ ] extending timeline**
  - [ ] Test Years update from files
+ 			* min and max year caps
  - [ ] Timeline funkiness
  - [ ] Touch Sensing Fix
  - [ ] Break up JS file into sub files
  - [ ] Minify Docs for deployment
+ - [ ] mysql
+ - [ ] CMS Start
+ - [ ] Endless Panning Issue
 
 #### CHECKED List:
  - [x] Fix full description button
