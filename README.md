@@ -1,40 +1,40 @@
-# Follow The Money README.txt
+# Follow The Money
+This project is a data visualization of the Follow The Money project lead by Joseph E Taylor III exploring a spatial history of in-lieu programs for western federal lands.
 
-This project was created by Krista Fryauff: kfryauff@stanford.edu // krista.fryauff@gmail.com for questions
-### Basic Technology Stack, Libraries & Feat:
+### Basic Technology Stack, Libraries & Feat.s:
 	. HTML
 	. CSS , SCSS
-	. Javascript , d3.js library , d3 carto (see lib)
+	. Javascript , d3.js library , d3 carto map (see lib)
 
 ### File Structure:
-	. root/index.html
+	. `root/index.html`
 			This contains all of the html for the main page and interaction level of this projection
-	. pages/*
+	. `pages/*`
 			This folder contains the templates for the full description pages for each program
-	. assets/sass/*
+	. `assets/sass/*`
 			This folder contains all of the sass / scss files that are used to create the css Filenames
 			Sass was here used for the benefit of legibility and ease of variable control
 			More information on sass can be found at : http://sass-lang.com/
-	. assets/css/*
+	. `assets/css/*`
 			This folder contains all of the css files created by sass
-	. data/*
+	. `data/*`
 			This folder contains all files for data control. These files were left in csv form as this was easiest
 			for client manipulation with the exception of menu.json which controls the menu options for the
 			interactive platform (program selection).  More information on changing these files is in the next section
-	. assets/images/*
+	. `assets/images/*`
 			This folder contains all the image files used in the base of this platform
-	. assets/lib/*
+	. `assets/lib/*`
 		 	This folder contains all the public libraries and resources used (as of 01 SEP 2015: d3, d3-carto, colorbrewer, and sliderjs)
-	. topojson_files/*
+	. `topojson_files/*`
 			This folder contains all the shapefiles, geo/topo/json files used to create the
 			reference "Resources & Notes Used" section below.
 
 ## Notes for Students:
-I make these suggestions for new/student developers coming on to this project and note that some "helpful hints"
-for programmatic or editor-level suggestions are specific to the Atom editor, but there are equivalents in
+These suggestions are for new student developers coming on to this project. Some "helpful hints"
+for programmatic or editor-level suggestions are specific to the Atom editor, but there are equivalents for
 many other text editors.
 
-### Editor Suggestions:
+### Text Editor Suggestions:
 	- Atom (https://atom.io/)
 			The current project (as of 01 SEP 2015) has been developed using the Atom editor.
 			This is a free open source hackable text editor that has become relatively popular (I think third to
@@ -77,11 +77,11 @@ This project's beta version (as of 28 OCT 2015) is hosted at : http://web.stanfo
 
 	- `us_medians_by_year.csv` : contains average information for each program by year. This is used for chart's average line.
 
-	- All data file references are currently stored in the map_setup.js file under the variable declaration sub section
+	- All data file references are currently stored in the `map_setup.js` file under the variable declaration sub section
 			"Store Filenames". These will need to be updated if the files structure is changed.
 
 ### Steps for Making Changes: (as of 28 OCT 2015)
-To make any changes, make your changes locally, push to GitHub, and replace the updated files to the Server (as noted above in Server Information)
+To make any changes, make your changes locally, push to GitHub, and replace the updated files to the Server (as noted above in Server Information). This will likely be changing once the database setup is complete.
 
 #### Adding or Removing Programs:
 	1. Make appropriate changes to the `data/Master_simple.csv`
@@ -99,9 +99,6 @@ To make any changes, make your changes locally, push to GitHub, and replace the 
 	4. Commit and push changes to the repository and exchange updated files on the server.
 
 
-
-
-
 ## Development Notes
 ### -- For Development Only --
 
@@ -114,7 +111,6 @@ To make any changes, make your changes locally, push to GitHub, and replace the 
  - [ ] Touch Sensing Fix
  - [ ] Break up JS file into sub files
  - [ ] Minify Docs for deployment
-
 
 #### CHECKED List:
  - [x] Fix full description button
@@ -193,6 +189,7 @@ FIPS of Interest:
 	Pulled down files from mapshaper.org
 	NOTES for Creating Topojson Files:
 
+	```
 	ogr2ogr \
 		  -f GeoJSON \
 		  -where "ADM0_A3 IN ('GBR', 'IRL')" \	//**Wasn't used, but can be used to select subset of data**
@@ -202,6 +199,7 @@ FIPS of Interest:
 	ogr2ogr -f GeoJSON -s_srs albers.prj -t_srs EPSG:4326 wc_wgs84_geo.json Western_Counties_sm/wc.json
 
 	topojson -o wc_wgs84_topo.json --id-property id -- wc_wgs84_geo.json
+	```
 
 	D3.CARTO.MAP :: https://github.com/emeeks/d3-carto-map/wiki/API-Reference
 
