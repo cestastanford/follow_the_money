@@ -200,10 +200,13 @@
 
 		return {cx: cx, cy: cy};
 	}
-	function create_maptip(text) {
+	function destroy_maptip() {
 		$("#maptip").fadeTo(1000, 0, function(){
 				$("#maptip").alert('close');
 		});
+	}
+	function create_maptip(text) {
+		destroy_maptip();
 
 		maptip = d3.select("#map").append("div")
 			.attr("id", "maptip")
@@ -731,8 +734,10 @@
 
 						var start_year = program_menu.get(current_category).start_year;
 						var menu_title = program_menu.get(this.id).program_title;
-						if(current_year < start_year) {
+						if(min_year < start_year) {
 							create_maptip(menu_title + " program funds begin in " + start_year);
+						} else {
+							destroy_maptip();
 						}
 
 						var this_link = "pages/" + d.id + ".html";
@@ -985,7 +990,22 @@
 		setup_timecontrols();
 		update_legend();
 	}
-
+	function setup_data(d) {
+			var state_county_label = 'ST_CNTY';
+			var year_label = 'YEAR';
+			var key = [d[state_county_label], d[year_label]];
+			rateById.set(key, d);
+			if (d[current_category] !== "") {
+				if (+d[current_category] !== 0 || d[current_category].indexOf(0) === -1) {
+					data[current_category].push(+d[current_category]);
+				}
+			}
+			if (+d[year_label] > max_year) {
+				max_year = +d[year_label];
+			} else if (+d[year_label] < min_year) {
+				min_year = +d[year_label];
+			}
+	}
 	/* :: INIT/QUEUE FUNCTION :: */
 	function queue_data() {
 		'use strict';
@@ -1001,22 +1021,7 @@
 			.defer(d3.json, "topojson_files/highlighted_states_borders/hsb_wgs84_topo.json")
 			// .defer(d3.json, all_cities_src)
 			.defer(d3.json, labels_src)
-			.defer(d3.csv, all_data_src, function (d) {
-				var state_county_label = 'ST_CNTY';
-				var year_label = 'YEAR';
-				var key = [d[state_county_label], d[year_label]];
-				rateById.set(key, d);
-				if (d[current_category] !== "") {
-					if (+d[current_category] !== 0 || d[current_category].indexOf(0) === -1) {
-						data[current_category].push(+d[current_category]);
-					}
-				}
-				if (+d[year_label] > max_year) {
-					max_year = +d[year_label];
-				} else if (+d[year_label] < min_year) {
-					min_year = +d[year_label];
-				}
-			})
+			.defer(d3.csv, all_data_src, setup_data)
 			.defer(d3.csv, all_county_breaks_src, function (d) {
 				var program_label = 'Program';
 				manualBreaksById.set([inter_county.header, d[program_label]], d);

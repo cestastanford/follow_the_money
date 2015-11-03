@@ -10,3 +10,5 @@ colorbrewer/
 topojson_files/
 test/
 descriptionpages/
+spec/
+jasmine-*/

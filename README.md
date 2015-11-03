@@ -106,37 +106,23 @@ To make any changes, make your changes locally, push to GitHub, and replace the 
 ### -- For Development Only --
 
 #### TODO List:
- - [ ] Switch Checkbox functionality hookup
- - [ ] Fix background width
- - [ ] Edit ProgramYearTip -- tip for year that a program starts
- - [ ] Link Main ReadMore link
- - [ ] Link Full Text Pages
- - [ ] Summary Sentence -- wait for intra-county description
- - [ ] Touch Sensing Test
- - [ ] Format Rankings
- - [ ] Break up JS file into sub files
-
- - [ ] Glossary Page
- - [ ] Read More --> separate page
- - [ ] Separate Page
+ - [ ] Glossary Page ?
  - [ ] extending timeline**
-
+ - [ ] Link Full Text Pages
  - [ ] Test Years update from files
- - [ ] Maptip delay fix
  - [ ] Timeline funkiness
- - [ ] No Data color: #f4f4f4
- 			0 : None
-			Null : No Data
-			-999 : Not Eligible
+ - [ ] Touch Sensing Fix
+ - [ ] Break up JS file into sub files
+ - [ ] Minify Docs for deployment
 
 
 #### CHECKED List:
  - [x] Fix full description button
- - [x] Fix description, keytrends button
+ - [x] Fix description, key trends button
  - [x] Replace switch map button with checkbox
  - [x] Switch checkbox style
  - [x] Refresh graph between programs
- - [x] Set up no data & inelligible
+ - [x] Set up no data & ineligible
  - [x] Link New Data
  - [x] Touch Sensing Fix
  - [x] Link Rankings CSV
@@ -145,7 +131,7 @@ To make any changes, make your changes locally, push to GitHub, and replace the 
  - [x] Update Chart Legend color classes for intra county
  - [x] Dash for underscore (traded for icon instead)
  - [x] Keep current year consistent
- - [x] Allign intersection of divs
+ - [x] Align intersection of divs
  - [x] 0-20% included in intra county map lowest color_class
  - [x] empty legend div for chart @ empty selection
  - [x] Country shadow
@@ -160,18 +146,28 @@ To make any changes, make your changes locally, push to GitHub, and replace the 
  - [x] Create code for time controller
  - [x] Create code for map controller (for switching maps)
  - [x] Adjust CSS
- - [x] adjust timechart dimensions**
+ - [X] Edit ProgramYearTip -- tip for year that a program starts
+ - [x] adjust time chart dimensions**
  - [x] Edit down maps to only include relevant States
  - [x] Check if Custom CSS is properly Linked
- - [x] Think of options for stagered datasets (multiple csv/tsv files)
+ - [x] Think of options for staggered datasets (multiple csv/tsv files)
  - [x] Check in about the inconsistency in ST_CNTY Data
  - [x] Adjust data loader for multiple decades **
  - [x] Include min & max for each category of data in the line chart creation
 	Think of a way to automate this?? ^
  - [x] Edit scatterplot/linechart to reflected cross-decadal data
  - [X] Naming States
- 	Note: had to manually set tranformation and state/city categories. -- Alignment is off*
- - [X] Remove Background section from
+ 	Note: had to manually set transformation and state/city categories. -- Alignment is off*
+ - [X] Remove Background section from main interactive page
+ - [X] Switch Checkbox functionality hookup
+ - [X] Fix background width
+ - [X] No Data color: #f4f4f4
+			 0 : None
+		 Null : No Data
+		 -999 : Not Eligible
+ - [X] Link Main ReadMore link
+ - [X] Maptip delay fix
+
 
 ## --- DEVELOPER NOTES ---
 
