@@ -29,7 +29,7 @@ This project is a data visualization of the Follow The Money project lead by Jos
 			This folder contains all the shapefiles, geo/topo/json files used to create the
 			reference "Resources & Notes Used" section below.
 
-## Notes for Students:
+## Notes for Student Developers:
 These suggestions are for new student developers coming on to this project. Some "helpful hints"
 for programmatic or editor-level suggestions are specific to the Atom editor, but there are equivalents for
 many other text editors.
@@ -53,6 +53,9 @@ This project's beta version (as of 28 OCT 2015) is hosted at : http://web.stanfo
 	 - For help pushing to the Stanford server you must have a Stanford id and password and access to the spatialhistory group as well as permissions to push to the FollowTheMoney site.
 	 - You can use any of a number of file transfer programs (such as Fetch, Filezilla, OpenAFS, SecureFX -- depending on system) A few are mentioned here : https://itservices.stanford.edu/service/afs and are available for free download here (mac: https://itservices.stanford.edu/service/ess/mac or pc: https://itservices.stanford.edu/service/ess/pc)
 	 - Notes for updating files: As of 28 OCT 2015 there is no link between the github storage and Stanford AFS server. So to update the site, the repository should be updated and the updated pieces of the project uploaded to the afs space to replace outdated files.
+	 - The Stanford Server requires special permissions and setups to use additional feature (php, mysql, perl, python). These are also very limited and require a cgi-bin (students will need permissions to update to it). This is not set up yet, but should be in the future.
+	 	* https://itservices.stanford.edu/service/cgi
+		* https://itservices.stanford.edu/service/sql
 
 ## Data Notes
 
@@ -105,7 +108,6 @@ To make any changes, make your changes locally, push to GitHub, and replace the 
 #### TODO List:
  - [ ] Glossary Page ?
  - [ ] extending timeline**
- - [ ] Link Full Text Pages
  - [ ] Test Years update from files
  - [ ] Timeline funkiness
  - [ ] Touch Sensing Fix
@@ -163,6 +165,7 @@ To make any changes, make your changes locally, push to GitHub, and replace the 
 		 -999 : Not Eligible
  - [X] Link Main ReadMore link
  - [X] Maptip delay fix
+ - [X] Link Full Text Pages
 
 
 ## --- DEVELOPER NOTES ---
