@@ -16,6 +16,11 @@
   width: 175px;
   margin-top: 15px; }
 
+#maptip {
+font-family: "Avenir", "lato", helvetica, sans-serif;;  
+font-weight: 300;
+font-size: 14px; }
+
 #map_row {
   position: relative; }
 
