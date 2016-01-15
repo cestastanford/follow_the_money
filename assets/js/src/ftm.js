@@ -736,7 +736,8 @@
 						var start_year = program_menu.get(current_category).start_year;
 						var menu_title = program_menu.get(this.id).program_title;
 						if(min_year < start_year) {
-							create_maptip(menu_title + " program funds begin in " + start_year);
+							// "begin" or "begins" ? 
+							create_maptip(menu_title + " payment data begins in " + start_year);
 						} else {
 							destroy_maptip();
 						}
