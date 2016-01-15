@@ -420,7 +420,7 @@
 					.map(function (d) { return parseInt(d, 10); });
 
 				var charttip_text = "<div class='tooltext'>" + current_year + ": ";
-				if(curr_pt.cy === -999) {
+				if(curr_pt.cy == -999) {
 					charttip_text += "inelligible";
 				}else {
 					charttip_text += formatCurrency(curr_pt.cy);
@@ -493,9 +493,10 @@
       }
       ext_1 = [d0 - 0.05, d0 + 0.05];
 			if(update) {brush_select(true);}
-
+			
+			// setting as hidden:true until complete fix
 			brushtip
-				.classed("hidden", false)
+				.classed("hidden", true)
 				.attr("style", "left:" + (xScale(d0) - 9) + "px;top:" + (chart_height/2) + "px")
 				.html("<div class='tooltext'>" + d0 + ": " + ext_1 + "</div>" + "<div class='arrow-down center'></div>");
 
