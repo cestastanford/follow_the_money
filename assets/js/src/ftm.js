@@ -201,20 +201,26 @@
 		return {cx: cx, cy: cy};
 	}
 	function destroy_maptip() {
-		$("#maptip").fadeTo(1000, 0, function(){
 				$("#maptip").alert('close');
+	}
+	function slow_destroy_maptip() {
+		$("#maptip").fadeTo(5000, 0, function(){
+				destroy_maptip();
 		});
 	}
-	function create_maptip(text) {
-		destroy_maptip();
 
+	function create_maptip(text) {
+					destroy_maptip();
+					destroy_maptip();
+					destroy_maptip();
 		maptip = d3.select("#map").append("div")
 			.attr("id", "maptip")
 			.attr("class", "alert alert-info alert-dismissible fade in out")
 			.attr("role","alert")
-			.on("mousedown", function() {
-				$("#maptip").alert('close');
-			});
+
+			slow_destroy_maptip();
+
+
 		var maptip_text = maptip.append("div")
 			.attr("class", "tooltext")
 			.text(text);
@@ -352,6 +358,26 @@
 
 		var linechart_legend = d3.select("#linechart_legend");
 
+		// Checks to see if url query exists. If so, selects that county and deletes the queries from the url.
+		if (getQueryVariable("county") != "") {
+				var current_county = getQueryVariable("county");
+				var county_id = "#" + current_county;
+				d3.select(county_id);
+
+				history.pushState({}, 'Map', 'http://web.stanford.edu/group/spatialhistory/FollowTheMoney/');
+
+				d3.selectAll('.selected').classed('selected', false);
+				d3.select(county_id).classed('selected', true);
+				d3.select(county_id).selectAll('path').classed('selected', true);
+
+				d3.selectAll(county_id)
+					.classed('selected', true)
+					.selectAll('path')
+						.classed('selected', true);
+
+			}
+
+
 		// Checks if there's a selected county
 		if (d3.select('.wc_highlight.selected')[0][0]) {
 			var selected_id = d3.select('.wc_highlight.selected')[0][0].id;
@@ -390,6 +416,16 @@
 				d3.select("#linechart_summary")
 					.html(data_summary);
 
+				// Change summary div width based on text length so that lines are even length
+				// if (length is greater than some q) set width to (summary_length/2)(some width factor)
+				// think of creative modular arithmetic solution??
+	//			var summary_length = d3.select("#linechart_summary").text().length;
+//				if (summary_length > 60) {
+//						var scale_factor = 1;
+	//						var adjusted_width = (summary_length / 2)(scale_factor);
+	//						d3.select("#linechart_summary").attr("width", adjusted_width);
+	//			}
+
 				// Add all information for current data
 
 				//Define Current Data Line Object
@@ -420,7 +456,7 @@
 					.map(function (d) { return parseInt(d, 10); });
 
 				var charttip_text = "<div class='tooltext'>" + current_year + ": ";
-				if(curr_pt.cy === -999) {
+				if(curr_pt.cy == -999) {
 					charttip_text += "inelligible";
 				}else {
 					charttip_text += formatCurrency(curr_pt.cy);
@@ -494,8 +530,9 @@
       ext_1 = [d0 - 0.05, d0 + 0.05];
 			if(update) {brush_select(true);}
 
+			// setting as hidden:true until complete fix
 			brushtip
-				.classed("hidden", false)
+				.classed("hidden", true)
 				.attr("style", "left:" + (xScale(d0) - 9) + "px;top:" + (chart_height/2) + "px")
 				.html("<div class='tooltext'>" + d0 + ": " + ext_1 + "</div>" + "<div class='arrow-down center'></div>");
 
@@ -735,7 +772,8 @@
 						var start_year = program_menu.get(current_category).start_year;
 						var menu_title = program_menu.get(this.id).program_title;
 						if(min_year < start_year) {
-							create_maptip(menu_title + " program funds begin in " + start_year);
+							// "begin" or "begins" ?
+							create_maptip(menu_title + " payment data begins in " + start_year);
 						} else {
 							destroy_maptip();
 						}
@@ -1035,18 +1073,55 @@
 
 		q.awaitAll(setup_map);
 	}
+
+	// inspired by https://css-tricks.com/snippets/javascript/get-url-variables/
+	function getQueryVariable(variable)	{
+	       var query = window.location.search.substring(1);
+	       var vars = query.split("&");
+
+	       for (var i=0; i < vars.length; i++) {
+	       		var selection = vars[i].split("=");
+	       		if(selection[0] == variable){return selection[1];}
+	       }
+
+	       return("");
+	}
+
 	function init_data() {
 		'use strict';
 
+
+		// copy this: https://css-tricks.com/snippets/javascript/get-url-variables/ and initialize based
+		// on url, if the url is just the home page, default to what we currently have
+
+		//can also use map.zoom and map.centerOn (?)
 		//Initialize important variables
+		if (getQueryVariable("year") != "") {
+		current_year = getQueryVariable("year");
+		min_year = 1970;
+	}	else {
 		current_year = 1970;
 		min_year = current_year;
+	}
 		max_year = current_year;
 
-		current_category = "O_C";
+
+		if (getQueryVariable("program") != "") {
+				if (getQueryVariable("program") == "O_C" ||
+				getQueryVariable("program") == "BLM_FML" ||
+				getQueryVariable("program") == "L_CFG" ||
+				getQueryVariable("program") == "PILT" ||
+			  getQueryVariable("program") == "SRS" ) {
+					current_category = getQueryVariable("program");
+				}
+			}	else {
+				current_category = "O_C";
+			}
+
 		num_categories = 5;
 		data[current_category] = [];
 		current_payments_map = inter_county.header;
+
 
 		d3.select("#map_toggle_btn")
 		// .html("Switch to<br>" + intra_county.header + " Map")
@@ -1068,9 +1143,11 @@
 					county_layer.g().classed(intra_county.break_class, false);
 					county_layer.g().classed(inter_county.break_class, true);
 				}
+
 				update_map_title();
 				update_legend();
 				update_counties();
+
 			});
 
 		linechart_svg = d3.select("#linechart").append('svg')

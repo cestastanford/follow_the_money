@@ -111,6 +111,83 @@ h3 {
 .transparent {
   fill: transparent; }
 
+  #menu {
+    margin-top: 18px;
+    margin-left: 20px;
+  }
+
+   ul#menu li {
+       display: inline;
+       padding-right: 7px;
+       margin-top: 100px;
+   }
+
+   ul#menu li a {
+       background-color: #efede8;
+       color: black;
+       padding: 10px 10px;
+       border: 3px white;
+       text-decoration: none;
+       font-family: sans-serif;
+       font-weight: bold;
+   }
+
+ ol.dropdown-menu {
+   background-color: #efede8;
+   margin-top: 10px;
+   border-radius: 0px;
+   margin-left: -20px;
+ }
+
+  .dropdown-menu li {
+       padding: 0px !important;
+       text-align: center;
+       display: block;
+
+   }
+
+   .dropdown-menu li a {
+       padding: 0px !important;
+       margin-top: 0px !important;;
+       text-align: center;
+
+   }
+
+
+   ul#menu li a:hover, ul#menu button:hover {
+       background-color: rgb(194,230,153);;
+   }
+
+   ul#menu button {
+       border: none;
+       background-color: #efede8;
+       font-size: 14px;
+       font-family: sans-serif;
+       font-weight: bold;
+       color: black;
+       margin-top: -2px;
+       cursor: pointer;
+       margin-top: -3px;
+       height: 36px;
+
+   }
+
+   .dropdown {
+     display: inline;
+
+     text-decoration: none;
+
+   }
+
+ .disabled a {
+       color: lightgray !important;
+       cursor: default !important;
+ }
+
+ .disabled a:hover {
+       background-color: #efede8 !important;
+ }
+
 #contributors {
   color: #5d5d5d;
   font-family: "Avenir", "lato", helvetica, sans-serif;
