@@ -233,6 +233,7 @@
 					.html("&times;");
 
 	}
+
 	function timesliderCallback(timeslider) {
 		'use strict';
 		current_year = timeslider.value();
@@ -358,9 +359,14 @@
 
 		var linechart_legend = d3.select("#linechart_legend");
 
+
 		// Checks to see if url query exists. If so, selects that county and deletes the queries from the url.
 		if (getQueryVariable("county") != "") {
-				var current_county = getQueryVariable("county");
+				var county = getQueryVariable("county").split("%20");
+				var current_county = county[0];
+				if (county.length == "2") {
+						current_county = county[0] + " " + county[1];
+				}
 				var county_id = "#" + current_county;
 				d3.select(county_id);
 
@@ -375,7 +381,14 @@
 					.selectAll('path')
 						.classed('selected', true);
 
+				// focus on map
+				window.scrollTo(0, 350);
+
 			}
+
+
+
+
 
 
 		// Checks if there's a selected county
@@ -420,13 +433,6 @@
 				// if (length is greater than some q) set width to (summary_length/2)(some width factor)
 				// think of creative modular arithmetic solution??
 	//			var summary_length = d3.select("#linechart_summary").text().length;
-//				if (summary_length > 60) {
-//						var scale_factor = 1;
-	//						var adjusted_width = (summary_length / 2)(scale_factor);
-	//						d3.select("#linechart_summary").attr("width", adjusted_width);
-	//			}
-
-				// Add all information for current data
 
 				//Define Current Data Line Object
 				var line = d3.svg.line()
@@ -457,7 +463,7 @@
 
 				var charttip_text = "<div class='tooltext'>" + current_year + ": ";
 				if(curr_pt.cy == -999) {
-					charttip_text += "inelligible";
+					charttip_text += "not eligible";
 				}else {
 					charttip_text += formatCurrency(curr_pt.cy);
 				}
@@ -553,6 +559,26 @@
 
 
 	}
+
+	function generateUrl() {
+		'use strict';
+		var url = "http://web.stanford.edu/group/spatialhistory/FollowTheMoney/index.html?";
+		var county = d3.select('.selected').attr('id');
+		url += "county" + "=" + county + "&";
+
+		var current_zoomscale = map.zoom().scale();
+		var current_zoomtran = map.zoom().translate();
+
+		url += "year" + "=" + current_year + "&";
+		url += "program" + "=" + current_category + "&";
+		url += "scale" + "=" + current_zoomscale + "&";
+		url += "translate" + "=" + current_zoomtran + "&";
+		history.pushState({}, 'Map', url);
+
+		$("#mapshare_btn").text("Copy and paste the url in the search bar to share this map");
+	}
+
+
 	function update_year() {
 		'use strict';
 
@@ -644,15 +670,7 @@
 			new_key = legend.append("div")
 				.classed("min_height", true)
 				.classed("legend_key", true);
-			new_key.append("div")
-				.classed("zero", true)
-				.classed("legend_color", true);
-			new_key.append("div")
-				.classed("legend_color", true);
-			new_key.append("div")
-				.classed("legend_class",  true)
-				.attr("height", "200px")
-				.text("NONE");
+
 		}
 	}
 	function update_description(obj) {
@@ -780,6 +798,8 @@
 
 						var this_link = "pages/" + d.id + ".html";
 						d3.select('#program_description_btn').attr("href", this_link);
+
+				//		$('mapshare_btn').click(function() {generateUrl()});
 
 						update_counties();
 						update_legend();
@@ -989,9 +1009,14 @@
 		map.mode("projection");
 		map.projection(projection);
 
-		// Set Map Scale
 		map.zoom().scale(1800).scaleExtent([1800,10000]);
 		map.centerOn([-0.27, -0.04], 'scaled');
+
+		if (getQueryVariable("scale") != "") {
+			var scale = getQueryVariable("scale");
+			var translate = (getQueryVariable("translate")).split(',');
+			map.zoom().scale(scale).translate(translate);
+		}
 
 		var map_svg = d3.select('#d3MapSVG');
 		var filter = map_svg.append("defs")
@@ -1079,12 +1104,16 @@
 	       var query = window.location.search.substring(1);
 	       var vars = query.split("&");
 
-	       for (var i=0; i < vars.length; i++) {
+	       for (var i = 0; i < vars.length; i++) {
 	       		var selection = vars[i].split("=");
 	       		if(selection[0] == variable){return selection[1];}
 	       }
 
 	       return("");
+	}
+
+	function makeTranslateArray(input) {
+		var array = input.split(",");
 	}
 
 	function init_data() {
@@ -1159,6 +1188,7 @@
 		setup_tooltips();
 		setup_programmenu();
 		update_map_title();
+		document.getElementById("mapshare_btn").addEventListener("click", generateUrl, false);
 
 		var this_link = "pages/" + current_category + ".html";
 		d3.select('#program_description_btn').attr("href", this_link);
