@@ -235,6 +235,10 @@ h3 {
     border: 1px #B2B2B2 solid;
     background: #B2B2B2; }
 
+#mapshare_btn {
+  cursor: pointer;
+}
+
 .alert-dismissible .close {
   padding-left: 5px;
   padding-right: 4px; }
