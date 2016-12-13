@@ -68,16 +68,18 @@
 			manualBreaksById = d3.map(),
 			averagesByYear = [],
 			ranksByCounty = d3.map(),
+			countyStartYear = d3.map(),
 			labelData = d3.map();
 	// Store Filenames
-	var all_data_src = "data/Master_simple.csv",
-			all_avg_src = "data/us_medians_by_year.csv",
-			all_county_breaks_src = "data/inter_county_class_breaks.csv",
-			overall_ranks_src = "data/county_ranks_overall.csv",
-			us_averages_src = "data/us_medians_by_year.csv",
+	var all_data_src = "data_new/Master_min.csv",
+			all_avg_src = "data_new/us_medians_by_year.csv",
+			all_county_breaks_src = "data_new/inter_county_class_breaks.csv",
+			overall_ranks_src = "data_new/county_ranks_overall.csv",
+			us_averages_src = "data_new/us_medians_by_year.csv",
 			intra_county_breaks_src = "_intra_county_class_breaks.csv",
-			menuitem_src = "data/menu.json",
+			menuitem_src = "menu.json",
 			all_cities_src = "topojson_files/cities/cities_wgs84_topo2.json",
+			county_dates = "data_new/county_dates.csv",
 			labels_src = "topojson_files/labels/labels_topo.json";
 	// Menu Item Initialization
 	var program_menu = d3.map(),
@@ -86,6 +88,10 @@
 	// Format
 	var formatCurrency = d3.format("$,f"),
 			formatPercent = d3.format(".0%");
+
+	var start_year = 1900;
+	var menu_title ="";
+	var current_selection;
 
 	/* :: HELPER FUNCTIONS :: */
 	function arrIsNull(arr) {
@@ -123,11 +129,12 @@
 		'use strict';
 		var rate_value = curr_obj[current_category];
 
-		// First we take care of not_eligible and no_data classes (these are predefined flags in the data)
 		if (rate_value === "-999") {
 			return "not_eligible";	// not_eligible : defined as "-999" in data
-		} if (rate_value === undefined || rate_value === "") {
-			return "no_data";				// no_data : defined as "" in data (null) or not present
+		} if (rate_value === undefined || rate_value === "" || rate_value === "NA" ) {
+			return "no_data";				// no_data : defined as ""  in data (null) or not present
+		} if (rate_value === "0") {
+			return "no_funding";
 		}
 
 		rate_value = +rate_value;	//get the integer value of the current rate_value
@@ -152,7 +159,7 @@
 				if (current_payments_map === inter_county.header) {
 					break_cat = (i) * (100 / num_categories);
 				} else {
-					break_cat = (i) * (100 / (num_categories-1));
+					break_cat = Math.floor((i) * (100 / (num_categories)));
 				}
 				// compare rate_value of curr_obj to break category
 				if (rate_value >= +breaks[break_cat]) {
@@ -192,57 +199,52 @@
 		'use strict';
 		if (!currentValue && !array) { console.error("No Value for getNum(" + currentValue + ", " + index + ", " + array + ")"); }
 		var cx = index + min_year, cy;
-		if(rateById.get([d3.select('.wc_highlight.selected')[0][0].id, cx]) === undefined){
+		if(rateById.get([current_selection, cx]) === undefined){
 			cy = 0;
 		} else {
-			cy = rateById.get([d3.select('.wc_highlight.selected')[0][0].id, cx])[current_category] || 0;
+			cy = rateById.get([current_selection, cx])[current_category] || 0;
 		}
 
 		return {cx: cx, cy: cy};
 	}
 	function destroy_maptip() {
-				$("#maptip").alert('close');
+				//$("#maptip").alert('close');
+				d3.selectAll("#maptip").remove()
 	}
-	function slow_destroy_maptip() {
-		$("#maptip").fadeTo(5000, 0, function(){
-				destroy_maptip();
-		});
+
+	function update_maptip(){
+	    d3.selectAll("#maptip").remove()
+
+	    if(current_year<start_year){
+	   		create_maptip(menu_title + " payment data begins in " + start_year);
+	    }else{
+	 	   destroy_maptip();
+	    }
 	}
 
 	function create_maptip(text) {
 					destroy_maptip();
-					destroy_maptip();
-					destroy_maptip();
 		maptip = d3.select("#map").append("div")
 			.attr("id", "maptip")
+			.attr("height", "500px")
 			.attr("class", "alert alert-info alert-dismissible fade in out")
 			.attr("role","alert")
-
-			slow_destroy_maptip();
-
-
 		var maptip_text = maptip.append("div")
 			.attr("class", "tooltext")
 			.text(text);
-		maptip_text.append("button")
-				.attr("class", "close")
-				.attr("data-dismiss", "alert")
-				.attr("aria-label", "close")
-				.append("span")
-					.attr("aria-hidden", "true")
-					.html("&times;");
-
 	}
 
 	function timesliderCallback(timeslider) {
 		'use strict';
 		current_year = timeslider.value();
 		update_year();
+		generateUrl();
 	}
 
 	/* :: UPDATING FUNCTIONS :: */
 	function update_counties() {
 		'use strict';
+		update_maptip();
 		d3.selectAll("g.wc")
 			.selectAll("path")
 			.attr("class", function (d) {
@@ -326,7 +328,9 @@
 					return yScale(0);
 				}
 				return yScale(d[current_category]);
-			});
+			})
+			.defined(function (d) { if(d[current_category] == "-999") return false;
+				return !isNaN(d[current_category]);});
 
 		// Add Line Graph for Averages
 		linechart_svg.append("path")
@@ -358,21 +362,13 @@
 
 
 		var linechart_legend = d3.select("#linechart_legend");
-
-
 		// Checks to see if url query exists. If so, selects that county and deletes the queries from the url.
-		if (getQueryVariable("county") != "") {
-				var county = getQueryVariable("county").split("%20");
-				var current_county = county[0];
-				if (county.length == "2") {
-						current_county = county[0] + " " + county[1];
-				}
+		if (getQueryVariable("kt") == "true" || (getQueryVariable("county") != "undefined" && getQueryVariable("county") != "" && current_selection == undefined)) {
+			var current_county = getQueryVariable("county").split("%20").join("_");
 				var county_id = "#" + current_county;
-				d3.select(county_id);
+			d3.select(county_id);
 
-				history.pushState({}, 'Map', 'http://web.stanford.edu/group/spatialhistory/FollowTheMoney/');
-
-				d3.selectAll('.selected').classed('selected', false);
+		d3.selectAll('.selected').classed('selected', false);
 				d3.select(county_id).classed('selected', true);
 				d3.select(county_id).selectAll('path').classed('selected', true);
 
@@ -380,35 +376,62 @@
 					.classed('selected', true)
 					.selectAll('path')
 						.classed('selected', true);
-
-				// focus on map
-				window.scrollTo(0, 350);
-
-			}
-
-
-
-
+						start_year = program_menu.get(current_category).start_year;
+		}
 
 
 		// Checks if there's a selected county
 		if (d3.select('.wc_highlight.selected')[0][0]) {
-			var selected_id = d3.select('.wc_highlight.selected')[0][0].id;
-			var data = rateById.get([selected_id, current_year]);
+			current_selection = d3.select('.wc_highlight.selected')[0][0].id;
+			var data = rateById.get([current_selection, current_year]);
+			if (!data) {
+				var nameparts = current_selection.split('_');
+				var name = nameparts[0] + '_';
+				for (var i = 1; i < nameparts.length; i++ ) {
+						var namepart = nameparts[i] + ' ';
+						name += namepart;
+				}
+					current_selection = name.substring(0, name.length - 1);
+					data = rateById.get([current_selection, current_year]);
+
+					//for new mexico
+					if (data == undefined) {
+						current_selection = d3.select('.wc_highlight.selected')[0][0].id;
+						nameparts = current_selection.split('_');
+						name = nameparts[0] + ' ' + nameparts[1] + '_';
+						for (var i = 2; i < nameparts.length; i++ ) {
+							namepart = nameparts[i] + ' ';
+							name += namepart;
+						}
+
+						current_selection = name.substring(0, name.length - 1);
+						data = rateById.get([current_selection, current_year]);
+					}
+				}
+
+
+
 			if (data) {
 				// If County Is Selected & Available Add to Chart
-				data_title = data.COUNTY + " County Payment History";
-				data_label = data.COUNTY + " County";
-				data_sublabel = data.STATE;
+				var event_label = current_selection + " " + current_category;
+				ga('send', 'event', 'Selection', 'selected', event_label);
+				var stcnty=data.ST_CNTY;
+				data_title = stcnty.split("_")[1] + " County Payment History";
+				data_label = stcnty.split("_")[1] + " County";
+				//data_sublabel = data.STATE;
+				data_sublabel=stcnty.split("_")[0];
+				//alert(str.split(data.ST_CNTY,"_")[1]);
 
 				var curr_pt = {cx: current_year, cy: data[current_category]};
 				var dataset = Array.apply(null, {length: max_year - min_year + 1}).map(getNum);
 
 				// Set Up Data Summary
 				var max_payment = 0;
-				var max_payment_year = 1970;
-				var percentile = ranksByCounty.get(selected_id)[current_category];
+				var max_payment_year = 1900;
 
+				var percentile = ranksByCounty.get(current_selection)[current_category];
+				var established_date = +countyStartYear.get(current_selection)["ESTABLISHED_DATE"];
+				var established_text = countyStartYear.get(current_selection)["TEXT"];
 				dataset.forEach(function (d) {
 					if (+d.cy > max_payment) {
 						max_payment = d.cy;
@@ -416,28 +439,76 @@
 					}
 				});
 
-				var data_summary = "<strong>" + data_label + "</strong>" +
-															" received its maximum payment in <strong>" +
-															max_payment_year + "</strong> of " +
-															formatCurrency(max_payment);
-				if(percentile !== undefined && percentile !== null && percentile !== '-') {
-					data_summary += " and ranks in the <strong> "+
-													percentile + "</strong> of all counties historically";
-				}else {
-					data_summary = "<strong>" + data_label + "</strong>" + " is not eligible for the " + program_menu.get(current_category).program_title + " Program";
+				var data_summary="";
+
+				if (established_date > 1906) {
+					data_summary = "<strong>" + data_label + "</strong> (established in "+established_date+")";
+				}else{
+					data_summary = "<strong>" + data_label + "</strong>";
 				}
+
+
+				if(percentile !== undefined && percentile !== null && percentile !== '-') {
+					data_summary += " ranks "+
+													percentile + " counties historically for this program.<br>"
+													data_summary+="It received its maximum payment in <strong>" + max_payment_year + "</strong> of " + formatCurrency(max_payment)+".";
+
+				}else {
+
+					if (established_date > 1906) {
+						data_summary = "<strong>" + data_label + "</strong> (established in "+established_date+") has never received any funding from this program."
+
+					}else{
+						data_summary = "<strong>" + data_label + "</strong>" + " has never received any funding from this program."
+
+					}
+
+					//+ program_menu.get(current_category).program_title + " Program";
+				}
+
+
+
+
 				d3.select("#linechart_summary")
 					.html(data_summary);
-
-				// Change summary div width based on text length so that lines are even length
-				// if (length is greater than some q) set width to (summary_length/2)(some width factor)
-				// think of creative modular arithmetic solution??
-	//			var summary_length = d3.select("#linechart_summary").text().length;
 
 				//Define Current Data Line Object
 				var line = d3.svg.line()
 					.x(function (d) { return xScale(d.cx); })
-					.y(function (d) { return yScale(d.cy); });
+					.y(function (d) { return yScale(d.cy); })
+					.defined(function (d) {
+						if(d.cy == "-999") {return false;}
+						if(d.cx <= established_date) {return false;}
+						return !isNaN(d.cy);
+					});
+
+				if (!countyStartYear.get(current_selection)["DATA_ALIAS"] == "") {
+					var orig_selection = current_selection;
+					current_selection = countyStartYear.get(orig_selection)["DATA_ALIAS"];
+
+					var alias_dataset = Array.apply(null, {length: max_year - min_year + 1}).map(getNum);
+					var alias_line = d3.svg.line()
+						.x(function (d) { return xScale(d.cx); })
+						.y(function (d) { return yScale(d.cy); })
+						.defined(function (d) {
+							if(d.cy == "-999") {return false;}
+							if(d.cx > established_date) {return false;}
+							//turning off the line feature because we don't want to display fake data
+							if(d.cx < established_date) {return false;}
+							return !isNaN(d.cy);
+						});
+
+							// add pre line graph
+							linechart_svg.append("path")
+								.datum(alias_dataset)
+								.attr("class", "line")
+								.attr("d", alias_line)
+								.attr("fill", "none")
+								.attr("stroke", county_line_colour)
+								.attr("stroke-width", '1.25px');
+
+
+				}
 
 				// Add Line Graph For Current Data
 				linechart_svg.append("path")
@@ -449,30 +520,131 @@
 					.attr("stroke-width", '1.25px');
 
 				// Add relevant point
-				linechart_svg.append("circle")
-					.attr("id", "active_circle")
-					.attr("cx", function () {	return xScale(curr_pt.cx);	})
-					.attr("cy", function () {	return yScale(curr_pt.cy);	})
-					.attr("r", 3)
-					.attr("stroke-width", 1.5)
-					.attr("stroke", county_line_colour)
-					.attr("fill", background_colour);
+
+						linechart_svg.append("circle")
+							.attr("id", "active_circle")
+							.attr("cx", function () {	return xScale(curr_pt.cx);	})
+							.attr("cy", function () {if (curr_pt.cy != -999 && curr_pt.cy != "NA") {
+																				return yScale(curr_pt.cy);
+																			} else {
+																				return 0;
+																			} })
+							.attr("r", 3)
+							.attr("stroke-width", 1.5)
+							.attr("stroke", function () {if (curr_pt.cy != -999 && curr_pt.cy != "NA") {
+																							return county_line_colour;
+																						} else {
+																							return background_colour;
+																						} })
+							.attr("fill", background_colour);
+
+
+					// established date line
+						linechart_svg.append("line")
+							.attr("x1", xScale(established_date))
+							.attr("y1", yScale(0))
+							.attr("x2", xScale(established_date))
+							.attr("y2", yScale(data_max))
+							.attr("stroke-width", function () {
+								if (established_date < 1906) {return 0;}
+								if (established_date < start_year) {return 0;}
+								return 2;
+						})
+							.style("stroke-dasharray", ("2, 2"))
+							.attr("stroke", "rgb(243, 131, 71)");
+					// program creation line
+					linechart_svg.append("line")
+						.attr("x1", xScale(start_year))
+						.attr("y1", yScale(0))
+						.attr("x2", xScale(start_year))
+						.attr("y2", yScale(data_max))
+						.attr("stroke-width", function () {
+							if (start_year < "1906") {return 0;}
+
+							return 1;
+					})
+						.attr("stroke", "gray");
 
 				var dataPt = [xScale(curr_pt.cx), yScale(curr_pt.cy)]
 					.map(function (d) { return parseInt(d, 10); });
 
 				var charttip_text = "<div class='tooltext'>" + current_year + ": ";
-				if(curr_pt.cy == -999) {
+				if (curr_pt.cy == -999) {
 					charttip_text += "not eligible";
-				}else {
+				} else if(curr_pt.cy == "NA") {
+					charttip_text += "no data";
+				}else if(current_year<established_date){
+				    charttip_text += formatCurrency(curr_pt.cy)+"*";
+				}else{
 					charttip_text += formatCurrency(curr_pt.cy);
 				}
 				charttip_text += "</div>" + "<div class='arrow-down center'></div>";
 
+				if (isNaN(dataPt[1])) {
+					dataPt[1] = 150;
+				}
+
 				charttip
 					.classed("hidden", false)
-					.attr("style", "left:" + (dataPt[0] - 9) + "px;top:" + (dataPt[1] - 38) + "px")
-					.html(charttip_text);
+					.html(charttip_text)
+					.attr("style", function () {
+						if ($("#charttip").height() > 45) {return "left:" + (dataPt[0] - 9) + "px;top:" + (dataPt[1] - 53) + "px";}
+						return "left:" + (dataPt[0] - 9) + "px;top:" + (dataPt[1] - 38) + "px";
+					});
+
+
+				var establishedtip_text = "<div class='established_text_label'>*" + established_text + "</div>";
+				establishedtip
+					.classed("hidden", function () {
+						if (established_date < 1906 ) {return true;}
+						if (established_date < start_year ) {return true;}
+						//if (established_date > 1935 && start_year < established_date && start_year > (established_date - 20)) {return true;}
+			//			if (established_date < 1935 && start_year > established_date && start_year < (established_date + 20)) {return true;}
+						return false;
+					})
+					.html(establishedtip_text)
+					.attr("style", function () {
+						if (established_date < 1935) {return "left:" + (xScale(established_date) + 3) + "px;top:" + (yScale(data_max)) + "px";}
+						return "left:" + (xScale(established_date) - 184) + "px;top:" + (yScale(data_max)) + "px";
+					})
+
+					.style("color", "rgb(243, 131, 71)")
+					.style("font-family", "'Avenir', 'lato', helvetica, sans-serif;")
+					.style("font-size", "12px")
+					.style("line-height", "125%")
+					.style("width", "180px")
+					.style("position", "absolute")
+					.style("pointer-events", "none")
+					.style("paint-order","stroke")
+   					.style("stroke","#FFF")
+    				.style("stroke-width","2px")
+
+					.style("text-align", function () {
+							if (established_date < 1935) {return "left";}
+							return "right";
+					});
+
+
+
+					var programtip_text = "<div class='established_text_label'>" + "Program created in " + start_year + "</div>";
+					programtip
+						.classed("hidden", function () {
+							if (start_year < 1910) {return true;}
+							return false;
+						})
+						.html(programtip_text)
+						.attr("style", function () {
+							return "left:" + (xScale(start_year) - 65) + "px;top:" + 100 + "px";
+						})
+						.style("color", "gray")
+						.style("font-family", "'Avenir', 'lato', helvetica, sans-serif;")
+						.style("font-size", "12px")
+						.style("line-height", "125%")
+						.style("width", "60px")
+						.style("position", "absolute")
+						.style("pointer-events", "none")
+						.style("text-align", "right");
+
 
 				var current_legend_label = linechart_legend.append("div")
 					.classed("current_legend_label", true);
@@ -555,6 +727,7 @@
 			timeslider.value(d0);
 			current_year = d0;
 			update_year();
+			generateUrl();
 		}
 
 
@@ -562,8 +735,8 @@
 
 	function generateUrl() {
 		'use strict';
-		var url = "http://web.stanford.edu/group/spatialhistory/FollowTheMoney/index.html?";
-		var county = d3.select('.selected').attr('id');
+		var url = "http://followthemoney.stanford.edu/index.html?";
+		var county = current_selection;
 		url += "county" + "=" + county + "&";
 
 		var current_zoomscale = map.zoom().scale();
@@ -573,9 +746,19 @@
 		url += "program" + "=" + current_category + "&";
 		url += "scale" + "=" + current_zoomscale + "&";
 		url += "translate" + "=" + current_zoomtran + "&";
+		if (getQueryVariable("toggleTrends") == true) url += "toggleTrends=true&";
 		history.pushState({}, 'Map', url);
+	}
 
-		$("#mapshare_btn").text("Copy and paste the url in the search bar to share this map");
+	function mapShift() {
+		current_year = getQueryVariable("year");
+		var scale = getQueryVariable("scale");
+		var translate = (getQueryVariable("translate")).split(',');
+		map.zoom().scale(scale).translate(translate);
+		map.refresh();
+		update_year();
+		generateUrl();
+		timeslider.value(current_year);
 	}
 
 
@@ -606,6 +789,9 @@
 
 		update_counties();
 		update_chart();
+	//	if (getQueryVariable("kt") == "true") {
+
+	//	}
 	}
 	function update_map_title() {
 		'use strict';
@@ -680,6 +866,26 @@
 
 		var program_text = d3.select("#program_description_text");
 		program_text.html(obj[option_value]);
+		var ktlinks = document.querySelectorAll(".keytrendslink");
+		for (var i = 0; i < ktlinks.length; i++) {
+				(function (i) {
+					var currentElement = ktlinks[i];
+					currentElement.addEventListener("click", function(){
+						var link = currentElement.id;
+						var url = 'http://followthemoney.stanford.edu/index.html' + link + '&kt=true';
+						history.pushState({}, 'Map', url);
+						mapShift();
+
+						d3.selectAll(".keytrendslink").style("color", "#DE6842");
+						currentElement.style.color = "rgb(0,104,55)";
+					}
+					, false);
+				}) (i);
+		}
+
+		var extent = d3.select('.extent');
+		extent.style("fill-opacity", "0");
+
 	}
 	function update_description_title(obj) {
 		'use strict';
@@ -707,6 +913,15 @@
 			.attr("id", "charttip")
 			.attr("class", "tooltip hidden");
 
+		// establishedtip: text for establishment line
+		establishedtip = d3.select("#linechart").append("div")
+			.attr("id", "establishedtip")
+			.attr("class", "hidden");
+
+		programtip = d3.select("#linechart").append("div")
+				.attr("id", "programtip")
+				.attr("class", "hidden");
+
 		// brushtip:
 		brushtip = d3.select("#linechart").append("div")
 			.attr("class", "tooltip hidden");
@@ -716,22 +931,25 @@
 		var time_controls = d3.select("#timeline_controls");
 		time_controls.select("#prev_btn")
 			.on("click", function () {
-				if (current_year !== min_year) {
-					current_year -= 1;
+				if (current_year > min_year) {
+					current_year = current_year * 1 - 1;
 					timeslider.value(current_year);
 					update_year();
+					generateUrl();
 				}
 			});
 		time_controls.select("#next_btn")
 			.on("click", function () {
-				if (current_year !== max_year) {
-					current_year += 1;
+				if (current_year < max_year) {
+					current_year = current_year * 1 + 1;
 					timeslider.value(current_year);
 					update_year();
+					generateUrl();
 				}
 			});
 
 		update_year();
+		generateUrl();
 
 		timeslider = slider(min_year, max_year, centerbar_width - graph_padding, min_year, max_year)
 			.value(current_year);
@@ -743,14 +961,14 @@
 	function setup_programmenu() {
 		'use strict';
 		// Set Up Menu from data/menu.json
-		d3.json("data/menu.json", function (menudata) {
+		d3.json("menu.json", function (menudata) {
 			menudata.menuitems.forEach(function (d) {
 				// Pull menuitems from data/menu.json
 				var program_label = d.id;
 				program_menu.set(d.id, d);
 
 				// Set up intra-county class breaks for current program
-				d3.csv("data/intra_county_class_breaks/" +
+				d3.csv("data_new/intra_county_class_breaks/" +
 							d.id + intra_county_breaks_src, function (breaks_data) {
 					var map = d3.map();
 					breaks_data.forEach(function (d) {
@@ -787,24 +1005,18 @@
 							.classed("btn-primary", true)
 							.classed("btn-default", false);
 
-						var start_year = program_menu.get(current_category).start_year;
-						var menu_title = program_menu.get(this.id).program_title;
-						if(min_year < start_year) {
-							// "begin" or "begins" ?
-							create_maptip(menu_title + " payment data begins in " + start_year);
-						} else {
-							destroy_maptip();
-						}
+						start_year = program_menu.get(current_category).start_year;
+						menu_title = program_menu.get(this.id).program_title;
+						update_maptip();
 
 						var this_link = "pages/" + d.id + ".html";
 						d3.select('#program_description_btn').attr("href", this_link);
-
-				//		$('mapshare_btn').click(function() {generateUrl()});
 
 						update_counties();
 						update_legend();
 						update_description_title(program_menu.get(current_category));
 						update_chart();
+				  	generateUrl();
 					})
 					.on("mouseenter", function (d) {
 						var mouse = d3.mouse(d3.select("#program_menu").node()).map( function(d) { return parseInt(d, 10); } );
@@ -823,6 +1035,18 @@
 			update_description_title(program_menu.get(current_category));
 		});
 
+		if (getQueryVariable("toggleTrends") == "true") {
+			d3.selectAll("#description_trends_toggle_btn_container > .btn-primary")
+				.classed("btn-primary", false)
+				.classed("btn-default", true);
+
+			d3.select(this)
+				.classed("btn-primary", true)
+				.classed("btn-default", false);
+
+			update_description(program_menu.get(current_category));
+		}
+
 		d3.selectAll("#description_trends_toggle_btn_container .btn")
 			.on("click", function () {
 				d3.selectAll("#description_trends_toggle_btn_container > .btn-primary")
@@ -834,6 +1058,14 @@
 					.classed("btn-default", false);
 
 				update_description(program_menu.get(current_category));
+				if (getQueryVariable("toggleTrends") == "true") {
+					generateUrl();
+				} else {
+					var url = document.URL;
+					url += "toggleTrends=true&";
+					history.pushState({}, 'Map', url);
+				}
+
 			});
 
 	}
@@ -844,40 +1076,54 @@
 
 		var counties = d3.selectAll("g.wc")
 			.attr("id", function (d) {
-				return d.id;
+				//	var id = d.id;
+				var id = d.id.split(' ').join('_');
+				//returns state_county with udnerscores in right places
+				return id;
 			})
 			.attr("state", function (d) {
-				return d.id.split('_')[0];
+				//returns the state name with underscroes instead of spaces
+
+				return d.id.split('_')[0].split(' ').join('_');
+			//		return d.id.split('_')[0];
 			});
 
 		path = d3.geo.path().projection(map.projection());
 
 		d3.selectAll("g.wc_highlight")
 			.attr("id", function (d) {
-				return d.id;
+				return d.id.split(' ').join('_');
+			//	return d.id;
 			})
 			.on("mousedown", function () {
 				d3.selectAll('.selected').classed('selected', false);
 				d3.select(this).classed('selected', true);
 				d3.select(this).selectAll('path').classed('selected', true);
 
-				d3.selectAll('#' + this.id)
+				d3.selectAll('#' + this.id.split(' ').join('_'))
 					.classed('selected', true)
 					.selectAll('path')
 						.classed('selected', true);
 
+
+
 				update_chart();
+				generateUrl();
 			})
 			.on("mouseenter", function (d) {
-				var data = rateById.get([d.id, current_year]) || {};
 
-				var mouse = d3.mouse(d3.select("#d3MapSVG").node()).map( function(d) { return parseInt(d, 10); } );
-				if(!data) data.COUNTY = d.id;
-				if(!data) data.STATE = d.state;
-				tooltip
-					.classed("hidden", false)
-					.attr("style", "left:"+(mouse[0] - 30)+"px;top:"+(mouse[1] + 20)+"px")
-					.html("<div class='tooltext'>" + (data.COUNTY) + ", " + (data.STATE) + "</div>"); // + "<div class='arrow-down center'></div>");
+					var data = rateById.get([d.id, current_year]) || {};
+
+					var mouse = d3.mouse(d3.select("#d3MapSVG").node()).map( function(d) { return parseInt(d, 10); } );
+
+					if(!data) data.COUNTY = d.county;
+					if(!data) data.STATE = d.state;
+
+					tooltip
+						.classed("hidden", false)
+						.attr("style", "left:"+(mouse[0] - 30)+"px;top:"+(mouse[1] + 20)+"px")
+						//.html("<div class='tooltext'>" + (data.COUNTY) + ", " + (data.STATE) + "</div>"); // + "<div class='arrow-down center'></div>");
+						.html("<div class='tooltext'>" + (data.ST_CNTY.split("_")[1]) + ", " + (data.ST_CNTY.split("_")[0]) + "</div>"); // + "<div class='arrow-down center'></div>");
 			})
 			.on("mouseout",  function() {
 				tooltip.classed("hidden", true);
@@ -897,24 +1143,47 @@
 				var cat = labelData.get(d.id).category;
 				return (cat === "state");
 			})
+
 			.classed("city", function(d) {
 				var cat = labelData.get(d.id).category;
 				return (cat === "city");
 			})
+			.classed("centered", function(d) {
+				var cat = "centered"
+				var cate = labelData.get(d.id).id;
+				if(cate=="Portland" | cate=="Salt Lake City"){
+					return (cat === "centered");
+				}
+			})
+
+
 			.append("text")
 		    .text(function(d) {
 					return d.id;
 				});
 
 		d3.selectAll("g.label_marker.state text")
+			.attr("font-size","14px")
 			.attr("text-anchor", "middle")
 			.attr("fill", "rgb(25, 25, 25)")
 			.attr("stroke", "none")
-			.attr("dy", ".7em");
+			.attr("dy", ".7em")
+			.style("pointer-events", "none");
 
 		d3.selectAll("g.label_marker.city text")
-			.attr("dx", "2px")
-			.attr("fill", "rgb(40, 40, 40)");
+			.attr("font-size","14px")
+			.attr("dx", "2.5px")
+			.attr("dy", "13px")
+			.attr("fill", "rgb(40, 40, 40)")
+			.style("pointer-events", "none");
+
+		d3.selectAll("g.label_marker.centered text")
+			.attr("font-size","14px")
+			.attr("text-anchor", "middle")
+			.attr("dx", "4px")
+			.attr("dy", "14px")
+			.attr("fill", "rgb(40, 40, 40)")
+			.style("pointer-events", "none");
 
     d3.selectAll("g.label_marker.state circle.label_marker").remove();
     map.refresh();
@@ -1009,7 +1278,9 @@
 		map.mode("projection");
 		map.projection(projection);
 
-		map.zoom().scale(1800).scaleExtent([1800,10000]);
+		map.zoom()
+			.scale(1800)
+		    .scaleExtent([1800,10000]);
 		map.centerOn([-0.27, -0.04], 'scaled');
 
 		if (getQueryVariable("scale") != "") {
@@ -1076,7 +1347,8 @@
 		//Set up and Queue data
 		var q = queue(1);
 		q
-			.defer(d3.json, "topojson_files/Western_Counties_sm/wc_wgs84_topo.json")
+			//.defer(d3.json, "topojson_files/Western_Counties_sm/wc_wgs84_topo.json")
+			.defer(d3.json, "topojson_files/Western_Counties_sm/wc_wgs84_topo2.json")
 			.defer(d3.json, "topojson_files/USA_background/usa_back_wgs84_topo.json")
 			.defer(d3.json, "topojson_files/USA_borders/usa_b_wgs84_topo.json")
 			.defer(d3.json, "topojson_files/other_states_borders/osb_wgs84_topo.json")
@@ -1094,6 +1366,9 @@
 			})
 			.defer(d3.csv, overall_ranks_src, function (d) {
 				ranksByCounty.set(d.county, d);
+			})
+			.defer(d3.csv, county_dates, function (d) {
+				countyStartYear.set(d.ST_CNTY, d);
 			});
 
 		q.awaitAll(setup_map);
@@ -1119,32 +1394,21 @@
 	function init_data() {
 		'use strict';
 
-
-		// copy this: https://css-tricks.com/snippets/javascript/get-url-variables/ and initialize based
-		// on url, if the url is just the home page, default to what we currently have
-
-		//can also use map.zoom and map.centerOn (?)
-		//Initialize important variables
 		if (getQueryVariable("year") != "") {
 		current_year = getQueryVariable("year");
-		min_year = 1970;
+		min_year = 1906;
+		update_maptip();
 	}	else {
-		current_year = 1970;
+		current_year = 1978;
 		min_year = current_year;
 	}
 		max_year = current_year;
 
 
 		if (getQueryVariable("program") != "") {
-				if (getQueryVariable("program") == "O_C" ||
-				getQueryVariable("program") == "BLM_FML" ||
-				getQueryVariable("program") == "L_CFG" ||
-				getQueryVariable("program") == "PILT" ||
-			  getQueryVariable("program") == "SRS" ) {
 					current_category = getQueryVariable("program");
-				}
 			}	else {
-				current_category = "O_C";
+				current_category = "PILT";
 			}
 
 		num_categories = 5;
@@ -1188,7 +1452,7 @@
 		setup_tooltips();
 		setup_programmenu();
 		update_map_title();
-		document.getElementById("mapshare_btn").addEventListener("click", generateUrl, false);
+	//	document.getElementById("mapshare_btn").addEventListener("click", generateUrl, false);
 
 		var this_link = "pages/" + current_category + ".html";
 		d3.select('#program_description_btn').attr("href", this_link);
@@ -1197,5 +1461,28 @@
 	/* :: CALL FUNCTIONS :: */
 	init_data();
 	queue_data();
+	// when back button detected, shift to previous location on map
+	window.onpopstate = function(event) {
+		current_year = getQueryVariable("year");
+		var scale = getQueryVariable("scale");
+		var translate = (getQueryVariable("translate")).split(',');
+		map.zoom().scale(scale).translate(translate);
+		map.refresh();
+		var current_county = getQueryVariable("county").split("%20").join("_");
+			var county_id = "#" + current_county;
+		d3.select(county_id);
+
+	d3.selectAll('.selected').classed('selected', false);
+			d3.select(county_id).classed('selected', true);
+			d3.select(county_id).selectAll('path').classed('selected', true);
+
+			d3.selectAll(county_id)
+				.classed('selected', true)
+				.selectAll('path')
+					.classed('selected', true);
+					start_year = program_menu.get(current_category).start_year;
+		update_year();
+		timeslider.value(current_year);
+	}
 
 })();
